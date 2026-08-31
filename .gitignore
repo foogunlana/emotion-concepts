@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# uv
+.uv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model weights & caches — never commit these
+*.safetensors
+*.bin
+*.pt
+*.gguf
+models/
+.cache/
+hf_cache/
+
+# Experiment outputs
+outputs/
+results/
+figures/
+*.npy
+*.npz
+
+# Secrets
+.env
+.env.*
+
+# macOS
+.DS_Store
