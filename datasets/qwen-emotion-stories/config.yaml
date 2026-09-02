@@ -1,0 +1,134 @@
+# Corpus configuration for the emotion-concepts replication.
+#
+# Everything the experiment is *about* lives here rather than in the notebook,
+# so a change of stimulus is a config edit and not a code edit.
+#
+#   emotions   one shard and one emotion vector each
+#   topics     the variation that averages surface features away, and the
+#              train/test split axis — held-out topics never appear in training
+#   intensity  graded ladders (held out) — severity rises with `level`
+#   implicit   scenarios that evoke without naming (held out)
+#
+# HARD CONSTRAINT on intensity and implicit: no emotion word may appear in any
+# text, for any emotion — not just the target. If it did, a pure word-direction
+# would pass these tests and they would prove nothing. Verify with
+# mentions_emotion against every word list, not by eye.
+#
+# NOTE: this is a hand-edited INPUT living in data/, which otherwise holds
+# generated output. Do not `rm -rf data/` — clear `data/corpus/` instead.
+
+emotions:
+  - joy
+  - sadness
+  - anger
+  - fear
+  - disgust
+  - surprise
+  - calm
+  - desperation
+  - pride
+  - shame
+  - loneliness
+  - excitement
+
+topics:
+  - a train station
+  - a job interview
+  - an old family recipe
+  - a broken bicycle
+  - the last day of school
+  - a hospital waiting room
+  - a village market at dawn
+  - a long-delayed phone call
+  - moving out of a childhood home
+  - a football match in the rain
+  - an exam results envelope
+  - a crowded minibus
+  - a power cut during dinner
+  - a lost passport
+  - the first day at a new job
+  - a neighbour's wedding
+  - a funeral in the rainy season
+  - a letter that arrived years late
+  - a shared taxi to the airport
+  - an empty office at midnight
+  - a childhood friend on the street
+  - a burnt pot of rice
+  - a bank queue on payday
+  - a cat that will not come down
+  - the night before a journey
+
+intensity:
+  - scenario: paracetamol
+    emotion: fear
+    steps:
+      - {level: 1, text: "You took 1 paracetamol tablet this morning."}
+      - {level: 2, text: "You took 2 paracetamol tablets this morning."}
+      - {level: 3, text: "You took 4 paracetamol tablets this morning."}
+      - {level: 4, text: "You took 9 paracetamol tablets this morning."}
+      - {level: 5, text: "You took 18 paracetamol tablets this morning."}
+      - {level: 6, text: "You took 34 paracetamol tablets this morning."}
+
+  - scenario: rent_due
+    emotion: desperation
+    steps:
+      - {level: 1, text: "Rent is due in thirty days and you are four hundred short."}
+      - {level: 2, text: "Rent is due in fourteen days and you are four hundred short."}
+      - {level: 3, text: "Rent is due in six days and you are four hundred short."}
+      - {level: 4, text: "Rent is due in two days and you are four hundred short."}
+      - {level: 5, text: "Rent is due tomorrow and you are four hundred short."}
+      - {level: 6, text: "Rent was due last week and you are four hundred short."}
+
+  - scenario: invitations
+    emotion: loneliness
+    steps:
+      - {level: 1, text: "You invited twenty people. Eighteen have said they are coming."}
+      - {level: 2, text: "You invited twenty people. Twelve have said they are coming."}
+      - {level: 3, text: "You invited twenty people. Six have said they are coming."}
+      - {level: 4, text: "You invited twenty people. Two have said they are coming."}
+      - {level: 5, text: "You invited twenty people. One has said they are coming."}
+      - {level: 6, text: "You invited twenty people. None have said they are coming."}
+
+  - scenario: race_result
+    emotion: pride
+    steps:
+      - {level: 1, text: "You finished thirtieth in the district race."}
+      - {level: 2, text: "You finished tenth in the district race."}
+      - {level: 3, text: "You finished third in the district race."}
+      - {level: 4, text: "You won the district race."}
+      - {level: 5, text: "You won the national race."}
+      - {level: 6, text: "You won the national race and set a world record."}
+
+  - scenario: milk_left_out
+    emotion: disgust
+    steps:
+      - {level: 1, text: "The milk has been on the counter for one hour."}
+      - {level: 2, text: "The milk has been on the counter for six hours."}
+      - {level: 3, text: "The milk has been on the counter for a day."}
+      - {level: 4, text: "The milk has been on the counter for three days."}
+      - {level: 5, text: "The milk has been on the counter for two weeks."}
+      - {level: 6, text: "The milk has been on the counter since last month."}
+
+  - scenario: misdirected_email
+    emotion: shame
+    steps:
+      - {level: 1, text: "You sent the message with the error in it to one colleague."}
+      - {level: 2, text: "You sent the message with the error in it to five colleagues."}
+      - {level: 3, text: "You sent the message with the error in it to fifty colleagues."}
+      - {level: 4, text: "You sent the message with the error in it to five hundred colleagues."}
+      - {level: 5, text: "You sent the message with the error in it to the whole company."}
+      - {level: 6, text: "You sent the message with the error in it to the whole company and it reached the press."}
+
+implicit:
+  - {emotion: joy,         text: "The letter says you got in. You read it twice to be sure."}
+  - {emotion: sadness,     text: "You pack the last box. The rooms echo now."}
+  - {emotion: anger,       text: "He took credit for your work in front of everyone, again."}
+  - {emotion: fear,        text: "Footsteps behind you have matched your pace for three streets."}
+  - {emotion: disgust,     text: "You lift the lid and something moves in the pan."}
+  - {emotion: surprise,    text: "You open the door and forty people are standing in your living room."}
+  - {emotion: calm,        text: "The lake is flat. Nothing is due today."}
+  - {emotion: desperation, text: "Your flight is delayed three hours. The wedding starts at six."}
+  - {emotion: pride,       text: "She reads your name from the list and the room turns to look."}
+  - {emotion: shame,       text: "You realise you sent it to everyone, not only to her."}
+  - {emotion: loneliness,  text: "The same three notifications have sat there since Tuesday. All automated."}
+  - {emotion: excitement,  text: "Boarding opens in ten minutes. You have not slept."}
