@@ -33,3 +33,15 @@ figures/
 
 # macOS
 .DS_Store
+
+# Generated dataset content — the Hub is the store, restore with:
+#   hf download foogunlana/qwen-emotion-stories --repo-type=dataset \
+#       --local-dir datasets/qwen-emotion-stories
+# Generation is deterministic given meta.json's contract, so this is
+# reproducible as well as re-downloadable. config.yaml is the hand-written
+# input and stays tracked.
+datasets/*/corpus/
+datasets/*/intensity.jsonl
+datasets/*/implicit.jsonl
+datasets/*/README.md
+datasets/*/meta.json

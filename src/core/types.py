@@ -14,5 +14,5 @@ class Story:
     index: int
     prompt: str
     text: str
-    seed: int
+    batch_seed: int
     mentions_emotion: bool

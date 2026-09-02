@@ -17,24 +17,18 @@ import torch
 
 from core.shards import write_jsonl
 from core.types import Prompt, Story
-from core.utils import Model, mentions_emotion
+from core.models import Model
+from core.prompts import render
+from core.utils import mentions_emotion
 
 
 def build_instruction(emotion: str, topic: str) -> str:
-    """The user turn for one (emotion, topic) pair.
+    """The user turn for one (emotion, topic) pair — see core.prompts.
 
-    The emotion word appears HERE and not necessarily in the story. Activations
-    are extracted from the story alone, so it cannot leak into them.
-
-    The model is not told to avoid naming the emotion — a small model complies
-    unreliably, and a half-obeyed instruction biases the corpus in a way you
-    cannot characterise. `mentions_emotion` is the control instead.
+    The emotion word appears in the INSTRUCTION and, if the model complies,
+    nowhere in the story. Activations are extracted from the story alone.
     """
-    if emotion == "neutral":
-        return (f"Write a short story (max 120 words) on a topic '{topic}' where a "
-                f"character experiences no emotion - the story should be neutral.")
-    return (f"Write a short story (max 120 words) on a topic '{topic}' where a "
-            f"character experiences emotion '{emotion}'.")
+    return render(emotion, topic)
 
 
 def build_prompts(
@@ -88,19 +82,29 @@ def generate_stories(
 ) -> Iterator[Story]:
     prompts = list(prompts)
     for i, batch in enumerate(chunked(prompts, batch_size)):
-        s = batch_seed(seed, batch)
-        torch.manual_seed(s)
+        seed_for_batch = batch_seed(seed, batch)
+        torch.manual_seed(seed_for_batch)
 
         t0 = time.perf_counter()
         texts = model.gen(batch, max_new_tokens=max_new_tokens, sample=True)
         if verbose:
             done = i * batch_size + len(batch)
-            print(f"    {done}/{len(prompts)}  {time.perf_counter() - t0:.1f}s", flush=True)
+            print(f"{done}/{len(prompts)}  {time.perf_counter() - t0:.1f}s", flush=True)
 
         for p, text in zip(batch, texts):
             text = text.strip()
-            yield Story(p.emotion, p.topic, p.index, p.instruction, text, s,
-                        mentions_emotion(text, p.emotion))
+            yield Story(
+                emotion=p.emotion,
+                topic=p.topic,
+                index=p.index,
+                prompt=p.instruction,
+                text=text,
+                # Per BATCH, not per story: one generate() call samples the whole
+                # batch from a single RNG stream, so 16 rows share this value.
+                # Story identity is (emotion, topic, index), not the seed.
+                batch_seed=seed_for_batch,
+                mentions_emotion=mentions_emotion(text, p.emotion),
+            )
 
 
 def generate_corpus(

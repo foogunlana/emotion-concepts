@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Build the local dataset folder so it can be synced to the Hub as-is.
 
-    uv run python src/scripts/build_dataset.py
+    uv run python src/scripts/package_dataset.py
     hf upload foogunlana/qwen-emotion-stories datasets/qwen-emotion-stories \
         --repo-type=dataset --delete "*"
 
@@ -10,7 +10,8 @@ Nothing here talks to the network — uploading is a separate, deliberate step.
 
     datasets/<name>/
         config.yaml        INPUT  — hand-edited, defines everything
-        corpus/*.jsonl     stories, one shard per emotion (split column added here)
+        CARD.md            INPUT  — hand-edited prose, <!-- STATS --> filled in here
+        corpus/*.jsonl     one shard per emotion (split column added here)
         intensity.jsonl    derived from config.yaml
         implicit.jsonl     derived from config.yaml
         README.md          generated: frontmatter + docs/dataset-card.md
@@ -40,7 +41,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 from core.shards import read_jsonl, write_jsonl  # noqa: E402
 
 DEFAULT_DATASET = PROJECT_ROOT / "datasets" / "qwen-emotion-stories"
-DEFAULT_CARD = PROJECT_ROOT / "docs" / "dataset-card.md"
+DEFAULT_CARD = DEFAULT_DATASET / "CARD.md"
 DEFAULT_REPO_ID = "foogunlana/qwen-emotion-stories"
 
 FRONTMATTER = """---
@@ -110,18 +111,27 @@ def write_test_sets(dataset_dir: Path, config: dict) -> tuple[int, int]:
 
 
 def render_stats(rows: list[dict], n_intensity: int, n_implicit: int, model: str,
-                 *, test_frac: float, seed: int) -> str:
+                 *, test_frac: float, seed: int, expected_emotions: int = 0) -> str:
     """The generated block. Prose is hand-written in docs/dataset-card.md; only
     the numbers live here, so they can never go stale."""
     n_train = sum(r["split"] == "train" for r in rows)
     topics = {r["topic"] for r in rows}
 
-    banner = "" if len(topics) >= 10 else (
-        f"> **Preliminary.** {len(rows)} stories across {len(topics)} topic(s) — a\n"
-        f"> plumbing run, not the corpus. Difference-of-means needs many topics to\n"
-        f"> average surface features away, so vectors fitted on this would be topic\n"
-        f"> vectors as much as emotion vectors. To be regenerated.\n\n"
-    )
+    found = len({r["emotion"] for r in rows})
+    if expected_emotions and found < expected_emotions:
+        banner = (
+            f"> **Partial.** {found} of {expected_emotions} emotions generated "
+            f"({len(rows)} stories). The remaining shards are still to run, so\n"
+            f"> cross-emotion comparisons and any n-way classification are not\n"
+            f"> meaningful yet.\n\n"
+        )
+    else:
+        banner = "" if len(topics) >= 10 else (
+            f"> **Preliminary.** {len(rows)} stories across {len(topics)} topic(s) — a\n"
+            f"> plumbing run, not the corpus. Difference-of-means needs many topics to\n"
+            f"> average surface features away, so vectors fitted on this would be topic\n"
+            f"> vectors as much as emotion vectors. To be regenerated.\n\n"
+        )
 
     return f"""{banner}## Configs
 
@@ -160,7 +170,8 @@ def main() -> None:
 
     body = args.card.read_text(encoding="utf-8")
     stats = render_stats(rows, n_intensity, n_implicit, args.model,
-                         test_frac=args.test_frac, seed=args.seed)
+                         test_frac=args.test_frac, seed=args.seed,
+                         expected_emotions=len(config["emotions"]) + 1)
     if "<!-- STATS -->" not in body:
         raise SystemExit(f"{args.card} has no <!-- STATS --> marker")
     (args.dataset / "README.md").write_text(
@@ -179,7 +190,7 @@ def main() -> None:
         print("WARNING: train split is empty — too few topics to split")
 
     rel = args.dataset.relative_to(PROJECT_ROOT)
-    print(f"\nto publish:\n  hf upload {args.repo_id} {rel} --repo-type=dataset --delete \"*\"")
+    print(f"\nto publish:\n  hf upload {args.repo_id} {rel} --repo-type=dataset --delete \"*\" --exclude \"CARD.md\"")
 
 
 if __name__ == "__main__":

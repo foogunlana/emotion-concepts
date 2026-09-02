@@ -1,66 +1,310 @@
 # Corpus configuration for the emotion-concepts replication.
 #
-# Everything the experiment is *about* lives here rather than in the notebook,
-# so a change of stimulus is a config edit and not a code edit.
+# emotions and topics are taken VERBATIM from arXiv:2604.07729, appendix
+# sections "Full list of emotions" (171 emotions) and "Dataset
+# generation" (100 topics). Using the paper's own stimulus set removes
+# a degree of freedom: if the replication fails, it is not because the topics or
+# emotion labels were chosen badly.
+#
+# The prompts live in src/core/prompts.py, also from the appendix. The critical
+# one forbids the model from naming the emotion — that is what stops a
+# difference-of-means from learning the emotion WORD instead of the concept.
+# 'mentions_emotion' measures compliance and is the first dataset health check.
+#
+# 171 emotions x 100 topics is far beyond a laptop run
+# (17100 pairs). Subset with the CLI:
+#   generate_corpus.py --emotions joy,sadness,anger --max-topics 25
 #
 #   emotions   one shard and one emotion vector each
 #   topics     the variation that averages surface features away, and the
-#              train/test split axis — held-out topics never appear in training
-#   intensity  graded ladders (held out) — severity rises with `level`
+#              train/test split axis
+#   intensity  graded ladders (held out) — severity rises with 'level'
 #   implicit   scenarios that evoke without naming (held out)
 #
 # HARD CONSTRAINT on intensity and implicit: no emotion word may appear in any
-# text, for any emotion — not just the target. If it did, a pure word-direction
-# would pass these tests and they would prove nothing. Verify with
-# mentions_emotion against every word list, not by eye.
+# text, for any emotion. Verify with mentions_emotion, not by eye.
 #
-# NOTE: this is a hand-edited INPUT living in data/, which otherwise holds
-# generated output. Do not `rm -rf data/` — clear `data/corpus/` instead.
+# NOTE: this is a hand-edited INPUT living in the dataset folder, which
+# otherwise holds generated output. Do not 'rm -rf' the folder.
 
 emotions:
-  - joy
-  - sadness
-  - anger
-  - fear
-  - disgust
-  - surprise
+  - afraid
+  - alarmed
+  - alert
+  - amazed
+  - amused
+  - angry
+  - annoyed
+  - anxious
+  - aroused
+  - ashamed
+  - astonished
+  - at ease
+  - awestruck
+  - bewildered
+  - bitter
+  - blissful
+  - bored
+  - brooding
   - calm
-  - desperation
-  - pride
-  - shame
-  - loneliness
-  - excitement
+  - cheerful
+  - compassionate
+  - contemptuous
+  - content
+  - defiant
+  - delighted
+  - dependent
+  - depressed
+  - desperate
+  - disdainful
+  - disgusted
+  - disoriented
+  - dispirited
+  - distressed
+  - disturbed
+  - docile
+  - droopy
+  - dumbstruck
+  - eager
+  - ecstatic
+  - elated
+  - embarrassed
+  - empathetic
+  - energized
+  - enraged
+  - enthusiastic
+  - envious
+  - euphoric
+  - exasperated
+  - excited
+  - exuberant
+  - frightened
+  - frustrated
+  - fulfilled
+  - furious
+  - gloomy
+  - grateful
+  - greedy
+  - grief-stricken
+  - grumpy
+  - guilty
+  - happy
+  - hateful
+  - heartbroken
+  - hope
+  - hopeful
+  - horrified
+  - hostile
+  - humiliated
+  - hurt
+  - hysterical
+  - impatient
+  - indifferent
+  - indignant
+  - infatuated
+  - inspired
+  - insulted
+  - invigorated
+  - irate
+  - irritated
+  - jealous
+  - joyful
+  - jubilant
+  - kind
+  - lazy
+  - listless
+  - lonely
+  - loving
+  - mad
+  - melancholy
+  - miserable
+  - mortified
+  - mystified
+  - nervous
+  - nostalgic
+  - obstinate
+  - offended
+  - on edge
+  - optimistic
+  - outraged
+  - overwhelmed
+  - panicked
+  - paranoid
+  - patient
+  - peaceful
+  - perplexed
+  - playful
+  - pleased
+  - proud
+  - puzzled
+  - rattled
+  - reflective
+  - refreshed
+  - regretful
+  - rejuvenated
+  - relaxed
+  - relieved
+  - remorseful
+  - resentful
+  - resigned
+  - restless
+  - sad
+  - safe
+  - satisfied
+  - scared
+  - scornful
+  - self-confident
+  - self-conscious
+  - self-critical
+  - sensitive
+  - sentimental
+  - serene
+  - shaken
+  - shocked
+  - skeptical
+  - sleepy
+  - sluggish
+  - smug
+  - sorry
+  - spiteful
+  - stimulated
+  - stressed
+  - stubborn
+  - stuck
+  - sullen
+  - surprised
+  - suspicious
+  - sympathetic
+  - tense
+  - terrified
+  - thankful
+  - thrilled
+  - tired
+  - tormented
+  - trapped
+  - triumphant
+  - troubled
+  - uneasy
+  - unhappy
+  - unnerved
+  - unsettled
+  - upset
+  - valiant
+  - vengeful
+  - vibrant
+  - vigilant
+  - vindictive
+  - vulnerable
+  - weary
+  - worn out
+  - worried
+  - worthless
 
 topics:
-  - a train station
-  - a job interview
-  - an old family recipe
-  - a broken bicycle
-  - the last day of school
-  - a hospital waiting room
-  - a village market at dawn
-  - a long-delayed phone call
-  - moving out of a childhood home
-  - a football match in the rain
-  - an exam results envelope
-  - a crowded minibus
-  - a power cut during dinner
-  - a lost passport
-  - the first day at a new job
-  - a neighbour's wedding
-  - a funeral in the rainy season
-  - a letter that arrived years late
-  - a shared taxi to the airport
-  - an empty office at midnight
-  - a childhood friend on the street
-  - a burnt pot of rice
-  - a bank queue on payday
-  - a cat that will not come down
-  - the night before a journey
+  - An artist discovers someone has tattooed their work
+  - A family member announces they're converting to a different religion
+  - Someone's childhood imaginary friend appears in their niece's drawings
+  - A person finds out their biography was written without their knowledge
+  - A neighbor starts a renovation project
+  - Someone finds their grandmother's engagement ring in a pawn shop
+  - A student learns their scholarship application was denied
+  - A person's online friend turns out to live in the same city
+  - A neighbor wants to install a fence
+  - An adult child moves back in with their parents
+  - An employee is asked to train their replacement
+  - An athlete is asked to switch positions
+  - A traveler's flight is delayed, causing them to miss an important event
+  - A student is accused of plagiarism
+  - A person discovers their mentor has retired without saying goodbye
+  - Two friends both apply for the same job
+  - A person runs into their ex at a mutual friend's wedding
+  - Someone discovers their friend has been lying about their job
+  - A person discovers their partner has been taking secret phone calls
+  - A person discovers their child has the same teacher they had
+  - A person's car is towed from their own driveway
+  - Two friends realize they remember a shared event completely differently
+  - Someone discovers their mother kept every school assignment
+  - A person discovers their teenage diary has been published online
+  - Someone finds out their medical records were mixed up with another patient's
+  - A person finds out their article was published under someone else's name
+  - An athlete doesn't make the team they expected to join
+  - An employee is transferred to a different department
+  - Someone receives a friend request from a childhood bully
+  - A person finds out their surprise party has been cancelled
+  - An employee finds out a junior colleague makes more money
+  - A person finds out their partner has been learning their native language
+  - A chef receives a harsh review from a food critic
+  - A person learns their favorite restaurant is closing
+  - Someone finds their childhood teddy bear at a yard sale
+  - A homeowner discovers previous residents left items in the attic
+  - Someone finds an unsigned birthday card in their mailbox
+  - Someone discovers a hidden room in their new house
+  - Two strangers realize they've been dating the same person
+  - A person finds a hidden letter in a used book
+  - Two siblings inherit their grandmother's house
+  - Someone finds a wallet containing a large sum of cash
+  - Someone receives an invitation to their high school reunion
+  - Someone discovers their recipe has become famous under another name
+  - A college student discovers their roommate has been reading their journal
+  - A person finds out they were adopted through a DNA test
+  - A family member wants to sell a cherished heirloom
+  - Someone receives a package intended for the previous tenant
+  - Someone's childhood home is about to be demolished
+  - A person's invention is already patented by someone else
+  - A neighbor's dog keeps escaping into their yard
+  - A coach has to cut a player from the team
+  - Someone learns their favorite author plagiarized their stories
+  - A student finds out their scholarship was meant for someone else
+  - Someone discovers their teenager has a secret social media account
+  - Two roommates disagree about getting a pet
+  - Two friends plan separate birthday parties on the same day
+  - A person learns their childhood best friend doesn't remember them
+  - A musician hears their song being performed by someone else
+  - A person's manuscript is rejected by their dream publisher
+  - A person finds old photos that contradict family stories
+  - A person is asked to give a speech at their parent's retirement party
+  - A student discovers their teacher follows them on social media
+  - A parent finds an old letter they wrote but never sent
+  - An employee discovers the company is being sold
+  - A person accidentally sends a text to the wrong recipient
+  - Two coworkers are stuck in an elevator for three hours
+  - A student learns their thesis advisor is leaving the university
+  - A person's longtime hobby becomes their child's obsession
+  - Two colleagues are both considered for the same promotion
+  - Two coworkers discover they went to the same summer camp
+  - A tenant receives an eviction notice
+  - Someone finds their parent's draft letter of resignation from decades ago
+  - Someone finds out their best friend is moving across the country
+  - A neighbor's tree falls on their property
+  - Someone receives an apology letter years after the incident
+  - A person discovers the tree they planted as a child has been cut down
+  - Two siblings discover different versions of their inheritance
+  - A person finds their childhood home listed for sale online
+  - A homeowner learns their house was a former crime scene
+  - Someone finds out they have a half-sibling they never knew about
+  - A person learns their childhood bully became a therapist
+  - Two people discover they've been working on identical projects
+  - A person finds their spouse's secret savings account
+  - A neighbor complains about noise levels
+  - Someone finds their deceased parent's bucket list
+  - A teacher receives an unexpected gift from a former student
+  - An artist's work is displayed without their permission
+  - Someone discovers their neighbor is secretly wealthy
+  - A student receives a much lower grade than expected
+  - A person learns their college is closing down
+  - A neighbor asks to cut down a tree on the property line
+  - Two strangers discover they share the same rare medical condition
+  - Someone receives flowers with no card attached
+  - Someone discovers their partner has been writing a novel about them
+  - Someone finds a time capsule they don't remember burying
+  - Someone finds their partner's bucket list
+  - A neighbor asks to use part of the yard for a garden
+  - A person learns their apartment building is going condo
+  - Someone finds their college application essay published as an example
 
 intensity:
   - scenario: paracetamol
-    emotion: fear
+    emotion: afraid
     steps:
       - {level: 1, text: "You took 1 paracetamol tablet this morning."}
       - {level: 2, text: "You took 2 paracetamol tablets this morning."}
@@ -70,7 +314,7 @@ intensity:
       - {level: 6, text: "You took 34 paracetamol tablets this morning."}
 
   - scenario: rent_due
-    emotion: desperation
+    emotion: desperate
     steps:
       - {level: 1, text: "Rent is due in thirty days and you are four hundred short."}
       - {level: 2, text: "Rent is due in fourteen days and you are four hundred short."}
@@ -80,7 +324,7 @@ intensity:
       - {level: 6, text: "Rent was due last week and you are four hundred short."}
 
   - scenario: invitations
-    emotion: loneliness
+    emotion: lonely
     steps:
       - {level: 1, text: "You invited twenty people. Eighteen have said they are coming."}
       - {level: 2, text: "You invited twenty people. Twelve have said they are coming."}
@@ -90,7 +334,7 @@ intensity:
       - {level: 6, text: "You invited twenty people. None have said they are coming."}
 
   - scenario: race_result
-    emotion: pride
+    emotion: proud
     steps:
       - {level: 1, text: "You finished thirtieth in the district race."}
       - {level: 2, text: "You finished tenth in the district race."}
@@ -100,7 +344,7 @@ intensity:
       - {level: 6, text: "You won the national race and set a world record."}
 
   - scenario: milk_left_out
-    emotion: disgust
+    emotion: disgusted
     steps:
       - {level: 1, text: "The milk has been on the counter for one hour."}
       - {level: 2, text: "The milk has been on the counter for six hours."}
@@ -110,7 +354,7 @@ intensity:
       - {level: 6, text: "The milk has been on the counter since last month."}
 
   - scenario: misdirected_email
-    emotion: shame
+    emotion: ashamed
     steps:
       - {level: 1, text: "You sent the message with the error in it to one colleague."}
       - {level: 2, text: "You sent the message with the error in it to five colleagues."}
@@ -120,15 +364,15 @@ intensity:
       - {level: 6, text: "You sent the message with the error in it to the whole company and it reached the press."}
 
 implicit:
-  - {emotion: joy,         text: "The letter says you got in. You read it twice to be sure."}
-  - {emotion: sadness,     text: "You pack the last box. The rooms echo now."}
-  - {emotion: anger,       text: "He took credit for your work in front of everyone, again."}
-  - {emotion: fear,        text: "Footsteps behind you have matched your pace for three streets."}
-  - {emotion: disgust,     text: "You lift the lid and something moves in the pan."}
-  - {emotion: surprise,    text: "You open the door and forty people are standing in your living room."}
+  - {emotion: joyful,         text: "The letter says you got in. You read it twice to be sure."}
+  - {emotion: sad,     text: "You pack the last box. The rooms echo now."}
+  - {emotion: angry,       text: "He took credit for your work in front of everyone, again."}
+  - {emotion: afraid,        text: "Footsteps behind you have matched your pace for three streets."}
+  - {emotion: disgusted,     text: "You lift the lid and something moves in the pan."}
+  - {emotion: surprised,    text: "You open the door and forty people are standing in your living room."}
   - {emotion: calm,        text: "The lake is flat. Nothing is due today."}
-  - {emotion: desperation, text: "Your flight is delayed three hours. The wedding starts at six."}
-  - {emotion: pride,       text: "She reads your name from the list and the room turns to look."}
-  - {emotion: shame,       text: "You realise you sent it to everyone, not only to her."}
-  - {emotion: loneliness,  text: "The same three notifications have sat there since Tuesday. All automated."}
-  - {emotion: excitement,  text: "Boarding opens in ten minutes. You have not slept."}
+  - {emotion: desperate, text: "Your flight is delayed three hours. The wedding starts at six."}
+  - {emotion: proud,       text: "She reads your name from the list and the room turns to look."}
+  - {emotion: ashamed,       text: "You realise you sent it to everyone, not only to her."}
+  - {emotion: lonely,  text: "The same three notifications have sat there since Tuesday. All automated."}
+  - {emotion: excited,  text: "Boarding opens in ten minutes. You have not slept."}
