@@ -3,6 +3,8 @@
 Corpus for a local replication of Part 1 of [*Emotion Concepts and their Function
 in a Large Language Model*](https://arxiv.org/abs/2604.07729).
 
+<!-- STATS -->
+
 ## Held-out tests
 
 `intensity` and `implicit` are written by claude Opus-5 (though they ideally should be hand-written, but it's okay that they're not written by the model being tested)

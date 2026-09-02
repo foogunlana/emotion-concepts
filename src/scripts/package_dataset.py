@@ -12,8 +12,6 @@ Nothing here talks to the network — uploading is a separate, deliberate step.
         config.yaml        INPUT  — hand-edited, defines everything
         CARD.md            INPUT  — hand-edited prose, <!-- STATS --> filled in here
         corpus/*.jsonl     one shard per emotion (split column added here)
-        intensity.jsonl    derived from config.yaml
-        implicit.jsonl     derived from config.yaml
         README.md          generated: frontmatter + docs/dataset-card.md
 
 The README frontmatter maps each config to its data files. Without it the Hub
@@ -55,11 +53,6 @@ tags:
 configs:
   - config_name: stories
     data_files: corpus/*.jsonl
-    default: true
-  - config_name: intensity
-    data_files: intensity.jsonl
-  - config_name: implicit
-    data_files: implicit.jsonl
 ---
 
 """
@@ -92,30 +85,15 @@ def assign_splits(dataset_dir: Path, *, test_frac: float, seed: int) -> dict[str
     return counts
 
 
-def write_test_sets(dataset_dir: Path, config: dict) -> tuple[int, int]:
-    """Flatten the hand-written held-out sets out of config.yaml."""
-    n_intensity = write_jsonl(
-        (
-            {"scenario": l["scenario"], "emotion": l["emotion"],
-             "level": s["level"], "text": s["text"]}
-            for l in config["intensity"]
-            for s in l["steps"]
-        ),
-        dataset_dir / "intensity.jsonl",
-    )
-    n_implicit = write_jsonl(
-        (dict(s) for s in config["implicit"]),
-        dataset_dir / "implicit.jsonl",
-    )
-    return n_intensity, n_implicit
-
-
-def render_stats(rows: list[dict], n_intensity: int, n_implicit: int, model: str,
+def render_stats(rows: list[dict], config: dict, model: str,
                  *, test_frac: float, seed: int, expected_emotions: int = 0) -> str:
     """The generated block. Prose is hand-written in docs/dataset-card.md; only
     the numbers live here, so they can never go stale."""
     n_train = sum(r["split"] == "train" for r in rows)
     topics = {r["topic"] for r in rows}
+    n_ladders = len(config["intensity"])
+    n_steps = sum(len(l["steps"]) for l in config["intensity"])
+    n_implicit = len(config["implicit"])
 
     found = len({r["emotion"] for r in rows})
     if expected_emotions and found < expected_emotions:
@@ -138,8 +116,10 @@ def render_stats(rows: list[dict], n_intensity: int, n_implicit: int, model: str
 | config | rows | source |
 |---|---|---|
 | `stories` | {len(rows)} ({n_train} train / {len(rows) - n_train} test) | model-generated |
-| `intensity` | {n_intensity} | hand-written, held out |
-| `implicit` | {n_implicit} | hand-written, held out |
+
+The held-out tests are defined in `config.yaml`, not shipped as separate configs:
+{n_ladders} intensity ladders ({n_steps} graded items) and {n_implicit} implicit
+scenarios.
 
 {len(set(r["emotion"] for r in rows))} emotions over {len(topics)} topics, generated with `{model}`.
 Split assigned with `test_frac={test_frac}`, `seed={seed}`.
@@ -163,13 +143,12 @@ def main() -> None:
     config = yaml.safe_load((args.dataset / "config.yaml").read_text(encoding="utf-8"))
 
     counts = assign_splits(args.dataset, test_frac=args.test_frac, seed=args.seed)
-    n_intensity, n_implicit = write_test_sets(args.dataset, config)
 
     rows = [r for p in sorted((args.dataset / "corpus").glob("*.jsonl"))
             if not p.stem.endswith(".sample") for r in read_jsonl(p)]
 
     body = args.card.read_text(encoding="utf-8")
-    stats = render_stats(rows, n_intensity, n_implicit, args.model,
+    stats = render_stats(rows, config, args.model,
                          test_frac=args.test_frac, seed=args.seed,
                          expected_emotions=len(config["emotions"]) + 1)
     if "<!-- STATS -->" not in body:
@@ -179,8 +158,6 @@ def main() -> None:
 
     for name, n in sorted(counts.items()):
         print(f"  corpus/{name}.jsonl  {n:>4} rows")
-    print(f"  intensity.jsonl     {n_intensity:>4} rows")
-    print(f"  implicit.jsonl      {n_implicit:>4} rows")
     print(f"  README.md           written")
 
     train_topics = {r["topic"] for r in rows if r["split"] == "train"}
@@ -189,7 +166,8 @@ def main() -> None:
     if not train_topics:
         print("WARNING: train split is empty — too few topics to split")
 
-    rel = args.dataset.relative_to(PROJECT_ROOT)
+    import os
+    rel = os.path.relpath(args.dataset, PROJECT_ROOT)
     print(f"\nto publish:\n  hf upload {args.repo_id} {rel} --repo-type=dataset --delete \"*\" --exclude \"CARD.md\"")
 
 

@@ -41,7 +41,5 @@ figures/
 # reproducible as well as re-downloadable. config.yaml is the hand-written
 # input and stays tracked.
 datasets/*/corpus/
-datasets/*/intensity.jsonl
-datasets/*/implicit.jsonl
 datasets/*/README.md
 datasets/*/meta.json

@@ -9,6 +9,12 @@ rather than the concept, and every downstream test can be passed by a word
 direction. With it, `mentions_emotion` becomes a compliance check on the corpus
 instead of a caveat on the results.
 
+One deviation from the paper: every prompt pins the output language to
+English. Qwen2.5 is heavily multilingual and drifts into Chinese mid-sentence in
+roughly 6% of generations at temperature 0.8 — measured, see core.quality. The
+paper's prompts have no such line because Claude does not do this, so this is an
+adaptation to the model rather than a change to the method.
+
 STORY_ONE is adapted from the paper's STORY_MANY: we generate one story per
 call because the pipeline batches at the prompt level, where the paper asked
 for {n_stories} per call and split on <NEW STORY>. Everything else is verbatim,
@@ -26,7 +32,7 @@ Topic: {topic}
 
 The story should follow a character who is feeling {emotion}.
 
-Use either third-person or first-person narration.
+Write the story in English. Use either third-person or first-person narration.
 
 IMPORTANT: You must NEVER use the word "{emotion}" or any direct synonyms of it in the story. Instead, convey the emotion ONLY through:
 - The character's actions and behaviors
@@ -56,7 +62,7 @@ Format the stories like so:
 
 etc.
 
-The paragraphs should each be a fresh start, with no continuity. Try to make them diverse and not use the same turns of phrase. Across the different stories, use a mix of third-person narration and first-person narration.
+Write the stories in English. The paragraphs should each be a fresh start, with no continuity. Try to make them diverse and not use the same turns of phrase. Across the different stories, use a mix of third-person narration and first-person narration.
 
 IMPORTANT: You must NEVER use the word "{emotion}" or any direct synonyms of it in the stories. Instead, convey the emotion ONLY through:
 - The character's actions and behaviors
@@ -81,7 +87,7 @@ The dialogue should be between two characters:
 - Person (a human)
 - AI (an AI assistant)
 
-The Person asks the AI a question or requests help with a task, and the AI provides a helpful response. The first speaker turn should always be from Person. Always put a blank line before each speaker turn, and start each turn with "Person:" or "AI:" on its own line.
+Write the dialogue in English. The Person asks the AI a question or requests help with a task, and the AI provides a helpful response. The first speaker turn should always be from Person. Always put a blank line before each speaker turn, and start each turn with "Person:" or "AI:" on its own line.
 
 CRITICAL REQUIREMENT: This dialogue must be completely neutral and emotionless.
 - NO emotional content whatsoever - not explicit, not implied, not subtle
