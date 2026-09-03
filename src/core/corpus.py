@@ -18,8 +18,8 @@ import torch
 from core.shards import write_jsonl
 from core.types import Prompt, Story
 from core.models import Model
-from core.prompts import render
-from core.utils import mentions_emotion
+from core.prompts import SYSTEM, render
+from core.utils import mentions_emotion, trim_to_sentence
 
 
 def build_instruction(emotion: str, topic: str) -> str:
@@ -77,7 +77,8 @@ def generate_stories(
     *,
     batch_size: int = 16,
     seed: int = 0,
-    max_new_tokens: int = 320,
+    max_new_tokens: int = 512,
+    system: str | None = SYSTEM,
     verbose: bool = True,
 ) -> Iterator[Story]:
     prompts = list(prompts)
@@ -86,13 +87,15 @@ def generate_stories(
         torch.manual_seed(seed_for_batch)
 
         t0 = time.perf_counter()
-        texts = model.gen(batch, max_new_tokens=max_new_tokens, sample=True)
+        texts = model.gen(batch, max_new_tokens=max_new_tokens, sample=True, system=system)
         if verbose:
             done = i * batch_size + len(batch)
             print(f"{done}/{len(prompts)}  {time.perf_counter() - t0:.1f}s", flush=True)
 
         for p, text in zip(batch, texts):
-            text = text.strip()
+            # Trim BEFORE mentions_emotion: a half-sentence the cap cut off can
+            # name the forbidden word and fail a story that is otherwise clean.
+            text = trim_to_sentence(text.strip())
             yield Story(
                 emotion=p.emotion,
                 topic=p.topic,
@@ -117,7 +120,8 @@ def generate_corpus(
     limit: int | None = None,
     batch_size: int = 16,
     seed: int = 0,
-    max_new_tokens: int = 320,
+    max_new_tokens: int = 512,
+    system: str | None = SYSTEM,
     include_neutral: bool = True,
 ) -> dict[str, int]:
     """One shard per emotion, skipping any that already exist.
@@ -134,7 +138,10 @@ def generate_corpus(
     for emotion in labels:
         name = f"{emotion}.sample" if limit else emotion
         path = out_dir / "corpus" / f"{name}.jsonl"
-        if path.exists():
+        # Resume protects real shards only. A sample IS the thing you rerun
+        # after changing a prompt, so skipping it just makes you delete files
+        # by hand and wonder why nothing changed.
+        if path.exists() and not limit:
             print(f"skip {name}", flush=True)
             continue
 
@@ -144,7 +151,7 @@ def generate_corpus(
 
         print(f"{name}: {len(prompts)} prompts", flush=True)
         stories = generate_stories(model, prompts, batch_size=batch_size, seed=seed,
-                                   max_new_tokens=max_new_tokens)
+                                   max_new_tokens=max_new_tokens, system=system)
         counts[name] = write_jsonl((asdict(s) for s in stories), path)
         print(f"wrote {name}: {counts[name]}", flush=True)
 

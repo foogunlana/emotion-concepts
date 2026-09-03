@@ -20,7 +20,11 @@ class Model:
         self.model = None
         self.modelname = model
         self.dtype = dtype
-        self.device = "mps" if torch.backends.mps.is_available() else "cpu"
+        self.device = (
+            "cuda" if torch.cuda.is_available()
+            else "mps" if torch.backends.mps.is_available()
+            else "cpu"
+        )
 
     def load_weights(self):
         if self.model is not None:
@@ -29,11 +33,17 @@ class Model:
         self.tok.padding_side = "left"
         self.model = AutoModelForCausalLM.from_pretrained(self.modelname, cache_dir=CACHE_DIR, dtype=self.dtype).to(self.device).eval()
 
-    def gen(self, batch: list[Prompt], max_new_tokens=512, full_transcript: bool = False, sample=False):
+    def gen(self, batch: list[Prompt], max_new_tokens=512, full_transcript: bool = False, sample=False, system: str | None = None):
+        """`system` prepends a system turn to every prompt in the batch.
+
+        Without one a small instruct model refuses a share of the dark premises
+        outright — see core.prompts.SYSTEM for why that share is not noise.
+        """
         self.load_weights()
 
+        prefix = [{"role": "system", "content": system}] if system else []
         texts = [
-            self.tok.apply_chat_template([{"role": "user", "content": p.instruction}], tokenize=False, add_generation_prompt=True)
+            self.tok.apply_chat_template(prefix + [{"role": "user", "content": p.instruction}], tokenize=False, add_generation_prompt=True)
             for p in batch
         ]
         inputs = self.tok(texts, return_tensors="pt", padding=True).to(self.device)

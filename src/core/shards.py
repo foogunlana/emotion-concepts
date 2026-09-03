@@ -46,15 +46,22 @@ def read_jsonl(path: Path) -> list[dict]:
         return [json.loads(line) for line in f if line.strip()]
 
 
-def read_shards(corpus_dir: Path) -> list[dict]:
+def read_shards(corpus_dir: Path, sample: bool = False) -> list[dict]:
     """Every finished shard, concatenated.
 
     Skips *.sample shards — those are eyeball-pass output and must never reach
-    the corpus or the Hub.
+    the corpus or the Hub. `sample=True` reads those and only those, which is
+    what you want between a --limit run and reading the result.
     """
-    paths = sorted(p for p in corpus_dir.glob("*.jsonl") if not p.stem.endswith(".sample"))
+    paths = sorted(p for p in corpus_dir.glob("*.jsonl")
+                   if p.stem.endswith(".sample") == sample)
     if not paths:
-        raise FileNotFoundError(f"no shards in {corpus_dir}")
+        # Name what was skipped: "no shards here" is baffling when the directory
+        # visibly contains three .jsonl files that this call filtered out.
+        skipped = sorted(p.name for p in corpus_dir.glob("*.jsonl"))
+        kind = "*.sample shards" if sample else "shards"
+        hint = f" (ignored, pass sample={not sample}: {skipped})" if skipped else ""
+        raise FileNotFoundError(f"no {kind} in {corpus_dir}{hint}")
     return [row for p in paths for row in read_jsonl(p)]
 
 

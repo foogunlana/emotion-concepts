@@ -38,10 +38,13 @@ def main() -> None:
                     help="use only the first N topics — 171x100 is not a laptop run")
     ap.add_argument("--n-per-pair", type=int, default=4)
     ap.add_argument("--batch-size", type=int, default=16)
-    ap.add_argument("--max-new-tokens", type=int, default=320)
+    ap.add_argument("--max-new-tokens", type=int, default=512)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--dtype", default="float16", choices=["float16", "float32"],
-                    help="fp16 roughly halves memory traffic; generation is bandwidth-bound")
+    ap.add_argument("--dtype", default="float16",
+                    choices=["float16", "bfloat16", "float32"],
+                    help="fp16 roughly halves memory traffic; generation is bandwidth-bound. "
+                         "Prefer bfloat16 on CUDA: same memory, far wider exponent range, and "
+                         "fp16 on MPS produced junk tokens spliced mid-sentence.")
     ap.add_argument("--limit", type=int, default=None, help="per shard; writes *.sample")
     args = ap.parse_args()
 
