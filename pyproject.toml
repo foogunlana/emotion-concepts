@@ -8,6 +8,7 @@ dependencies = [
     "black>=26.5.1",
     "datasets>=5.0.1",
     "ipykernel>=7.3.0",
+    "polars>=1.44.1",
     "python-dotenv>=1.2.3",
     "torch>=2.13.0",
     "transformers>=5.16.1",

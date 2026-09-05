@@ -43,3 +43,7 @@ figures/
 datasets/*/corpus/
 datasets/*/README.md
 datasets/*/meta.json
+
+# Cached activations — regenerate with src/scripts/extract_activations.py
+data/acts/
+*.pt
