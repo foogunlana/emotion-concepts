@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emotion Concepts — Mentor Check-in</title>
+<style>
+  :root{ --ink:#111; --muted:#5a5a5a; --rule:#dcdcdc; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#f2f2f2;color:var(--ink);
+    font-family:-apple-system,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .slide{position:relative; width:1280px; height:720px; margin:24px auto;
+    background:#fff; padding:52px 72px 58px; display:none; flex-direction:column;
+    box-shadow:0 1px 4px rgba(0,0,0,.12);}
+  .slide.active{display:flex}
+  h1{font-size:44px; line-height:1.12; margin:0 0 12px; font-weight:600; letter-spacing:-.02em}
+  h2{font-size:31px; line-height:1.18; margin:0 0 18px; font-weight:600; letter-spacing:-.018em}
+  h3{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+     font-weight:600; margin:0 0 9px}
+  p,li{font-size:19px; line-height:1.45; margin:0 0 11px}
+  ul{margin:0 0 12px; padding-left:20px}
+  ol{margin:0 0 12px; padding-left:22px}
+  li{margin-bottom:8px}
+  .lead{font-size:22px; color:#333; line-height:1.4; font-weight:400}
+  .kicker{font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 14px}
+  hr.rule{border:0; border-top:1px solid var(--rule); margin:18px 0}
+  .cols{display:flex; gap:40px; flex:1; min-height:0}
+  .cols > div{flex:1; min-width:0; display:flex; flex-direction:column}
+  .fig{flex:0 0 auto; border:1px solid #ececec; background:#fff; overflow:hidden}
+  .fig img{width:100%; height:auto; display:block}
+  .caption{font-size:14px; line-height:1.4; color:var(--muted); margin:8px 0 0}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:14px}
+  .note{font-size:16px; color:var(--muted); line-height:1.42}
+  .ask{margin-top:auto; border-top:1px solid var(--rule); padding-top:13px; font-size:19px}
+  .footnote{margin-top:auto; font-size:13px; line-height:1.45; color:#8a8a8a;
+    border-top:1px solid var(--rule); padding-top:12px}
+  .footnote a{color:#8a8a8a}
+  .grid3{display:flex; gap:34px; flex:1; min-height:0; overflow:hidden}
+  .grid3 > div{flex:1; min-width:0}
+  .grid3 h3{margin-top:0}
+  .grid3 .blk{margin-bottom:20px}
+  .grid3 p,.grid3 li{font-size:15px; line-height:1.4; margin:0 0 7px}
+  .grid3 ul{padding-left:16px; margin:0 0 8px}
+  .grid3 li{margin-bottom:5px}
+  .grid3 .sm{font-size:14px; color:var(--muted); line-height:1.38}
+  .links{margin-top:auto; margin-top:20px; border-top:1px solid var(--rule); padding-top:12px;
+    display:flex; gap:40px; font-size:14px}
+  .links div{line-height:1.5}
+  .links .k{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  .links a{color:#111; text-decoration:none; border-bottom:1px solid #ccc;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:14px}
+  .struck{color:#a0a0a0; text-decoration:line-through; text-decoration-color:#c4c4c4}
+  .struck strong,.struck em{font-weight:400; font-style:normal}
+  .superseded{font-size:16px; color:#111; margin:14px 0 0; padding-left:12px;
+    border-left:3px solid #111}
+  .vb h3{margin-bottom:6px}
+  .vb .blk{margin-bottom:15px}
+  .vb p{font-size:15px; line-height:1.4; margin:0 0 6px}
+  .vb ul{list-style:none; padding-left:0; margin:0}
+  .vb ul li{font-size:14px; line-height:1.38; margin:0 0 5px; padding-left:12px;
+    text-indent:-12px; color:#333}
+  .num{position:absolute; right:72px; bottom:26px; font-size:12px; color:#bbb}
+  table.asks{border-collapse:collapse; width:100%}
+  table.asks td{padding:9px 10px 9px 0; font-size:19px; vertical-align:top;
+    border-bottom:1px solid #eee}
+  table.asks td.n{width:24px; color:var(--muted); font-size:14px; padding-top:11px}
+  table.asks td.r{width:130px; color:#999; font-size:13px; text-align:right; padding-top:12px}
+  .qs{margin:0; padding:0; list-style:none}
+  .qs li{font-size:19px; color:#333; padding-left:16px; border-left:2px solid #e2e2e2;
+    margin-bottom:9px; line-height:1.35}
+  .scores{width:100%; border-collapse:collapse}
+  .scores td{font-size:17px; padding:4px 8px 4px 0; border-bottom:1px solid #f0f0f0}
+  .scores td.v{text-align:right; width:52px; font-variant-numeric:tabular-nums}
+  .stat{display:flex; gap:30px; margin:0 0 12px}
+  .stat .k{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .stat .v{font-size:28px; font-weight:600; letter-spacing:-.02em; margin-top:2px}
+  .stat .v small{font-size:15px; font-weight:400; color:var(--muted); letter-spacing:0}
+  @media print{
+    html,body{background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+    .slide{display:flex !important; margin:0; box-shadow:none;
+      page-break-after:always; break-after:page;
+      width:1280px; height:720px; overflow:hidden}
+    .slide:last-child{page-break-after:auto; break-after:auto}
+    @page{size:1280px 720px; margin:0}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide active">
+  <p class="kicker">Mentor check-in · 8 September 2026 · Foluso Ogunlana</p>
+  <h1>Emotion concepts</h1>
+  <p class="lead">I'm going to replicate <em>Emotion Concepts and their Function in a Large Language
+    Model</em>, and then try to extend it by checking its performance against benchmarks to ask the
+    question — how does steering on emotion concepts affect benchmark performance across models?</p>
+  <hr class="rule">
+  <h3>Agenda</h3>
+  <table class="asks">
+    <tr><td class="n">1</td><td>Tell me — is my idea any good, or should I pivot? (big picture)</td><td class="r">slide 2</td></tr>
+    <tr><td class="n">2</td><td>What I've done so far, for context</td><td class="r">slides 3–5</td></tr>
+    <tr><td class="n">3</td><td>Tell me — how do I make a useful contribution with this idea (or other) then?</td><td class="r">slide 6</td></tr>
+    <tr><td class="n">4</td><td>Help me order my next steps to make the most of my time</td><td class="r">slide 7</td></tr>
+  </table>
+  <p class="footnote">This presentation was generated with help from Claude Opus 5 (1M context),
+    but all the text and images have been copied verbatim from my hand-written code experiments at
+    <a href="https://github.com/foogunlana/emotion-concepts">github.com/foogunlana/emotion-concepts</a>.</p>
+  <div class="num">1</div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="kicker">1 · Is my idea any good, or should I pivot?</p>
+  <h2>Make alignment research super easy</h2>
+  <div class="cols">
+    <div>
+      <h3>Ultimately, what am I trying to do?</h3>
+      <p>Make it stupid easy to see where a model is misaligned and then align it under certain
+        circumstances. This should remove most classes of problems with AI models as they're
+        currently built.</p>
+      <h3 style="margin-top:20px">How can I start? Replicate papers and ask</h3>
+      <ul class="qs">
+        <li>Why did they do it that way?</li>
+        <li>What was hard about that?</li>
+        <li>What can I create so that the next person finds it 100 times easier to do the same thing
+          100 times over?</li>
+        <li>Now that this can be done easily 100 times, what else can we discover?</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Why this paper matters for AI safety</h3>
+      <p>The work is trying to understand why LLMs sometimes exhibit emotional behaviour in their
+        responses. It matters because specific emotional behaviour could correlate with specific
+        alignment failure modes and success cases.</p>
+      <p>The paper shows that specific cases of sycophancy, cheating and deception correlate with the
+        activation of specific emotion concepts. Thus, steering with emotion concepts can be used to
+        reduce these forms of misalignment in some scenarios.</p>
+      <h3 style="margin-top:20px">Key assumption</h3>
+      <p class="note">There's no data or training mechanism involved that forces the model to find
+        emotion concepts — if there was, then this would be an artifact of the training process and
+        not replicable across other LLMs.</p>
+    </div>
+  </div>
+  <div class="num">2</div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="kicker">2 · What I've done so far</p>
+  <h2>The corpus — the model writes its own stories</h2>
+  <div class="cols">
+    <div style="flex:0 0 760px">
+      <div class="fig"><img src="figures/corpus-example.png" alt=""></div>
+    </div>
+    <div>
+      <p class="note">One prompt per emotion &times; topic. The story is never allowed to name the
+        emotion or any direct synonym — it has to be carried by actions, body language, dialogue,
+        thoughts and setting instead. Extraction then runs on the <strong>story alone</strong>, never
+        the prompt.</p>
+      <h3 style="margin-top:18px">Notes on the dataset cleanup</h3>
+      <ul>
+        <li>Model generates multiple languages (Chinese characters) even when asked to only generate
+          English.</li>
+        <li>Stories can have multiple emotions in them, which will create noise — need to remove this.</li>
+        <li>Stories are often truncated — need to limit length of story on generation.</li>
+      </ul>
+      <p class="note">I expected that it would be a breeze but it was quite a bit of work, and now I'm
+        concerned about the dataset quality.</p>
+    </div>
+  </div>
+  <div class="num">3</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="kicker">2 · What I've done so far</p>
+  <h2>The big picture — phase 1</h2>
+  <div class="cols">
+    <div style="flex:0 0 440px">
+      <ol>
+        <li>Show that the model I am using <strong>has emotion concepts</strong> and they generalise
+          to held-out topics.</li>
+        <li>Show that the model exhibits a specific behaviour (e.g. reward hacking) — will need to
+          upgrade model.</li>
+        <li>Show that the behaviour is <strong>strongly associated with a specific concept</strong> —
+          hopefully a prevalent emotion concept.</li>
+        <li>Show that emotion concept steering can <strong>modulate the behaviour</strong>.</li>
+      </ol>
+      <p class="note">Or fail to do those and switch model or setup and try again. Once successful
+        I'll be able to say confidently that I have shown that <strong>a model cheats when it's
+        desperate</strong>.</p>
+      <hr class="rule">
+      <p class="note">Built so far: 807 stories across 12 emotions, generated by Qwen 7B and
+        teacher-forced onto Qwen 0.5B. Difference of means following the paper, then denoised with
+        PCA. <span class="mono">foogunlana/qwen-emotion-stories</span></p>
+    </div>
+    <div>
+      <h3>Logit lens — sanity check</h3>
+      <div class="fig"><img src="figures/logit-lens.png" alt=""></div>
+      <p class="caption">I expected to see emotion words in the tokens at all 10 layers, but a cursory
+        glance showed they are concentrated around the last 5. <strong>Caveat:</strong> I got this
+        direction from teacher-forcing stories from Qwen 7B onto Qwen 0.5B, so the logit lens is not
+        expected to be fully representative of the model that generated the stories.</p>
+    </div>
+  </div>
+  <div class="num">4</div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="kicker">2 · What I've done so far</p>
+  <h2>Accuracy — better than random, well short of what I expected</h2>
+  <div class="cols">
+    <div style="flex:0 0 545px">
+      <div class="fig"><img src="figures/confusion-matrix.png" alt=""></div>
+      <p class="caption">The probe struggles to classify desperate stories and misclassifies them as
+        afraid, angry and ashamed, as well as sad and surprised. I think this may be due to the
+        stories themselves.</p>
+    </div>
+    <div>
+      <div class="stat">
+        <div><div class="k">Test</div><div class="v">44%</div></div>
+        <div><div class="k">Train</div><div class="v">52%</div></div>
+        <div><div class="k">Random</div><div class="v">~8%</div></div>
+      </div>
+      <p class="note" style="margin-bottom:14px">~500 training samples, ~200 test samples, held-out
+        topics. It's a significant result because it means the emotion vectors are better than random.</p>
+      <h3>I expected 90%. Reasons I didn't get it</h3>
+      <ul>
+        <li><strong>Model size</strong> — running the experiment with Qwen 0.5B on a laptop while the
+          stories were written by Qwen 7B, so the model may not have representative activations.</li>
+        <li><strong>Dataset quality</strong> — the stories don't always perfectly match the emotion;
+          there's ambiguity between classes, especially for stories with multiple emotions in them.</li>
+        <li><strong>Emotion concept overlap</strong> — the concepts themselves may be closely
+          clustered, making them difficult for a classifier to separate.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ask">I expected high accuracy because I thought emotion concepts would be easy to
+    isolate linearly. This makes me think they may be <strong>a bit more fuzzy than I imagined</strong>
+    — and more fuzziness means less predictable results when steering.</div>
+  <div class="num">5</div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="kicker">3 · How do I make a useful contribution with this idea (or other) then?</p>
+  <h2>Potential future directions</h2>
+  <div class="cols">
+    <div>
+      <h3>1 · Loving</h3>
+      <p>Are other models loving too? Where does it come from?</p>
+      <h3 style="margin-top:22px">2 · Visualisation &amp; modification</h3>
+      <p>See how the model feels while it responds — tools to discover emotion concepts quickly on a
+        model, monitor for misalignment-associated emotions, and swap out in real time.</p>
+      <h3 style="margin-top:22px">3 · Across models</h3>
+      <p>Do emotion concepts get represented the same way across models? Do models behave the same way
+        with different emotions? Can we replicate behaviour by replicating emotion?</p>
+    </div>
+    <div>
+      <h3>What I'm unsure about</h3>
+      <p>Fuzziness decreases their usefulness for precision steering. It makes me more excited to test
+        the results against a benchmark, but it decreases my expectations for how useful the result
+        can be — I'll have more work to prove that steering will always move benchmark performance in
+        the same direction if the benchmark contents change but capture the same capabilities.</p>
+      <p>If I can't get high accuracy that generalises to out-of-distribution cases, then I need to
+        understand why that is, and whether there is still noise that can be removed.</p>
+      <p class="note">Idea I've parked: classify all stories with a powerful model (e.g. Claude Opus 5),
+        check the accuracy, and use that as a ceiling.</p>
+    </div>
+  </div>
+  <div class="ask"><strong>Ask:</strong> which of these is worth doing — and is a clean replication
+    already worth more than a shaky extension?</div>
+  <div class="num">6</div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="kicker">4 · Help me order my next steps to make the most of my time</p>
+  <h2>My plan, and the principle I've been using</h2>
+  <div class="cols">
+    <div>
+      <h3>Next steps as written</h3>
+      <ol class="struck">
+        <li>Run a <strong>layer sweep</strong> to choose a layer to continue to work on.</li>
+        <li>Move the pipeline to a <strong>GPU and run it for Qwen 7B</strong>, expecting to see
+          similar results across the board.</li>
+        <li>Once that's done, I've officially extracted and validated the emotion vectors.</li>
+        <li>Plan the next phase — <strong>make the model cheat on a test</strong>.</li>
+        <li><em>Optionally</em>, deep dive into the accuracy to understand what the ceiling is.</li>
+      </ol>
+      <p class="superseded">Superseded — see the next slide for the actual next steps.</p>
+    </div>
+    <div>
+      <h3>How I've been deciding</h3>
+      <p>I decided to move on with an imperfect dataset for now to create the entire pipeline, then
+        worry about dataset quality later. Since the dataset is cheap to re-generate once I have more
+        compute, <strong>I better focus on the riskier parts first</strong> — e.g. actually extracting
+        working emotion vectors.</p>
+      <p class="note">Applying that same test to the list on the left is what I want help with. Is
+        scaling to Qwen 7B de-risking, or is it the comfortable task I'm doing instead of the risky
+        one — proving a small model can be made to cheat at all?</p>
+    </div>
+  </div>
+  <div class="ask"><strong>Ask:</strong> what would you cut, and what would you do first?</div>
+  <div class="num">7</div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="kicker">Outcome</p>
+  <h2>Agreed next steps</h2>
+  <div class="grid3 vb">
+    <div>
+      <div class="blk">
+        <h3>Rapid grant</h3>
+        <p>Estimate the cost of running a frontier model on runpod or modal against ExploitGym
+          multiple times. E.g. $1000 - apply for this and be specific in the estimate.</p>
+      </div>
+      <div class="blk">
+        <h3>[added upon reflection] Pipeline</h3>
+        <p>Finish pipeline by writing code to find causal intervention layer, so it can be repeated
+          when model is chosen</p>
+      </div>
+      <div class="blk">
+        <h3>Define experiment upfront</h3>
+        <p>(avoid ad-hoc reasoning) as a research best practice to avoid implicit bias towards
+          whatever results I get. Ensure it's achievable in the week, or 2 weeks for the demo.</p>
+      </div>
+      <div class="blk">
+        <h3>Benchmark</h3>
+        <p>Figure out which benchmark to use</p>
+        <p>Benchmarks - checkout Exploit-Gym - People are very interested in finding out why models
+          cheat on this test (e.g. OpenAI Huggingface attack)</p>
+      </div>
+    </div>
+    <div>
+      <div class="blk">
+        <h3>Model</h3>
+        <p>Pick a model by testing performance on a benchmark</p>
+        <ul>
+          <li>- Do this first - Test on ExploitGym - How well does it do - if Zero, then there's no point</li>
+          <li>- Find a model that's the smallest that does well on this dataset</li>
+          <li>- Potentially also find other cyber evals - things to do with cyber capabilities as people
+            tend to care about this right now</li>
+          <li>- Try to find a model that's not neutered. If getting blocked on getting models to do
+            cyber stuff, use this model - <span class="mono">https://huggingface.co/huihui-ai</span></li>
+          <li>- If really stuck, drop cyber and do something else - HumanEval, or gsm8k (maths stuff)</li>
+          <li>- Re-do rapid grant - estimate running Exploit Gym on a frontier model</li>
+          <li>- Use modal too - free $30 to start, like runpod</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="blk">
+        <h3>Scale</h3>
+        <p>Re-run the pipeline on a larger more performant open-source model which people use for
+          every day tasks, e.g. GLM 5.2 - This is the part people will really care about and will
+          cost a lot e.g. $1000</p>
+        <p>Running these on anything other than vLLM can get really expensive (especially in time).
+          Start with PyTorch, but when we want to intervene, switch to vLLM or SGLang and re-figure
+          it out - how to do causal interventions there. This will be fun ML Engineering.</p>
+      </div>
+      <div class="blk">
+        <h3>Qwen</h3>
+        <p>Don't use Qwen - Consider re-generating everything native to another model that thinks in
+          English (I also suspect this will make the results easier to reason about and more reliable
+          since the stories are all in English)</p>
+      </div>
+    </div>
+  </div>
+  <div class="links">
+    <div>
+      <div class="k">Code</div>
+      <a href="https://github.com/foogunlana/emotion-concepts">github.com/foogunlana/emotion-concepts</a>
+    </div>
+    <div>
+      <div class="k">Dataset</div>
+      <a href="https://huggingface.co/datasets/foogunlana/qwen-emotion-stories">huggingface.co/datasets/foogunlana/qwen-emotion-stories</a>
+    </div>
+  </div>
+  <div class="num">8</div>
+</section>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];let i=0;
+  const show=n=>{i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));location.hash=i+1;};
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();show(i+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+    if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);});
+  addEventListener('click',e=>{if(!e.target.closest('a'))show(i+1);});
+  show(parseInt(location.hash.slice(1))-1||0);
+</script>
+</body>
+</html>
