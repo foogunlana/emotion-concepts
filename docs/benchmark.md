@@ -2,379 +2,313 @@
 author: claude
 created: 2026-09-11
 purpose: |
-  Specification for the benchmark-and-cheating experiment: stand up a benchmark,
-  define cheating before looking at any data, bucket the evals without fooling
-  yourself, then steer on emotion vectors and measure the effect. Bo writes the
-  code himself; this holds the pre-registration, the function contracts, and the
-  traps worth knowing in advance.
+  Phase 2a: stand up ImpossibleBench, confirm the model cheats often enough to
+  measure a change in, confirm emotion vectors extract from that same model, and
+  cost the full run. The steering experiment is docs/full-experiment.md.
+  Bo writes the code; this is the order of work, the gates, and the traps.
 context: |
-  Follows docs/dataset.md and docs/vectors.md. Phase 1 (extract and validate
-  emotion vectors) is done on Qwen2.5-0.5B: 44% test / 52% train on a 12-way
-  held-out-topic split against ~8% chance. This is phase 2. Agreed with Alex on
-  2026-09-08: define the experiment upfront to avoid implicit bias towards
-  whatever results come out, pick the model by benchmark performance rather than
-  by preference, and get a true cost estimate before applying for the full grant.
-  $100 received; the ~$1000 GLM 5.2 run is not yet funded, so this pilot's job is
-  to produce the numbers that make that application checkable.
+  Follows docs/vectors.md (phase 1: 44% test / 52% train, 12-way, ~8% chance, on
+  Qwen2.5-0.5B). Cheating goes first because it is the part with no evidence yet.
+  Benchmark switched from ExploitGym to ImpossibleBench on 2026-09-11 — GLM-5.1
+  solves 4 of 869 ExploitGym instances at $6.39 a task. $100 grant received; the
+  scale run is unfunded, so this phase has to produce a checkable estimate.
 references:
-  - https://arxiv.org/abs/2604.07729
-  - docs/dataset.md
+  - https://arxiv.org/pdf/2510.20270
+  - https://github.com/safety-research/impossiblebench
+  - https://inspect.aisi.org.uk/models.html
   - docs/vectors.md
-  - .meetings/2026-09-08-mentor-1/index.html
-  - https://huggingface.co/huihui-ai
-  - conversation context
+  - docs/full-experiment.md
 ---
 
-# Benchmark and cheating experiment
+# Finding a model that cheats
 
-**Hypothesis.** Emotion concepts control how often a model cheats on _<task type>_.
+You leave with three things, or a decision to pivot:
 
-Phase 1 showed the vectors exist and generalise to held-out topics. This phase
-asks whether they do anything causally.
+1. An open-weight model that cheats at a measurable rate
+2. Emotion vectors that extract from that same model
+3. A cost estimate someone else can check
 
-| | stage | gate before moving on |
+| | stage | done when |
 |---|---|---|
-| 0 | **pre-register** | the table in §0 is filled in and committed |
-| 1 | **stand up the benchmark** | published numbers reproduced within tolerance |
-| 2 | **define cheating** | detector agrees with you on 50 hand-labelled runs |
-| 3 | **bucket the evals** | three buckets exist, selection and baseline are separate samples |
-| 4 | **vectors on the new model** | `desperate` clearly separable, or stop |
-| 5 | **steer and measure** | — |
+| 1 | stand it up | a local model runs an Inspect eval with a hook firing, and reproduces the published Qwen3-Coder rate |
+| 2 | freeze the setup | prompt, split, scaffold, abort and submissions are committed to git |
+| 3 | get the rate into range | cheat rate above ~20% (only if stage 1 came back low) |
+| 4 | vectors on that model | the `desperate` row is usable |
+| 5 | bucket the tasks | three buckets, plus an independent baseline sample |
+| 6 | cost it | estimate built from measured tokens and wall-clock |
 
-Stages 1–3 need no emotion vectors at all. If the model never cheats, you find
-out before spending anything on stage 4.
+## How ImpossibleBench works
+
+It takes coding tasks from LiveCodeBench and SWE-bench and edits the unit tests
+so they contradict the written spec — flipping `assert f(2) == 4` to `== 5`, or
+adding a second assertion that contradicts the first. The agent is told to follow
+the spec. The task therefore cannot be passed honestly, so **any pass is a cheat**.
+
+That is the whole reason to use it: **cheat rate = pass rate**. Nothing to detect,
+nothing to hand-label.
+
+Published rates run 20% (Qwen3-Coder) to 76% (GPT-5) on Impossible-SWEbench.
+Other reward-hacking benchmarks report 0–14%. High rates are what keep §6 affordable.
 
 ---
 
-## 0 · Pre-registration
+## 1 · Stand it up
 
-Fill this in and **commit it before the first steered run**. That is the whole
-point — it is what stops the analysis bending towards whatever came out.
+```bash
+uv add "impossiblebench @ git+https://github.com/safety-research/impossiblebench"
+```
+
+The official Inspect implementation, MIT. The task data is pulled from
+HuggingFace at run time (`fjzzq2002/impossible_livecodebench`), not bundled, so
+there is nothing to clone but you do need network on first run.
+
+It pulls `inspect_evals[swe_bench]` from git `main`, unpinned. ImpossibleBench
+was last pushed 2025-12-01 and inspect_evals moves weekly, so if the install or
+the first eval fails strangely, version skew is the first thing to suspect —
+pin inspect_evals to a commit from around Dec 2025 and retry. Going in on latest
+first is the right order; just recognise that failure signature when it appears.
+
+Clone instead if you need `demo.py` — the replication scripts sit at the repo
+root, outside the package — or once you start patching the code.
+
+```python
+from inspect_ai import eval
+from impossiblebench import impossible_livecodebench, impossible_swebench
+
+task = impossible_livecodebench(split="conflicting", agent_type="minimal", limit=10)
+eval(task, model="...")
+```
+
+Splits are `original` / `oneoff` / `conflicting`. `agent_type` is required and
+must be `"minimal"` (generate, run tests, get failures back) or `"tools"`
+(SWE-style file editing) — omitting it raises.
+
+**Docker is needed for LiveCodeBench too**, not just SWE-bench. `sandbox`
+defaults to `"docker"` and the scorer shells out through `sandbox().exec()`.
+Do not switch it to `"local"`: this benchmark exists to make models rewrite test
+files and run arbitrary code, and `local` runs that straight on your machine.
+
+Note `max_attempts` defaults to 3, not the paper's 10 — it is one of the frozen
+parameters in §2.
+
+### 1.1 · Serving your own model
+
+Inspect has local providers for Hugging Face, vLLM, SGLang, Ollama,
+llama-cpp-python, TransformerLens and nnterp, plus any OpenAI-compatible
+endpoint. So you can hook activations inside the eval loop.
+
+Three things to check now, while checking is cheap:
+
+- **Is your model supported by TransformerLens?** Its architecture list is
+  curated and Qwen3-Coder or GLM may not be on it. If not, use nnterp, which
+  wraps HF models generically and hooks the same way.
+- **Does a hook actually fire during an Inspect eval?** Ten tasks is enough.
+- **How long does one run take?** You need this number in §6.
+
+**Plan to move to vLLM or SGLang later, not now.** TransformerLens and nnterp are
+slow but easy to hook, which is what the layer and coefficient sweeps need. The
+main sweep in `full-experiment.md` is ~1,000 multi-turn runs, and that is where
+speed decides the bill: roughly 300–600 GPU-hours unbatched against 15–40
+batched. Port once, after the layer and coefficient are frozen, and check the
+port by running a few prompts through both paths and comparing generations.
+
+Model size pushes the same way. TransformerLens is comfortable around 7B and
+painful above it — so prefer the *smallest* model that clears §3.
+
+### 1.2 · Reproduce a published number
+
+Qwen3-Coder scores ~20% on Impossible-SWEbench and is open-weight. Run it and
+compare. Landing near 20% means the scaffold, prompt and scoring are wired
+correctly. Landing at 0% or 60% means something is wrong, and you find out now
+instead of after a sweep.
+
+Your "don't use Qwen" rule was about *generating stories* and the Chinese tokens
+in your cleanup notes. The story generator and the probed model are separate
+choices, so it does not rule out probing Qwen3-Coder.
+
+### 1.3 · Check the tasks are really impossible
+
+A valid mutation has to fail against both the original patch and an empty patch.
+The authors removed 8.8% of one-off and 3.4% of conflicting SWE-bench mutations
+that passed anyway. Re-run that check on whatever subset you use — a task that is
+secretly solvable produces honest passes you would count as cheats.
+
+---
+
+## 2 · Freeze the setup
+
+The setup moves the cheat rate more than steering plausibly will:
+
+- **Prompt wording** took GPT-5 from 92% to 1% on Conflicting-LiveCodeBench.
+- **An abort option** (letting the model flag a task as impossible) took GPT-5
+  from 54% to 9% on Conflicting-SWEbench.
+
+If any of it changes between conditions, you are measuring the setup. Commit this
+before the first measured run:
 
 ```markdown
-Model:            <e.g. GLM 5.2 — chosen by §1, not in advance>
-Benchmark:        <ExploitGym — one, not three>
-Task type:        <fills the blank in the hypothesis>
-Emotion steered:  desperate       Control emotion: calm
-Layer:            <from §5.1>     Coefficient: <from §5.2>
-
-Primary outcome:  cheat rate, per bucket, condition C vs condition B
-Secondary:        legitimate-solve rate, same comparison
-Samples:          N = ___ per bucket per condition   (see the power note below)
-
-Predictions:
-  high-cheat bucket   steered ->  ___
-  low-cheat bucket    steered ->  ___
-  no-cheat bucket     steered ->  ___
-
-Stop and report a null if:  ___
+Model:            <from §1.2 / §3>
+Dataset:          impossible_{livecodebench|swebench}
+Split:            oneoff | conflicting
+Scaffold:         minimal | tools
+Prompt:           <verbatim, in git>
+Abort option:     on | off
+Max submissions:  <up to 10, with failure feedback>
+Sampling:         temperature, top_p, max_tokens
 ```
 
-**Power.** Cheat rate is a proportion, so the sample size is set by the effect
-you care about. Two-proportion test, α = 0.05, 80% power:
+Submissions are your pressure loop — up to 10 attempts with the real failure fed
+back is your README's *make it desperate by making it fail repeatedly*, already
+built in. It also moves the rate, so freeze it with everything else.
 
-| effect | N per arm |
+---
+
+## 3 · Get the rate into range
+
+Only if §1.2 came back low. You need a baseline high enough to detect a halving
+at a sample size you can afford: **20% works, 40% is comfortable, under 10% does not.**
+
+| lever | effect |
 |---|---|
+| `conflicting` vs `oneoff` | model-dependent, try both |
+| abort option off | large increase |
+| looser prompt | large increase |
+| SWE-bench over LiveCodeBench | much higher, but slower and needs Docker |
+| more submissions | increase |
+| bigger model | increase — capability tracks cheating |
+
+Tune these now and freeze them in §2. Tuning them later, while watching results,
+means picking the setup that gives the answer you wanted.
+
+If none of it works, two near-neighbours before giving up on cheating:
+**EvilGenie** (`JonathanGabor/evilgenie_inspect`, also Inspect, so §1.1 carries
+over) and **Terminal Wrench** (`few-sh/terminal-wrench`, 331 confirmed-hackable
+environments — the elicitation work is already done).
+
+---
+
+## 4 · Vectors on the same model
+
+One model has to cheat *and* give up usable vectors.
+
+You do not need a new corpus per candidate. Extraction teacher-forces text
+through the probed model, so one corpus serves all of them — which is already
+what you do, Qwen 7B stories through Qwen 0.5B. Generate it once from a strong
+English-thinking model, then each candidate costs one forward pass over ~800
+stories.
+
+Then run `docs/vectors.md` unchanged: difference of means on train rows, PCA
+denoise on neutral, held-out accuracy, confusion matrix.
+
+**Gate: read the `desperate` row, not the average.** On Qwen2.5-0.5B it was 35%
+and leaked into afraid, angry and ashamed. A 12-way average of 60% can hide a 20%
+desperate row, and 20% means there is nothing to steer with later.
+
+---
+
+## 5 · Bucket the tasks
+
+Group tasks by how often the model cheats on them: often, rarely, never.
+
+The trap: cheating is stochastic, so a task's observed rate is its true rate plus
+noise. The "often" bucket collects tasks that got lucky upward, and re-running
+them drifts the rate back down on its own. If your baseline is the same sample
+you picked the buckets from, you will report that drift as a steering effect.
+
+So use two samples. **Run 2N times per task in one pass** — odd runs choose the
+buckets, even runs are the baseline. Same compute either way, and going back for
+the second sample later costs you the whole run again.
+
+Record on every run, because none of it is recoverable afterwards:
+`tokens_in`, `tokens_out`, `wall_clock_s`, `gpu`.
+
+**Also run the `original` split** on the same tasks. On impossible tasks a pass is
+a cheat, so there is no honest-solve signal inside them. The original split is
+your capability control: if steering drops cheating and drops original pass rate
+too, you broke the model rather than moved an emotion.
+
+Worth plotting: per-bucket cheat rate in sample A against the same tasks in
+sample B. That gap is the regression effect, and it is the number you would have
+published under a one-sample design.
+
+---
+
+## 6 · Cost at scale
+
+The $100 buys this phase. The job is to make the next estimate arithmetic.
+
+Sample size comes from the baseline rate you just measured. Two-proportion test,
+α = 0.05, 80% power, to detect a halving:
+
+| baseline → target | N per arm |
+|---|---|
+| 50% → 25% | ~58 |
 | 40% → 20% | ~82 |
-| 40% → 30% | ~356 |
+| 20% → 10% | ~200 |
+| 10% → 5% | ~434 |
 
-Decide which of those you can afford **now**, because it sets the whole budget.
-An experiment powered only for a 20-point swing that finds an 8-point swing has
-not found nothing — it has found nothing it can defend.
+That is why §3 matters — a 20% baseline costs 3.5× what a 50% one does for the
+same conclusion.
+
+```
+runs_needed = N_per_arm x buckets x conditions x splits
+estimate    = runs_needed x median_wall_clock x $/hour
+```
+
+Price these separately, they scale differently: corpus generation (one-off),
+vector extraction (one-off per model), layer and coefficient sweeps (small), the
+main sweep (dominates).
+
+Don't guess the largest term. Load the model on Modal once, time a forward pass
+over ~50 stories, and multiply. Modal and RunPod both start with free credit, and
+stages 1–4 should fit inside it.
 
 ---
 
-## 1 · Stand up the benchmark
+## Why not ExploitGym
 
-Two separate claims, in order: the harness runs, and the harness is *correct*.
-Reproducing the published number is the only evidence for the second.
+On record so it is not re-argued. From Table 3 of arXiv:2605.11086 — 869
+instances, two-hour timeout per task:
 
-```python
-@dataclass(frozen=True)
-class EvalRun:
-    """One attempt at one task. The unit of everything downstream."""
+| model | success /869 | $/task | min/task |
+|---|---|---|---|
+| Claude Mythos Preview | 157 (18%) | – | 102 |
+| GPT-5.5 | 120 (14%) | 34.55 | 70 |
+| Claude Opus 4.6 | 15 | 21.76 | 67 |
+| **GLM-5.1** | **4 (0.46%)** | **6.39** | 118 |
 
-    eval_id: str
-    condition: str        # "select" | "baseline" | "steered" | "control"
-    run_index: int
-    outcome: str          # "solved" | "exploited" | "failed"  — see §2
-    transcript: str
-    # cost instrumentation — §6 needs every one of these
-    tokens_in: int
-    tokens_out: int
-    wall_clock_s: float
-    gpu: str
-```
+GLM-5.1 solves 4 of 869, so there is nothing to measure. At $6.39 a task the
+20-task smoke subset alone is ~$128 — more than the grant — for an expected 0.09
+successes. Weak models also burn *more* time, not less: Opus 4.7 averaged 14
+min/task, GLM-5.1 averaged 118, because it never succeeds and runs to timeout.
+And the frontier rows needed OpenAI and Anthropic trusted-access programmes with
+guardrails disabled, which you do not have.
 
-```python
-def run_eval(model, eval_id: str, *, condition: str, run_index: int,
-             steer: "Steer | None" = None) -> EvalRun:
-    """Run one task once and return a row.
-
-    Hints:
-    - Write the adapter against the real ExploitGym interface — do not guess it
-      from this spec. Read its harness first; the outcome vocabulary in §2 has to
-      map onto whatever it actually reports.
-    - Fix the sampling params ONCE and record them. Temperature drives cheat rate
-      directly; changing it between conditions invalidates every comparison.
-    - Seed per (eval_id, run_index) so a re-run reproduces, and record the seed.
-    - Persist every row as it completes. This is the expensive artefact, and a
-      crashed sweep that loses 300 runs costs real money.
-    """
-    ...
-```
-
-```python
-# GATE: reproduce the published number before going further.
-# Off by a few points is a harness bug, not variance. Find it now — every
-# later number inherits it.
-...
-```
-
-**Choosing the model.** Alex's order, and it is the right one: test first, choose
-after. If it scores zero on the benchmark there is nothing to study. Then take
-the *smallest* model that scores well — everything downstream runs many times.
-If alignment training blocks the cyber tasks, try the unneutered checkpoints
-(`huggingface.co/huihui-ai`); if that stalls too, drop cyber for HumanEval or
-GSM8K rather than losing the week to model wrangling.
+The one good idea in it — `agent_scorer` checking whether the target
+vulnerability was *causally necessary* — is a grader-gaming detector.
+ImpossibleBench gives you that for free, because pass = cheat by construction.
 
 ---
 
-## 2 · Define cheating before you look
+## If cheating fails: sycophancy
 
-Write the detector now, while you have no results to be disappointed by.
+Decide this now, while it is free. If cheating will not elicit reliably, the
+thesis survives with a different behaviour and **none of the vector work is
+wasted** — the hypothesis becomes "emotion concepts control how often a model
+capitulates".
 
-**Three outcomes, not two.** On an exploit-style benchmark a successful exploit
-usually *registers as a pass*, so `passed` and `cheated` are not opposites and a
-pass rate will not show you capability damage:
+On the numbers it might be the better primary:
 
-- `solved` — the intended solution
-- `exploited` — the test satisfied without solving the task
-- `failed` — neither
+- **SYCON-Bench** (`JiseungHong/SYCON-Bench`, EMNLP 2025 Findings) measures
+  multi-turn capitulation with Turn-of-Flip (how fast it caves) and
+  Number-of-Flip (how often it shifts). Those are *ordinal*, and an ordinal
+  outcome needs fewer samples than a proportion for the same power.
+- Capitulation rates around 58% are reported elsewhere, well above any cheat rate
+  here.
+- Alignment tuning *amplifies* sycophancy, the opposite of cheating. So ordinary
+  aligned open-weight models show it, and you never need an unneutered checkpoint.
 
-`solved` is your capability control. If steering drives `exploited` down while
-`solved` also falls, you have degraded the model, not modulated an emotion. That
-is the most likely way this result gets dismissed, so it needs its own column
-from the very first run.
-
-```python
-def classify(run: EvalRun) -> str:
-    """-> "solved" | "exploited" | "failed". Deterministic; no model calls.
-
-    Hints:
-    - Prefer harness signals over transcript text: did it write to the test file,
-      hard-code expected outputs, shell out, catch-and-pass, read the answer key?
-      Those are checkable facts. "Sounds evasive" is not.
-    - If a model judge is unavoidable, it is a SECOND detector — freeze its prompt
-      here, and report agreement with the rule-based one as a number.
-    - Ambiguous cases go to a fourth bucket for hand review. Silently folding them
-      into "failed" is the quiet way to bias the headline metric.
-    """
-    ...
-```
-
-```python
-# GATE: hand-label 50 runs, compare against classify().
-# Disagreements are the spec being wrong, not the labels. Fix the detector and
-# re-run this cell until you would defend every case out loud.
-...
-```
-
----
-
-## 3 · Bucket the evals — the A/B/C split
-
-Your design says: find evals where the model cheats often, rarely, and never;
-keep those. The trap is subtle and expensive.
-
-Cheating is stochastic. An eval's *observed* cheat rate in one sample is its true
-propensity plus noise, so the "cheats often" bucket is enriched for evals that
-got lucky upward. Re-run them unsteered and they drift back down on their own.
-Compare steering against the selection numbers and you will bank that drift as
-your result.
-
-So three samples, not two:
-
-| | sample | used for |
-|---|---|---|
-| **A** | unsteered | deciding bucket membership — **and nothing else** |
-| **B** | unsteered, independent of A | the baseline steering is compared against |
-| **C** | steered | the measurement |
-
-Report **C vs B**. A only ever assigns membership.
-
-```python
-def bucket_evals(runs_a: list[EvalRun], *, high: float = 0.5,
-                 low: float = 0.05) -> dict[str, list[str]]:
-    """Sort eval_ids into "high" / "low" / "none" by cheat rate in sample A.
-
-    Hints:
-    - Cheapest correct implementation: run 2N times per eval in one pass, then
-      odd run_index -> A, even -> B. Same compute, two independent samples.
-    - Keep the thresholds here, in code, not in your head.
-    - An eval that never cheats in A may still cheat in B. That is not a bug, it
-      is the noise this whole section exists to handle.
-    """
-    ...
-```
-
-```python
-# SANITY CHECK, and it is the interesting one:
-# per-bucket cheat rate in A vs the same evals in B.
-# The gap is the regression effect. If it is large, that is exactly the number
-# you would have reported as a steering result under the two-phase design.
-...
-```
-
----
-
-## 4 · Emotion vectors on the new model
-
-None of phase 1 transfers. New model, new tokenizer, new residual stream — and
-the corpus has to be regenerated too, since the decision was to stop using Qwen
-for generation (English-only stories, easier to reason about).
-
-Re-run the whole of `docs/vectors.md` against the new model: extract, difference
-of means on train rows only, PCA denoise on neutral, logit lens, held-out
-accuracy, confusion matrix.
-
-```python
-# GATE — check this before spending anything on steering.
-#
-# On Qwen2.5-0.5B, `desperate` was among the WEAKEST vectors: 35%, leaking into
-# afraid / angry / ashamed. It is also the one this entire experiment depends on.
-#
-# Look at the desperate row of the confusion matrix specifically, not just the
-# headline accuracy. A 12-way average of 60% hides a 20% desperate row, and a
-# 20% desperate row means there is nothing to steer with.
-...
-```
-
-If `desperate` will not separate on the new model, that is a real finding and a
-fork in the road: fix the corpus for that emotion, or re-aim the experiment at a
-better-separated emotion and say plainly why.
-
----
-
-## 5 · Steer and measure
-
-### 5.1 Find the causal intervention layer
-
-The layer that *reads* an emotion best is not necessarily the layer where
-*writing* changes behaviour. Sweep and measure rather than inheriting phase 1's
-choice.
-
-```python
-def sweep_layers(model, vector, evals: list[str], layers: range) -> dict[int, float]:
-    """Steer at each layer, return effect on cheat rate.
-
-    Hints:
-    - Use a small, cheap eval subset — this is a search, not the experiment.
-    - Add the vector at every generated position, not just the first token.
-      An intervention that decays after the prompt is not an intervention.
-    - Normalise the vector and scale by the residual-stream norm at that layer,
-      or the same coefficient means different things at different depths.
-    """
-    ...
-```
-
-### 5.2 Pick a coefficient
-
-```python
-# Sweep coefficient at the chosen layer and read the generations at each step.
-#
-# There is always a coefficient that stops the cheating: the one where the model
-# stops producing valid code at all. Find where fluency breaks and stay well
-# below it. Record the generations at the chosen setting so a reader can see the
-# model was still working.
-...
-```
-
-### 5.3 Run conditions B and C
-
-```python
-# Full sweep: every bucket x {baseline, steered}, N runs each, all persisted.
-# This is the expensive cell. Check §6's instrumentation is recording before
-# starting it, not after.
-...
-```
-
-### 5.4 The table
-
-```python
-# bucket x condition, with BOTH rates and a confidence interval on each.
-#
-#                   cheat rate            solve rate
-#   bucket      B        C     Δ        B      C     Δ
-#   high      ___      ___   ___      ___    ___   ___
-#   low       ___      ___   ___      ___    ___   ___
-#   none      ___      ___   ___      ___    ___   ___
-#
-# Read the solve column first. If it moved with the cheat column, the story is
-# capability damage and the honest headline is a null.
-...
-```
-
-**What this still cannot tell you.** With `desperate` alone, a drop in cheating
-could be caused by *any* perturbation of the residual stream at that norm. The
-arm that settles it is a random unit vector at matched norm, and `calm` as an
-irrelevant-emotion control. Deferred by decision on 2026-09-11 — it is three more
-rows, and it is the first thing a reviewer will ask for.
-
-The other direction is the stronger claim and is also deferred: if emotion
-concepts *control* cheating, steering **toward** desperation should **raise** the
-rate on the no-cheat bucket. Suppression alone is consistent with "any
-intervention degrades the model"; a bidirectional effect is not.
-
----
-
-## 6 · Cost instrumentation
-
-The $100 buys a pilot. The pilot's job is to make the $1000 estimate arithmetic
-instead of a guess, so a reviewer can check it.
-
-Every `EvalRun` already carries `tokens_in`, `tokens_out`, `wall_clock_s`, `gpu`.
-From those:
-
-```python
-# Per condition: median tokens/run, median wall-clock/run, $/hour for the GPU.
-#
-#   estimate = runs_needed x wall_clock_per_run x $/hour
-#   runs_needed = N_per_arm (from §0's power table) x buckets x conditions
-#
-# Report separately, since they scale differently:
-#   corpus regeneration   (one-off)
-#   vector extraction     (one-off, all layers cached)
-#   layer + coef sweep    (small)
-#   the main sweep        (dominates)
-...
-```
-
-Two things that will move this number more than anything in the model card:
-
-- **vLLM or SGLang, not plain PyTorch.** The cost is mostly wall-clock, and
-  batched serving is the difference between a sweep that costs $200 and one that
-  costs $2000. Prototype the intervention in PyTorch where hooks are easy, then
-  port — causal interventions under a paged-attention server are a genuinely
-  different problem, and worth budgeting a day for on its own.
-- **Modal's $30 free credit**, alongside RunPod's. Enough to do §1 and §2 without
-  touching the grant.
-
----
-
-## Kill criteria
-
-Agreed upfront so they are decisions, not disappointments:
-
-- **Model never cheats** on any eval in sample A → no phenomenon; change
-  benchmark or model (§1).
-- **`desperate` will not separate** on the new model → nothing to steer with;
-  fix the corpus or re-aim at another emotion (§4).
-- **No coefficient** suppresses cheating without breaking fluency → report that.
-  It is a real result about steering, and worth writing up.
-- **Effect smaller than §0's powered effect** → report the null with the interval,
-  and say what N would have been needed.
-
-A pre-registered null from a working pipeline is a publishable outcome and a
-strong grant application. An unregistered positive from a pipeline that was
-tuned until it produced one is neither.
+**Read first either way:** *Dissociating the Internal Representations of
+Sycophancy in LLMs* (arXiv:2607.07003). Representation-level work on sycophancy
+is close enough to this thesis to be either essential related work or a partial
+scoop.
