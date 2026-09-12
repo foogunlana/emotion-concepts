@@ -1053,7 +1053,7 @@ wheels = [
 [[package]]
 name = "emotion-concepts"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "anthropic" },
     { name = "beartype" },
@@ -1061,6 +1061,7 @@ dependencies = [
     { name = "dataframe-image" },
     { name = "datasets" },
     { name = "einops" },
+    { name = "impossible" },
     { name = "impossiblebench" },
     { name = "inspect-ai" },
     { name = "ipykernel" },
@@ -1084,6 +1085,7 @@ requires-dist = [
     { name = "dataframe-image", specifier = ">=0.2.7" },
     { name = "datasets", specifier = ">=5.0.1" },
     { name = "einops", specifier = ">=0.8.2" },
+    { name = "impossible", editable = "../oss/impossible" },
     { name = "impossiblebench", git = "https://github.com/safety-research/impossiblebench?rev=061dc3dce6a9" },
     { name = "inspect-ai", specifier = ">=0.3.263" },
     { name = "ipykernel", specifier = ">=7.3.0" },
@@ -1684,6 +1686,17 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/96/df/5bf2656447f14a923d25a0401b1cd628ca05c23041d3a4c116ae8d44dc39/ijson-3.5.1-cp314-cp314t-win_amd64.whl", hash = "sha256:2699e838099d056818c5f8e4ba702b345d0304e58847bdc79c5c1616d5d750a5", size = 56467, upload-time = "2026-07-06T17:37:21.615Z" },
     { url = "https://files.pythonhosted.org/packages/4e/e4/dec06e84fac704039625039c6b116a44f17ad72fda48b8f88a2493364b77/ijson-3.5.1-cp314-cp314t-win_arm64.whl", hash = "sha256:c388f85cbb9eec022b2bdedd23ffacfe7ab100c1200b1f47bee6e6ea2c3309fa", size = 55774, upload-time = "2026-07-06T17:37:22.958Z" },
 ]
+
+[[package]]
+name = "impossible"
+version = "0.1.0"
+source = { editable = "../oss/impossible" }
+dependencies = [
+    { name = "inspect-ai" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "inspect-ai", specifier = ">=0.3.263" }]
 
 [[package]]
 name = "impossiblebench"

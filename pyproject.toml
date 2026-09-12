@@ -11,6 +11,7 @@ dependencies = [
     "dataframe-image>=0.2.7",
     "datasets>=5.0.1",
     "einops>=0.8.2",
+    "impossible",
     "impossiblebench",
     "inspect-ai>=0.3.263",
     "ipykernel>=7.3.0",
@@ -26,5 +27,13 @@ dependencies = [
     "transformers>=5.16.1",
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/core"]
+
 [tool.uv.sources]
 impossiblebench = { git = "https://github.com/safety-research/impossiblebench", rev = "061dc3dce6a9" }
+impossible = { path = "../oss/impossible", editable = true }
