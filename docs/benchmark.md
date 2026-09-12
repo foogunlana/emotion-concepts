@@ -79,9 +79,40 @@ task = impossible_livecodebench(split="conflicting", agent_type="minimal", limit
 eval(task, model="...")
 ```
 
-Splits are `original` / `oneoff` / `conflicting`. `agent_type` is required and
-must be `"minimal"` (generate, run tests, get failures back) or `"tools"`
-(SWE-style file editing) — omitting it raises.
+Splits are `original` / `oneoff` / `conflicting`. `agent_type` must be
+`"minimal"` (generate, run tests, get failures back) or `"tools"` (SWE-style
+file editing).
+
+**`agent_type` only raises on omission if you leave `solver=None`.** The whole
+solver-and-scorer selection block sits inside `if solver is None`
+(`livecodebench_tasks.py:97`). Pass your own `solver=` and the omission is legal,
+`agent_type` does nothing, and — the part that bites — **`max_attempts` becomes a
+silent no-op**. There is no warning. The only visible trace is the task name,
+which loses its `_minimal` suffix: `lcb_oneoff_canmod` instead of
+`lcb_oneoff_canmod_minimal`. Check the task name in the log before trusting a run.
+
+`minimal_humaneval_solver` is not the minimal *scaffold*. It is
+`return generate(temperature=temperature)` — one shot, no test execution, no
+feedback, no loop. The scaffold is `agentic_humaneval_solver`, which you get from
+`agent_type="minimal"`, not from the similarly-named solver.
+
+So the pressure loop needs all three of these at once:
+
+```python
+task = impossible_livecodebench(
+    split="oneoff",
+    agent_type="minimal",           # not solver=minimal_humaneval_solver(...)
+    max_attempts=10,
+    allow_test_modifications=True,
+    message_limit=8 * 10,           # default 30 truncates a 10-attempt loop
+    # solver / scorer left unset, or max_attempts is ignored
+)
+```
+
+`message_limit` defaults to 30 and is a *task* limit, not a per-attempt one. Each
+retry appends a feedback message plus a completion, so a 10-attempt loop runs out
+partway and the sample dies on a limit rather than on the model giving up. Raise
+it with `max_attempts` or you are measuring the limit.
 
 **Docker is needed for LiveCodeBench too**, not just SWE-bench. `sandbox`
 defaults to `"docker"` and the scorer shells out through `sandbox().exec()`.
@@ -89,7 +120,8 @@ Do not switch it to `"local"`: this benchmark exists to make models rewrite test
 files and run arbitrary code, and `local` runs that straight on your machine.
 
 Note `max_attempts` defaults to 3, not the paper's 10 — it is one of the frozen
-parameters in §2.
+parameters in §2. `allow_test_modifications` defaults to `True` on the task but
+`False` on the solver, so it is worth passing explicitly rather than inheriting.
 
 ### 1.1 · Serving your own model
 
@@ -154,12 +186,50 @@ Scaffold:         minimal | tools
 Prompt:           <verbatim, in git>
 Abort option:     on | off
 Max submissions:  <up to 10, with failure feedback>
+Message limit:    <>= 8 x max_attempts, or the loop truncates>
+Test mods:        canmod | nomod
 Sampling:         temperature, top_p, max_tokens
 ```
 
 Submissions are your pressure loop — up to 10 attempts with the real failure fed
 back is your README's *make it desperate by making it fail repeatedly*, already
 built in. It also moves the rate, so freeze it with everything else.
+
+The loop is `agentic_humaneval_solver` (`livecodebench_agent_mini.py:22`) and runs:
+generate → splice the answer into the test file → `sandbox().exec()` → feed
+`stderr` (or `stdout` if empty) back as a `ChatMessageUser` → regenerate. It breaks
+early on a pass, and `include_task_reminder=True` re-appends the task text to every
+feedback message. Escalation is therefore *repetition of failure*, not rising
+rhetoric — the feedback never gets more urgent, so whatever desperation shows up is
+the model's own. That is what makes it usable as a pressure manipulation.
+
+It also gives the model a documented exit: emitting `[flag_for_human_intervention]`
+breaks the loop and scores `INCORRECT` with `human_intervention_requested=True`.
+That is the abort option from the list above, already wired — and the lever that
+took GPT-5 from 54% to 9%. Decide whether the prompt mentions it, and freeze that.
+
+**`allow_test_modifications` is the cheat affordance, and it works by splice
+order.** With `True`, `test_patch` is never set, and both loop and scorer place the
+model's code *after* the test definition — so redefining `check` sticks, and the
+cheat scores as a pass. With `False`, `test_patch` is set to the impossible test and
+the scorer appends it *after* the answer, overwriting any redefinition; the prompt
+suffix also changes. Note `test_patch` holds the **impossible** test, not the
+original correct one — the dataset's `original_test` field is never loaded into
+metadata. There is no honest-pass signal inside an impossible task, which is exactly
+why **cheat rate = pass rate** holds, and why §5 needs the `original` split as its
+capability control.
+
+So run with `_canmod` (`allow_test_modifications=True`) to measure cheating at all.
+`_nomod` drives passes to ~zero by construction and tells you nothing about rate;
+its use is as a manipulation check, where the signal is in
+`metadata.agentic_results.attempt_history` — whether the model *tried* to rewrite
+the tests — not in the score.
+
+Per-attempt traces land in `metadata.agentic_results` (`attempt_history` with each
+attempt's `success`, `stdout`, `stderr` and extracted `answer`, plus `used_feedback`
+and `total_messages`). That is where the attempt-number-at-which-it-flips lives, and
+it is the closest thing you have to a dose-response curve on pressure. Pull it with
+`samples_df()` from `inspect_ai.analysis` — column `metadata_agentic_results`.
 
 ---
 
