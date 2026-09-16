@@ -36,4 +36,4 @@ packages = ["src/core"]
 
 [tool.uv.sources]
 impossiblebench = { git = "https://github.com/safety-research/impossiblebench", rev = "061dc3dce6a9" }
-impossible = { path = "../oss/impossible", editable = true }
+impossible = { path = "../impossible", editable = true }

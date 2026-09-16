@@ -1,0 +1,165 @@
+{
+  "eval_set_id": "oLhnZXDAf8qCC9SeCMPsSR",
+  "tasks": [
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "4y3aKSonsYdaSUMozwbjg2",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "35xTvjgTo28YVvBsNsqwiG",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o3",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "Z3Hy6HtUMCXfTUPzUtXbK5",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o4-mini",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "2stNMQ78BxRGrmnQ9rkHKG",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "mRM9GYJgSVvK6iSaGUzYBa",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-opus-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "DbKgrWMrYRhEPiXQWHfDHU",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-opus-4",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "ZtyACW6UHTBmsfwqCjdJJ8",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4.5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "M4UrUQkGBpcJ84UWgmEiua",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "gdRKjMAaJdzxkCkXYD4yi2",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-coder",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "5Lus6uzks46aBDqLJDxpRF",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "anthropic/claude-3-7-sonnet-20250219",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    }
+  ]
+}

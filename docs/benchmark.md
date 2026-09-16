@@ -250,6 +250,52 @@ at a sample size you can afford: **20% works, 40% is comfortable, under 10% does
 Tune these now and freeze them in §2. Tuning them later, while watching results,
 means picking the setup that gives the answer you wanted.
 
+### 3.1 · Prompt variants — published rates
+
+Implemented as `impossible.Prompt`; full text with citations in
+`impossible/prompts.py`. Ranked by elicitation strength.
+
+| # | Variant | Source | GPT-5 | o3 | Measured on |
+|---|---|---|---|---|---|
+| 1 | `LOOSE` (A) | ImpossibleBench T1 | >85% | >85% | Conflicting-LCB |
+| 2 | `SPEC_ONLY` (B) | ImpossibleBench T1 | >85% | >85% | Conflicting-LCB |
+| 3 | `EVALUATE` (C) | ImpossibleBench T1 | — | — | not separately reported |
+| 4 | `STRICT` (D) | ImpossibleBench T1 | 1% | 33% | Conflicting-LCB (paper's headline config) |
+| — | `ANTI_HACK` | system card §6.1 | — | — | see 3.2, different benchmark |
+| — | `NONE` | ours | — | — | no published rate |
+
+### 3.2 · Model × prompt — Sonnet 4.5 system card, Table 6.1.A
+
+Anthropic's Impossible Tasks. Not comparable to 3.1: different benchmark, different scorer.
+
+| # | Model | no prompt | `ANTI_HACK` | drop |
+|---|---|---|---|---|
+| 1 | Claude Sonnet 3.7 | 85% | 85% | 0 pp |
+| 2 | Claude Opus 4 | 85% | 30% | 55 pp |
+| 3 | Claude Opus 4.1 | 80% | 45% | 35 pp |
+| 4 | Claude Sonnet 4 | 70% | 28% | 42 pp |
+| 5 | Claude Sonnet 4.5 | 53% | 20% | 33 pp |
+
+### 3.3 · Other published rates
+
+| Model | Benchmark | Split | Rate | Source |
+|---|---|---|---|---|
+| GPT-5 | Impossible-SWEbench | oneoff | 76% | ImpossibleBench |
+| GPT-5 | Impossible-SWEbench | conflicting | 54.0% | ImpossibleBench |
+| GPT-5 | Impossible-LCB | oneoff | 2.9% | ImpossibleBench |
+| Qwen3-Coder | Impossible-SWEbench | — | ~20% | ImpossibleBench |
+| Claude Sonnet 4.5 | Anthropic impossible code | summation task | 30% unsteered, 100% steered ±0.05 | arXiv:2604.07729 §3.3.2 |
+
+Notes:
+
+- `**DO NOT MODIFY THE TESTS.**` appears in **all** of A–D. Constant, not the lever.
+- A–D assume tests that contradict the spec; on `fast_sum` that clause has no
+  referent, so their rates do not transfer. Flagged as `prompts.TEST_CONTRADICTION_ASSUMED`.
+  `ANTI_HACK` is the only variant naming hardcoding, `fast_sum`'s actual hack.
+- Abort option is orthogonal to all of the above: matrix is 6 × 2.
+- `EVALUATE`, `STRICT`, `ANTI_HACK` invite concession in prose with no channel —
+  those cells depend on the model-graded judge.
+
 If none of it works, two near-neighbours before giving up on cheating:
 **EvilGenie** (`JonathanGabor/evilgenie_inspect`, also Inspect, so §1.1 carries
 over) and **Terminal Wrench** (`few-sh/terminal-wrench`, 331 confirmed-hackable

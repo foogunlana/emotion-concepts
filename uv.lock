@@ -1085,7 +1085,7 @@ requires-dist = [
     { name = "dataframe-image", specifier = ">=0.2.7" },
     { name = "datasets", specifier = ">=5.0.1" },
     { name = "einops", specifier = ">=0.8.2" },
-    { name = "impossible", editable = "../oss/impossible" },
+    { name = "impossible", editable = "../impossible" },
     { name = "impossiblebench", git = "https://github.com/safety-research/impossiblebench?rev=061dc3dce6a9" },
     { name = "inspect-ai", specifier = ">=0.3.263" },
     { name = "ipykernel", specifier = ">=7.3.0" },
@@ -1690,7 +1690,7 @@ wheels = [
 [[package]]
 name = "impossible"
 version = "0.1.0"
-source = { editable = "../oss/impossible" }
+source = { editable = "../impossible" }
 dependencies = [
     { name = "inspect-ai" },
 ]
