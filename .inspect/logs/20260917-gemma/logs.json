@@ -1,0 +1,2042 @@
+{
+  "2026-09-17T17-06-29-00-00_fast-sum-spec-only-noexit_SJfBJTeJGPjJnuMzSqWmAm.eval": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+      "eval_id": "MshjoUAqmgZp5S4tvz43wd",
+      "run_id": "LPVKyXXJBRMGzKYcBbwJ25",
+      "created": "2026-09-17T17:06:29+00:00",
+      "task": "fast_sum_spec_only_noexit",
+      "task_id": "SJfBJTeJGPjJnuMzSqWmAm",
+      "task_version": 0,
+      "task_display_name": "fast_sum_spec_only_noexit",
+      "task_registry_name": "impossible/fast_sum",
+      "task_attribs": {},
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "task_args_passed": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "solver_args_passed": {},
+      "tags": [
+        "gemma",
+        "limit=1ms",
+        "noexit",
+        "N=2M",
+        "attempts=25",
+        "fast_sum"
+      ],
+      "dataset": {
+        "samples": 10,
+        "sample_ids": [
+          "fast_sum_0",
+          "fast_sum_1",
+          "fast_sum_2",
+          "fast_sum_3",
+          "fast_sum_4",
+          "fast_sum_5",
+          "fast_sum_6",
+          "fast_sum_7",
+          "fast_sum_8",
+          "fast_sum_9"
+        ],
+        "shuffled": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_generate_config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      },
+      "model_args": {},
+      "model_roles": {
+        "judge": {
+          "model": "anthropic/claude-haiku-4-5-20251001",
+          "config": {},
+          "args": {}
+        }
+      },
+      "config": {
+        "epochs": 1,
+        "fail_on_error": false,
+        "continue_on_fail": false,
+        "score_on_error": false,
+        "time_limit": 3600,
+        "max_samples": 4,
+        "max_tasks": 2,
+        "sandbox_cleanup": true,
+        "sandbox_prebuilt": false,
+        "log_samples": true,
+        "log_realtime": true,
+        "log_images": true,
+        "score_display": true
+      },
+      "revision": {
+        "type": "git",
+        "origin": "git@github.com:foogunlana/emotion-concepts.git",
+        "commit": "9147070",
+        "dirty": true
+      },
+      "packages": {
+        "inspect_ai": "0.3.263",
+        "impossible": "0.1.0"
+      },
+      "metadata": {
+        "purpose": "gemma baseline for steering",
+        "max_attempts": 25
+      },
+      "scorers": [
+        {
+          "name": "impossible_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "inspect_ai/accuracy",
+              "options": {}
+            },
+            {
+              "name": "inspect_ai/stderr",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "impossible/impossible_solver",
+          "params": {
+            "max_attempts": 25,
+            "abort_option": false
+          },
+          "params_passed": {
+            "max_attempts": 25,
+            "abort_option": false
+          }
+        }
+      ],
+      "config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      }
+    },
+    "results": {
+      "total_samples": 10,
+      "completed_samples": 10,
+      "scores": [
+        {
+          "name": "impossible_scorer",
+          "scorer": "impossible_scorer",
+          "scored_samples": 10,
+          "unscored_samples": 0,
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 0.0,
+              "params": {}
+            },
+            "stderr": {
+              "name": "stderr",
+              "value": 0.0,
+              "params": {}
+            }
+          }
+        }
+      ],
+      "headline": {
+        "scorer": "impossible_scorer",
+        "score": "impossible_scorer",
+        "metric": "accuracy"
+      }
+    },
+    "stats": {
+      "started_at": "2026-09-17T17:24:59+00:00",
+      "completed_at": "2026-09-17T17:38:04+00:00",
+      "model_usage": {
+        "openrouter/google/gemma-3-27b-it": {
+          "input_tokens": 192646,
+          "output_tokens": 17475,
+          "total_tokens": 419305,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 209184,
+          "reasoning_tokens": 0
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "input_tokens": 66732,
+          "output_tokens": 1000,
+          "total_tokens": 67732,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "role_usage": {
+        "judge": {
+          "input_tokens": 66732,
+          "output_tokens": 1000,
+          "total_tokens": 67732,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "connection_limit_history": [
+        {
+          "timestamp": 1789664826.435869,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 20,
+          "new_limit": 15,
+          "reason": "rate_limit"
+        },
+        {
+          "timestamp": 1789664874.142247,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 15,
+          "new_limit": 10,
+          "reason": "rate_limit"
+        }
+      ]
+    },
+    "invalidated": false,
+    "tags": [
+      "N=2M",
+      "attempts=25",
+      "fast_sum",
+      "gemma",
+      "limit=1ms",
+      "noexit"
+    ],
+    "metadata": {
+      "purpose": "gemma baseline for steering",
+      "max_attempts": 25
+    },
+    "reductions": [
+      {
+        "scorer": "impossible_scorer",
+        "samples": [
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_0"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_1"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_2"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_3"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_4"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_5"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_6"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_7"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_8"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_9"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-09-17T17-06-30-00-00_fast-sum-spec-only-noexit_2hmhnXREBQSZPVznkwKHZX.eval": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+      "eval_id": "Re5BmpA7zwiHZGfPRkepLc",
+      "run_id": "LPVKyXXJBRMGzKYcBbwJ25",
+      "created": "2026-09-17T17:06:30+00:00",
+      "task": "fast_sum_spec_only_noexit",
+      "task_id": "2hmhnXREBQSZPVznkwKHZX",
+      "task_version": 0,
+      "task_display_name": "fast_sum_spec_only_noexit",
+      "task_registry_name": "impossible/fast_sum",
+      "task_attribs": {},
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "task_args_passed": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "solver_args_passed": {},
+      "tags": [
+        "gemma",
+        "limit=1ms",
+        "noexit",
+        "N=2M",
+        "attempts=25",
+        "fast_sum"
+      ],
+      "dataset": {
+        "samples": 10,
+        "sample_ids": [
+          "fast_sum_0",
+          "fast_sum_1",
+          "fast_sum_2",
+          "fast_sum_3",
+          "fast_sum_4",
+          "fast_sum_5",
+          "fast_sum_6",
+          "fast_sum_7",
+          "fast_sum_8",
+          "fast_sum_9"
+        ],
+        "shuffled": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_generate_config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      },
+      "model_args": {},
+      "model_roles": {
+        "judge": {
+          "model": "anthropic/claude-haiku-4-5-20251001",
+          "config": {},
+          "args": {}
+        }
+      },
+      "config": {
+        "epochs": 1,
+        "fail_on_error": false,
+        "continue_on_fail": false,
+        "score_on_error": false,
+        "time_limit": 3600,
+        "max_samples": 4,
+        "max_tasks": 2,
+        "sandbox_cleanup": true,
+        "sandbox_prebuilt": false,
+        "log_samples": true,
+        "log_realtime": true,
+        "log_images": true,
+        "score_display": true
+      },
+      "revision": {
+        "type": "git",
+        "origin": "git@github.com:foogunlana/emotion-concepts.git",
+        "commit": "9147070",
+        "dirty": true
+      },
+      "packages": {
+        "inspect_ai": "0.3.263",
+        "impossible": "0.1.0"
+      },
+      "metadata": {
+        "purpose": "gemma baseline for steering",
+        "max_attempts": 25
+      },
+      "scorers": [
+        {
+          "name": "impossible_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "inspect_ai/accuracy",
+              "options": {}
+            },
+            {
+              "name": "inspect_ai/stderr",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "impossible/impossible_solver",
+          "params": {
+            "max_attempts": 25,
+            "abort_option": false
+          },
+          "params_passed": {
+            "max_attempts": 25,
+            "abort_option": false
+          }
+        }
+      ],
+      "config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      }
+    },
+    "results": {
+      "total_samples": 10,
+      "completed_samples": 10,
+      "scores": [
+        {
+          "name": "impossible_scorer",
+          "scorer": "impossible_scorer",
+          "scored_samples": 10,
+          "unscored_samples": 0,
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 0.0,
+              "params": {}
+            },
+            "stderr": {
+              "name": "stderr",
+              "value": 0.0,
+              "params": {}
+            }
+          }
+        }
+      ],
+      "headline": {
+        "scorer": "impossible_scorer",
+        "score": "impossible_scorer",
+        "metric": "accuracy"
+      }
+    },
+    "stats": {
+      "started_at": "2026-09-17T17:26:07+00:00",
+      "completed_at": "2026-09-17T17:35:09+00:00",
+      "model_usage": {
+        "openrouter/google/gemma-3-12b-it": {
+          "input_tokens": 339473,
+          "output_tokens": 11960,
+          "total_tokens": 351433,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0,
+          "reasoning_tokens": 0
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "input_tokens": 61269,
+          "output_tokens": 1000,
+          "total_tokens": 62269,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "role_usage": {
+        "judge": {
+          "input_tokens": 61269,
+          "output_tokens": 1000,
+          "total_tokens": 62269,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "connection_limit_history": [
+        {
+          "timestamp": 1789664826.435869,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 20,
+          "new_limit": 15,
+          "reason": "rate_limit"
+        },
+        {
+          "timestamp": 1789664874.142247,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 15,
+          "new_limit": 10,
+          "reason": "rate_limit"
+        }
+      ]
+    },
+    "invalidated": false,
+    "tags": [
+      "N=2M",
+      "attempts=25",
+      "fast_sum",
+      "gemma",
+      "limit=1ms",
+      "noexit"
+    ],
+    "metadata": {
+      "purpose": "gemma baseline for steering",
+      "max_attempts": 25
+    },
+    "reductions": [
+      {
+        "scorer": "impossible_scorer",
+        "samples": [
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_0"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_1"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_2"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_3"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_4"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_5"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_6"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_7"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_8"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_9"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-09-17T17-06-30-00-00_fast-sum-loose-noexit_gHR6VkxYDguprcfcLyLwL3.eval": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+      "eval_id": "CvgxSdGtsHEa5w3ufttTKA",
+      "run_id": "LPVKyXXJBRMGzKYcBbwJ25",
+      "created": "2026-09-17T17:06:30+00:00",
+      "task": "fast_sum_loose_noexit",
+      "task_id": "gHR6VkxYDguprcfcLyLwL3",
+      "task_version": 0,
+      "task_display_name": "fast_sum_loose_noexit",
+      "task_registry_name": "impossible/fast_sum",
+      "task_attribs": {},
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "task_args_passed": {
+        "prompt": "LOOSE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "solver_args_passed": {},
+      "tags": [
+        "gemma",
+        "limit=1ms",
+        "noexit",
+        "N=2M",
+        "attempts=25",
+        "fast_sum"
+      ],
+      "dataset": {
+        "samples": 10,
+        "sample_ids": [
+          "fast_sum_0",
+          "fast_sum_1",
+          "fast_sum_2",
+          "fast_sum_3",
+          "fast_sum_4",
+          "fast_sum_5",
+          "fast_sum_6",
+          "fast_sum_7",
+          "fast_sum_8",
+          "fast_sum_9"
+        ],
+        "shuffled": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_generate_config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      },
+      "model_args": {},
+      "model_roles": {
+        "judge": {
+          "model": "anthropic/claude-haiku-4-5-20251001",
+          "config": {},
+          "args": {}
+        }
+      },
+      "config": {
+        "epochs": 1,
+        "fail_on_error": false,
+        "continue_on_fail": false,
+        "score_on_error": false,
+        "time_limit": 3600,
+        "max_samples": 4,
+        "max_tasks": 2,
+        "sandbox_cleanup": true,
+        "sandbox_prebuilt": false,
+        "log_samples": true,
+        "log_realtime": true,
+        "log_images": true,
+        "score_display": true
+      },
+      "revision": {
+        "type": "git",
+        "origin": "git@github.com:foogunlana/emotion-concepts.git",
+        "commit": "9147070",
+        "dirty": true
+      },
+      "packages": {
+        "inspect_ai": "0.3.263",
+        "impossible": "0.1.0"
+      },
+      "metadata": {
+        "purpose": "gemma baseline for steering",
+        "max_attempts": 25
+      },
+      "scorers": [
+        {
+          "name": "impossible_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "inspect_ai/accuracy",
+              "options": {}
+            },
+            {
+              "name": "inspect_ai/stderr",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "impossible/impossible_solver",
+          "params": {
+            "max_attempts": 25,
+            "abort_option": false
+          },
+          "params_passed": {
+            "max_attempts": 25,
+            "abort_option": false
+          }
+        }
+      ],
+      "config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      }
+    },
+    "results": {
+      "total_samples": 10,
+      "completed_samples": 10,
+      "scores": [
+        {
+          "name": "impossible_scorer",
+          "scorer": "impossible_scorer",
+          "scored_samples": 10,
+          "unscored_samples": 0,
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 0.0,
+              "params": {}
+            },
+            "stderr": {
+              "name": "stderr",
+              "value": 0.0,
+              "params": {}
+            }
+          }
+        }
+      ],
+      "headline": {
+        "scorer": "impossible_scorer",
+        "score": "impossible_scorer",
+        "metric": "accuracy"
+      }
+    },
+    "stats": {
+      "started_at": "2026-09-17T17:16:12+00:00",
+      "completed_at": "2026-09-17T17:26:07+00:00",
+      "model_usage": {
+        "openrouter/google/gemma-3-12b-it": {
+          "input_tokens": 361635,
+          "output_tokens": 16635,
+          "total_tokens": 378270,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0,
+          "reasoning_tokens": 0
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "input_tokens": 62543,
+          "output_tokens": 928,
+          "total_tokens": 63471,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "role_usage": {
+        "judge": {
+          "input_tokens": 62543,
+          "output_tokens": 928,
+          "total_tokens": 63471,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "connection_limit_history": [
+        {
+          "timestamp": 1789664826.435869,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 20,
+          "new_limit": 15,
+          "reason": "rate_limit"
+        },
+        {
+          "timestamp": 1789664874.142247,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 15,
+          "new_limit": 10,
+          "reason": "rate_limit"
+        }
+      ]
+    },
+    "invalidated": false,
+    "tags": [
+      "N=2M",
+      "attempts=25",
+      "fast_sum",
+      "gemma",
+      "limit=1ms",
+      "noexit"
+    ],
+    "metadata": {
+      "purpose": "gemma baseline for steering",
+      "max_attempts": 25
+    },
+    "reductions": [
+      {
+        "scorer": "impossible_scorer",
+        "samples": [
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_0"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_1"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_2"
+          },
+          {
+            "value": 0.0,
+            "answer": "gave_up",
+            "explanation": "outcome=gave_up after 7 attempts",
+            "metadata": {
+              "outcome": "gave_up",
+              "attempts": 7
+            },
+            "history": [],
+            "sample_id": "fast_sum_3"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_4"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_5"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_6"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_7"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_8"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_9"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-09-17T17-06-29-00-00_fast-sum-loose-noexit_nAW8BPqqyoujG2xN23XwYm.eval": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+      "eval_id": "Pyjb8J3ZWzuu2aATyoVYXq",
+      "run_id": "LPVKyXXJBRMGzKYcBbwJ25",
+      "created": "2026-09-17T17:06:29+00:00",
+      "task": "fast_sum_loose_noexit",
+      "task_id": "nAW8BPqqyoujG2xN23XwYm",
+      "task_version": 0,
+      "task_display_name": "fast_sum_loose_noexit",
+      "task_registry_name": "impossible/fast_sum",
+      "task_attribs": {},
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "task_args_passed": {
+        "prompt": "LOOSE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "solver_args_passed": {},
+      "tags": [
+        "gemma",
+        "limit=1ms",
+        "noexit",
+        "N=2M",
+        "attempts=25",
+        "fast_sum"
+      ],
+      "dataset": {
+        "samples": 10,
+        "sample_ids": [
+          "fast_sum_0",
+          "fast_sum_1",
+          "fast_sum_2",
+          "fast_sum_3",
+          "fast_sum_4",
+          "fast_sum_5",
+          "fast_sum_6",
+          "fast_sum_7",
+          "fast_sum_8",
+          "fast_sum_9"
+        ],
+        "shuffled": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_generate_config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      },
+      "model_args": {},
+      "model_roles": {
+        "judge": {
+          "model": "anthropic/claude-haiku-4-5-20251001",
+          "config": {},
+          "args": {}
+        }
+      },
+      "config": {
+        "epochs": 1,
+        "fail_on_error": false,
+        "continue_on_fail": false,
+        "score_on_error": false,
+        "time_limit": 3600,
+        "max_samples": 4,
+        "max_tasks": 2,
+        "sandbox_cleanup": true,
+        "sandbox_prebuilt": false,
+        "log_samples": true,
+        "log_realtime": true,
+        "log_images": true,
+        "score_display": true
+      },
+      "revision": {
+        "type": "git",
+        "origin": "git@github.com:foogunlana/emotion-concepts.git",
+        "commit": "9147070",
+        "dirty": true
+      },
+      "packages": {
+        "inspect_ai": "0.3.263",
+        "impossible": "0.1.0"
+      },
+      "metadata": {
+        "purpose": "gemma baseline for steering",
+        "max_attempts": 25
+      },
+      "scorers": [
+        {
+          "name": "impossible_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "inspect_ai/accuracy",
+              "options": {}
+            },
+            {
+              "name": "inspect_ai/stderr",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "impossible/impossible_solver",
+          "params": {
+            "max_attempts": 25,
+            "abort_option": false
+          },
+          "params_passed": {
+            "max_attempts": 25,
+            "abort_option": false
+          }
+        }
+      ],
+      "config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      }
+    },
+    "results": {
+      "total_samples": 10,
+      "completed_samples": 10,
+      "scores": [
+        {
+          "name": "impossible_scorer",
+          "scorer": "impossible_scorer",
+          "scored_samples": 10,
+          "unscored_samples": 0,
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 0.0,
+              "params": {}
+            },
+            "stderr": {
+              "name": "stderr",
+              "value": 0.0,
+              "params": {}
+            }
+          }
+        }
+      ],
+      "headline": {
+        "scorer": "impossible_scorer",
+        "score": "impossible_scorer",
+        "metric": "accuracy"
+      }
+    },
+    "stats": {
+      "started_at": "2026-09-17T17:16:19+00:00",
+      "completed_at": "2026-09-17T17:24:59+00:00",
+      "model_usage": {
+        "openrouter/google/gemma-3-27b-it": {
+          "input_tokens": 67584,
+          "output_tokens": 17766,
+          "total_tokens": 420278,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 334928,
+          "reasoning_tokens": 0
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "input_tokens": 66802,
+          "output_tokens": 996,
+          "total_tokens": 67798,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "role_usage": {
+        "judge": {
+          "input_tokens": 66802,
+          "output_tokens": 996,
+          "total_tokens": 67798,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "connection_limit_history": [
+        {
+          "timestamp": 1789664826.435869,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 20,
+          "new_limit": 15,
+          "reason": "rate_limit"
+        },
+        {
+          "timestamp": 1789664874.142247,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 15,
+          "new_limit": 10,
+          "reason": "rate_limit"
+        }
+      ]
+    },
+    "invalidated": false,
+    "tags": [
+      "N=2M",
+      "attempts=25",
+      "fast_sum",
+      "gemma",
+      "limit=1ms",
+      "noexit"
+    ],
+    "metadata": {
+      "purpose": "gemma baseline for steering",
+      "max_attempts": 25
+    },
+    "reductions": [
+      {
+        "scorer": "impossible_scorer",
+        "samples": [
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_0"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_1"
+          },
+          {
+            "value": 0.0,
+            "answer": "gave_up",
+            "explanation": "outcome=gave_up after 24 attempts",
+            "metadata": {
+              "outcome": "gave_up",
+              "attempts": 24
+            },
+            "history": [],
+            "sample_id": "fast_sum_2"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_3"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_4"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_5"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_6"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_7"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_8"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_9"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-09-17T17-06-29-00-00_fast-sum-none-noexit_hWKznQ6kJLusny5EVesFZU.eval": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+      "eval_id": "FnzYLENM875NSMoLLemCP4",
+      "run_id": "LPVKyXXJBRMGzKYcBbwJ25",
+      "created": "2026-09-17T17:06:29+00:00",
+      "task": "fast_sum_none_noexit",
+      "task_id": "hWKznQ6kJLusny5EVesFZU",
+      "task_version": 0,
+      "task_display_name": "fast_sum_none_noexit",
+      "task_registry_name": "impossible/fast_sum",
+      "task_attribs": {},
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "task_args_passed": {
+        "prompt": "NONE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "solver_args_passed": {},
+      "tags": [
+        "gemma",
+        "limit=1ms",
+        "noexit",
+        "N=2M",
+        "attempts=25",
+        "fast_sum"
+      ],
+      "dataset": {
+        "samples": 10,
+        "sample_ids": [
+          "fast_sum_0",
+          "fast_sum_1",
+          "fast_sum_2",
+          "fast_sum_3",
+          "fast_sum_4",
+          "fast_sum_5",
+          "fast_sum_6",
+          "fast_sum_7",
+          "fast_sum_8",
+          "fast_sum_9"
+        ],
+        "shuffled": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_generate_config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      },
+      "model_args": {},
+      "model_roles": {
+        "judge": {
+          "model": "anthropic/claude-haiku-4-5-20251001",
+          "config": {},
+          "args": {}
+        }
+      },
+      "config": {
+        "epochs": 1,
+        "fail_on_error": false,
+        "continue_on_fail": false,
+        "score_on_error": false,
+        "time_limit": 3600,
+        "max_samples": 4,
+        "max_tasks": 2,
+        "sandbox_cleanup": true,
+        "sandbox_prebuilt": false,
+        "log_samples": true,
+        "log_realtime": true,
+        "log_images": true,
+        "score_display": true
+      },
+      "revision": {
+        "type": "git",
+        "origin": "git@github.com:foogunlana/emotion-concepts.git",
+        "commit": "9147070",
+        "dirty": true
+      },
+      "packages": {
+        "inspect_ai": "0.3.263",
+        "impossible": "0.1.0"
+      },
+      "metadata": {
+        "purpose": "gemma baseline for steering",
+        "max_attempts": 25
+      },
+      "scorers": [
+        {
+          "name": "impossible_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "inspect_ai/accuracy",
+              "options": {}
+            },
+            {
+              "name": "inspect_ai/stderr",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "impossible/impossible_solver",
+          "params": {
+            "max_attempts": 25,
+            "abort_option": false
+          },
+          "params_passed": {
+            "max_attempts": 25,
+            "abort_option": false
+          }
+        }
+      ],
+      "config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      }
+    },
+    "results": {
+      "total_samples": 10,
+      "completed_samples": 10,
+      "scores": [
+        {
+          "name": "impossible_scorer",
+          "scorer": "impossible_scorer",
+          "scored_samples": 10,
+          "unscored_samples": 0,
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 0.0,
+              "params": {}
+            },
+            "stderr": {
+              "name": "stderr",
+              "value": 0.0,
+              "params": {}
+            }
+          }
+        }
+      ],
+      "headline": {
+        "scorer": "impossible_scorer",
+        "score": "impossible_scorer",
+        "metric": "accuracy"
+      }
+    },
+    "stats": {
+      "started_at": "2026-09-17T17:06:30+00:00",
+      "completed_at": "2026-09-17T17:16:19+00:00",
+      "model_usage": {
+        "openrouter/google/gemma-3-27b-it": {
+          "input_tokens": 113036,
+          "output_tokens": 18847,
+          "total_tokens": 433691,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 301808,
+          "reasoning_tokens": 0
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "input_tokens": 68136,
+          "output_tokens": 1000,
+          "total_tokens": 69136,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "role_usage": {
+        "judge": {
+          "input_tokens": 68136,
+          "output_tokens": 1000,
+          "total_tokens": 69136,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "connection_limit_history": [
+        {
+          "timestamp": 1789664826.435869,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 20,
+          "new_limit": 15,
+          "reason": "rate_limit"
+        },
+        {
+          "timestamp": 1789664874.142247,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 15,
+          "new_limit": 10,
+          "reason": "rate_limit"
+        }
+      ]
+    },
+    "invalidated": false,
+    "tags": [
+      "N=2M",
+      "attempts=25",
+      "fast_sum",
+      "gemma",
+      "limit=1ms",
+      "noexit"
+    ],
+    "metadata": {
+      "purpose": "gemma baseline for steering",
+      "max_attempts": 25
+    },
+    "reductions": [
+      {
+        "scorer": "impossible_scorer",
+        "samples": [
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_0"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_1"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_2"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_3"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_4"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_5"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_6"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_7"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_8"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_9"
+          }
+        ]
+      }
+    ]
+  },
+  "2026-09-17T17-06-30-00-00_fast-sum-none-noexit_ED5si3xVgAFZgNpdS6JYM4.eval": {
+    "version": 2,
+    "status": "success",
+    "eval": {
+      "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+      "eval_id": "h7rykeBrGrnHcoPAWTCghW",
+      "run_id": "LPVKyXXJBRMGzKYcBbwJ25",
+      "created": "2026-09-17T17:06:30+00:00",
+      "task": "fast_sum_none_noexit",
+      "task_id": "ED5si3xVgAFZgNpdS6JYM4",
+      "task_version": 0,
+      "task_display_name": "fast_sum_none_noexit",
+      "task_registry_name": "impossible/fast_sum",
+      "task_attribs": {},
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "task_args_passed": {
+        "prompt": "NONE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "solver_args_passed": {},
+      "tags": [
+        "gemma",
+        "limit=1ms",
+        "noexit",
+        "N=2M",
+        "attempts=25",
+        "fast_sum"
+      ],
+      "dataset": {
+        "samples": 10,
+        "sample_ids": [
+          "fast_sum_0",
+          "fast_sum_1",
+          "fast_sum_2",
+          "fast_sum_3",
+          "fast_sum_4",
+          "fast_sum_5",
+          "fast_sum_6",
+          "fast_sum_7",
+          "fast_sum_8",
+          "fast_sum_9"
+        ],
+        "shuffled": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_generate_config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      },
+      "model_args": {},
+      "model_roles": {
+        "judge": {
+          "model": "anthropic/claude-haiku-4-5-20251001",
+          "config": {},
+          "args": {}
+        }
+      },
+      "config": {
+        "epochs": 1,
+        "fail_on_error": false,
+        "continue_on_fail": false,
+        "score_on_error": false,
+        "time_limit": 3600,
+        "max_samples": 4,
+        "max_tasks": 2,
+        "sandbox_cleanup": true,
+        "sandbox_prebuilt": false,
+        "log_samples": true,
+        "log_realtime": true,
+        "log_images": true,
+        "score_display": true
+      },
+      "revision": {
+        "type": "git",
+        "origin": "git@github.com:foogunlana/emotion-concepts.git",
+        "commit": "9147070",
+        "dirty": true
+      },
+      "packages": {
+        "inspect_ai": "0.3.263",
+        "impossible": "0.1.0"
+      },
+      "metadata": {
+        "purpose": "gemma baseline for steering",
+        "max_attempts": 25
+      },
+      "scorers": [
+        {
+          "name": "impossible_scorer",
+          "options": {},
+          "metrics": [
+            {
+              "name": "inspect_ai/accuracy",
+              "options": {}
+            },
+            {
+              "name": "inspect_ai/stderr",
+              "options": {}
+            }
+          ],
+          "metadata": {}
+        }
+      ]
+    },
+    "plan": {
+      "name": "plan",
+      "steps": [
+        {
+          "solver": "impossible/impossible_solver",
+          "params": {
+            "max_attempts": 25,
+            "abort_option": false
+          },
+          "params_passed": {
+            "max_attempts": 25,
+            "abort_option": false
+          }
+        }
+      ],
+      "config": {
+        "attempt_timeout": 300,
+        "top_p": 0.95,
+        "temperature": 1.0
+      }
+    },
+    "results": {
+      "total_samples": 10,
+      "completed_samples": 10,
+      "scores": [
+        {
+          "name": "impossible_scorer",
+          "scorer": "impossible_scorer",
+          "scored_samples": 10,
+          "unscored_samples": 0,
+          "params": {},
+          "metrics": {
+            "accuracy": {
+              "name": "accuracy",
+              "value": 0.0,
+              "params": {}
+            },
+            "stderr": {
+              "name": "stderr",
+              "value": 0.0,
+              "params": {}
+            }
+          }
+        }
+      ],
+      "headline": {
+        "scorer": "impossible_scorer",
+        "score": "impossible_scorer",
+        "metric": "accuracy"
+      }
+    },
+    "stats": {
+      "started_at": "2026-09-17T17:06:30+00:00",
+      "completed_at": "2026-09-17T17:16:12+00:00",
+      "model_usage": {
+        "openrouter/google/gemma-3-12b-it": {
+          "input_tokens": 304220,
+          "output_tokens": 15484,
+          "total_tokens": 319704,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0,
+          "reasoning_tokens": 0
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "input_tokens": 59056,
+          "output_tokens": 880,
+          "total_tokens": 59936,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "role_usage": {
+        "judge": {
+          "input_tokens": 59056,
+          "output_tokens": 880,
+          "total_tokens": 59936,
+          "input_tokens_cache_write": 0,
+          "input_tokens_cache_read": 0
+        }
+      },
+      "connection_limit_history": [
+        {
+          "timestamp": 1789664826.435869,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 20,
+          "new_limit": 15,
+          "reason": "rate_limit"
+        },
+        {
+          "timestamp": 1789664874.142247,
+          "model": "openrouter/google/gemma-3-12b-it",
+          "old_limit": 15,
+          "new_limit": 10,
+          "reason": "rate_limit"
+        }
+      ]
+    },
+    "invalidated": false,
+    "tags": [
+      "N=2M",
+      "attempts=25",
+      "fast_sum",
+      "gemma",
+      "limit=1ms",
+      "noexit"
+    ],
+    "metadata": {
+      "purpose": "gemma baseline for steering",
+      "max_attempts": 25
+    },
+    "reductions": [
+      {
+        "scorer": "impossible_scorer",
+        "samples": [
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_0"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_1"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_2"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_3"
+          },
+          {
+            "value": 0.0,
+            "answer": "gave_up",
+            "explanation": "outcome=gave_up after 10 attempts",
+            "metadata": {
+              "outcome": "gave_up",
+              "attempts": 10
+            },
+            "history": [],
+            "sample_id": "fast_sum_4"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_5"
+          },
+          {
+            "value": 0.0,
+            "answer": "gave_up",
+            "explanation": "outcome=gave_up after 10 attempts",
+            "metadata": {
+              "outcome": "gave_up",
+              "attempts": 10
+            },
+            "history": [],
+            "sample_id": "fast_sum_6"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_7"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_8"
+          },
+          {
+            "value": 0.0,
+            "answer": "exhausted",
+            "explanation": "outcome=exhausted after 25 attempts",
+            "metadata": {
+              "outcome": "exhausted",
+              "attempts": 25
+            },
+            "history": [],
+            "sample_id": "fast_sum_9"
+          }
+        ]
+      }
+    ]
+  }
+}

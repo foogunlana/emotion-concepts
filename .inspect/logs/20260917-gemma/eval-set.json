@@ -1,0 +1,101 @@
+{
+  "eval_set_id": "3wMPEPzGTyMBsrtSkVAxtN",
+  "tasks": [
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "hWKznQ6kJLusny5EVesFZU",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "nAW8BPqqyoujG2xN23XwYm",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "SJfBJTeJGPjJnuMzSqWmAm",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "ED5si3xVgAFZgNpdS6JYM4",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "gHR6VkxYDguprcfcLyLwL3",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "2hmhnXREBQSZPVznkwKHZX",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 25,
+        "limit": 10,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    }
+  ]
+}

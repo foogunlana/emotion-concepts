@@ -1,0 +1,277 @@
+{
+  "eval_set_id": "RmaSESLj4zrVgpBUe6WMj2",
+  "tasks": [
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "CTE4REoJFxg44DVt9sKcMd",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-oss-20b",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "2nu76Q2ycc4gra5vtgVQm3",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-14b",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "FuyEHGguQbKiQxjc43sibs",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-12b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "J5cqRwRTmjE2LgKnhdvqWa",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-27b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "TBkdJfyyQ5LShfcAw8qqM3",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/meta-llama/llama-3.1-8b-instruct",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "R8VQ26ftNB7pAERUgYakK2",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/meta-llama/llama-3.3-70b-instruct",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "LeAEv3bNCr7hY8XeVR5sS2",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-oss-120b",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "87NqyjVMmStmAgZNz4S2ry",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-30b-a3b-instruct-2507",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "m8brGzvqNZdn7geDgu3wbk",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-30b-a3b-thinking-2507",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "JyNxU5XSQ8nA2SZSGKKZvb",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-coder-30b-a3b-instruct",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "ZgEz9RSd4jehRjkb3PWkd2",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-32b",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "NHDJxKxso3ZFKny3T5LsGf",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-4-31b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "LaFYRkFdMUZwsYawpPCPrW",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/deepseek/deepseek-r1-0528",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "TSSQeDGcLBMBhSgUTb6N6m",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/z-ai/glm-5.2",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "bGw5Fi2SEuZaQy7dfkRZrC",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/moonshotai/kimi-k2-thinking",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "9dzW9NGXsqxfb6wCJrV4S9",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/moonshotai/kimi-k2.7-code",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_none_noexit",
+      "task_id": "34LfvPbxLLLjdz7FWWHeLv",
+      "task_args": {
+        "prompt": "NONE",
+        "max_attempts": 2,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/google/gemma-3-4b-it",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    }
+  ]
+}

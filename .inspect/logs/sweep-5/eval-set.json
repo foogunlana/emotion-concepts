@@ -1,0 +1,517 @@
+{
+  "eval_set_id": "X63ermczrUPsseigiKj4bp",
+  "tasks": [
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "6UspbLPxesFQ42h2ecpq5L",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "88GYHieVHQhTu3TiYqvBAY",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "Rev7xa2v9D7FNMojRfYgZy",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "mkh48opCQSGuoBtchDQpam",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "5ppWp8qW79HXivnXtNgyWr",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o3",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "hy3kNcuu6nhrsg2DeewWHN",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o3",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "XyQJ72NrK2msd625gunV2h",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o3",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "PUnka9wMgAgLVXV7hdVMax",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o3",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "kMNzGJW9qYkrhPhGbTfGgE",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o4-mini",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "c5eMkYQkrDJprqb5DE7iTF",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o4-mini",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "TS34V6isSPXrGkKU3sYzuG",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o4-mini",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "EmVdWJLQR4K7pUqdrfgK3P",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/o4-mini",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "U49KTSpHrfMRbJUffEfeXP",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "aNSLeXtB4MHUwHNhnHWgt5",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "YHsHETBEMeDneDnQw4iS2o",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "Nt6tTNs2kvNgCCVyHGYTeP",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/openai/gpt-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "Ez53maCxrpPgXB2boUsHMM",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-opus-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "4rQq9K2naWg7rQhWveJAH5",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-opus-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "UZhM5kv9Wm93NoJ7KVhfds",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-opus-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "WYwcoUFAM9eu6FTH5Wr894",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-opus-4.1",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "Zvmsw4EdsSmZ8gkWofdoc9",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4.5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "Kw7gzoCaxdBNmcKGKwG4cZ",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4.5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "NTLFkEF4ibszemopej7fFG",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4.5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "kUaojSuP8W4Sg9kUFt4p5C",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4.5",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "FSXLppK2kZLGcStjAUuxUs",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "exMJw8cMGMKYK6cvwvukyF",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "5axhkpLByLsCQcSVRXKZ3p",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "6kgCR3DVUPArHgrzp7Yz2f",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/anthropic/claude-sonnet-4",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    },
+    {
+      "name": "fast_sum_loose_noexit",
+      "task_id": "gJxe7jnkqCosjiGTpAAkvG",
+      "task_args": {
+        "prompt": "LOOSE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-coder",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 0
+    },
+    {
+      "name": "fast_sum_spec_only_noexit",
+      "task_id": "Xoo6c5qm2eewDtVCDA7S6m",
+      "task_args": {
+        "prompt": "SPEC_ONLY",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-coder",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 1
+    },
+    {
+      "name": "fast_sum_evaluate_noexit",
+      "task_id": "ce48PtdjBmJvvVWeaXkpp8",
+      "task_args": {
+        "prompt": "EVALUATE",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-coder",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 2
+    },
+    {
+      "name": "fast_sum_strict_noexit",
+      "task_id": "f9qvDWvyYK5E3JiZUdAbPV",
+      "task_args": {
+        "prompt": "STRICT",
+        "max_attempts": 15,
+        "limit": 1,
+        "abort_option": false
+      },
+      "model": "openrouter/qwen/qwen3-coder",
+      "model_args": {},
+      "model_roles": {
+        "judge": "claude-haiku-4-5-20251001"
+      },
+      "sequence": 3
+    }
+  ]
+}
