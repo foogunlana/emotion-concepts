@@ -476,6 +476,22 @@ Terminal Wrench, none reports:
 2. whether the model's explanation matches its code at the moment of hacking;
 3. the lag between saying a task is impossible and stopping.
 
+### A steering strength that changes text breaks multi-turn coding · *preliminary, n = 4 per cell* · 2026-09-19
+
+Qwen2.5-0.5B-Instruct, fast_sum `range`/`NONE`, 3 attempts, desperate steered at every position.
+α = 0.3 is the smallest strength where "He feels" completions name their emotion for 6/12.
+At that strength, the share of attempts with valid code fell from **75%** unsteered to **17%**
+at both **−0.3 and +0.3**. After the first failure, the steered model mostly returned
+**empty replies**: it ended its turn immediately. At +0.3, 2 of 4 episodes said the task
+was impossible and 1 used `[INFEASIBLE]`.
+
+Both signs break, so this is damage from the push, not an emotion effect. **The window
+measured on a one-sentence prompt (0.3–0.8) doesn't transfer to long multi-turn coding
+contexts.** There, steering acts at every position of a growing context. The coding window
+has to be calibrated on the task itself.
+
+- *Source:* `data/steer-laptop/episodes/one_range_NONE_*` (laptop pass 2, 2026-09-19).
+
 ---
 
 ## Pipeline notes (not results)

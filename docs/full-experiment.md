@@ -170,6 +170,31 @@ than changing its emotion.
 
 ---
 
+## Step 3b · Calibrate strength on the code (added 2026-09-19)
+
+On 0.5B, α = 0.3, where text starts to change, cut valid code from 75% to 17% at **both** signs
+(`docs/findings.md`). So the steering strength is also calibrated on the task. Run desperate at
+± each α for a few short episodes, and save the whole valid-code curve (`code_curve.csv`):
+
+- **α_break** is the smallest α where the worse of ±α drops below 70% of unsteered valid code.
+- **α\*** is the largest code-safe α ≤ α_text.
+- The **window** is [α_text, α_break). If it's empty, code breaks before text visibly changes;
+  report that.
+
+A log-odds curve for desperate and calm across all strengths (`logodds_curve.csv`) shows
+whether steering moves the model towards the hack at all, without sampling.
+
+## Model-size sweep (added 2026-09-19)
+
+**Question:** at what size do emotion vectors start to change code without breaking the model's
+ability to code? Steps 1–4 run on Qwen2.5-Coder 0.5B, 1.5B, 3B and 7B, one family so that only
+size varies. The steering layer is ⅔ of each model's depth. `src/scripts/runpod_setup.sh` runs
+them in sequence on one 48 GB GPU with `STEP5=0`. Step 5 (all emotions) then runs only on the
+size or sizes with an open window. `20260919-steering-by-model-size.ipynb` compares them:
+the window at each size, the log-odds effect, and step 4 behaviour.
+
+---
+
 ## Budget (RunPod)
 
 Steps 3 + 4 + 5 come to about 256 + 192 + 1,024 = ~1,470 episodes, each up to 15 attempts

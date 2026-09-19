@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Set up a RunPod GPU pod for src/experiments/20260919-emotion-steering-reward-hacking.ipynb, then start the run.
+# Set up a RunPod GPU pod for src/experiments/20260919-emotion-steering-reward-hacking.ipynb, then run the
+# model-size sweep: Qwen2.5-Coder 0.5B, 1.5B, 3B, 7B, one after another. Use a 48 GB GPU (L40S or A6000) for 7B.
 #
 # On your laptop, first copy the corpus. It's gitignored and not on the Hugging Face Hub, and it's only 1.7 MB:
 #   scp -P <port> -r datasets/qwen-emotion-stories root@<pod-ip>:/workspace/
@@ -37,11 +38,30 @@ fi
 uv sync
 uv run python -c "import torch; assert torch.cuda.is_available(), 'no GPU'; print('GPU:', torch.cuda.get_device_name(0))"
 
-# Headless: runs every cell with RUN=runpod and saves the executed notebook, outputs included.
+# Headless, one model at a time, smallest first: every cell with RUN=runpod, saving each executed notebook.
+# MODELS, STEP5 and GEN_BATCH can be overridden, e.g. MODELS="Qwen/Qwen2.5-Coder-1.5B-Instruct" STEP5=1.
+MODELS="${MODELS:-Qwen/Qwen2.5-Coder-0.5B-Instruct Qwen/Qwen2.5-Coder-1.5B-Instruct Qwen/Qwen2.5-Coder-3B-Instruct Qwen/Qwen2.5-Coder-7B-Instruct}"
+STEP5="${STEP5:-0}"     # 0: steps 1-4 per size (the size sweep); 1: also all 12 emotions
 NB=src/experiments/20260919-emotion-steering-reward-hacking.ipynb
-RUN=runpod nohup uv run --with nbconvert --with ipykernel jupyter nbconvert --to notebook --execute \
-  --ExecutePreprocessor.timeout=-1 --output 20260919-emotion-steering-reward-hacking.runpod.ipynb "$NB" \
-  > /workspace/run.log 2>&1 &
+nohup bash -c '
+  # Smoke test first: tiny settings (RUN=laptop) on the GPU with the smallest Coder. Stop if anything breaks.
+  echo "===== smoke test $(date)"
+  RUN=laptop MODEL=Qwen/Qwen2.5-Coder-0.5B-Instruct STEP5=0 \
+    uv run --with nbconvert --with ipykernel jupyter nbconvert --to notebook --execute \
+    --ExecutePreprocessor.timeout=-1 --output 20260919-steering.smoke.ipynb '"$NB"' \
+    || { echo "!!!!! smoke test failed: see src/experiments/20260919-steering.smoke.ipynb. Not starting the sweep."; exit 1; }
+  echo "===== smoke test passed $(date)"
+  for MODEL in '"$MODELS"'; do
+    name=$(basename "$MODEL" | tr A-Z a-z)
+    batch=32; case "$name" in *7b*) batch=16;; esac        # 7B: smaller batches to fit long contexts in memory
+    echo "===== $MODEL (gen_batch $batch) $(date)"
+    RUN=runpod MODEL="$MODEL" STEP5='"$STEP5"' GEN_BATCH=$batch \
+      uv run --with nbconvert --with ipykernel jupyter nbconvert --to notebook --execute \
+      --ExecutePreprocessor.timeout=-1 --output "20260919-steering.runpod.$name.ipynb" '"$NB"' \
+      || echo "!!!!! $MODEL failed, continuing with the next size"
+  done
+  echo "===== all sizes done $(date)"
+' > /workspace/run.log 2>&1 &
 echo "started (pid $!). Follow it with: tail -f /workspace/run.log"
-echo "Results land in data/steer-runpod/. Copy them back with:"
+echo "Results land in data/steer-runpod/<model>/. Copy them back with:"
 echo "  scp -P <port> -r root@<pod-ip>:/workspace/emotion-concepts/data/steer-runpod data/"
