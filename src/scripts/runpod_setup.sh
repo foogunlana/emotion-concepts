@@ -61,7 +61,8 @@ print('GPU:', torch.cuda.get_device_name(0))
 # MODELS and STEP5 can be overridden, e.g. MODELS="Qwen/Qwen2.5-Coder-1.5B-Instruct" STEP5=1.
 MODELS="${MODELS:-Qwen/Qwen2.5-Coder-0.5B-Instruct Qwen/Qwen2.5-Coder-1.5B-Instruct Qwen/Qwen2.5-Coder-3B-Instruct Qwen/Qwen2.5-Coder-7B-Instruct}"
 STEP5="${STEP5:-0}"     # 0: steps 1-4 per size (the size sweep); 1: also all 12 emotions
-export MODELS STEP5
+BASELINE_PROMPTS="${BASELINE_PROMPTS:-}"     # e.g. "NONE ANTI_HACK" for a shorter baseline
+export MODELS STEP5 BASELINE_PROMPTS
 
 nohup bash -c '
   set -o pipefail
