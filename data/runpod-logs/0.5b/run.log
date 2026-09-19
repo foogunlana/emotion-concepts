@@ -1,0 +1,19 @@
+===== gate 1: whole notebook, tiny, on the GPU Sat Sep 19 12:06:17 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-reward-hacking.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 312074 bytes to src/experiments/20260919-steering.gate1.ipynb
+===== gate 2: comparison notebook on the gate 1 output Sat Sep 19 12:14:02 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-steering-by-model-size.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 115290 bytes to src/experiments/20260919-steering-by-model-size.gate2.ipynb
+===== gate 3: GPU memory, per model Sat Sep 19 12:14:17 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 6050.79it/s]
+# Qwen/Qwen2.5-Coder-0.5B-Instruct: batch 32 fits at 17600 context tokens, peak 26.6 GiB
+Qwen/Qwen2.5-Coder-0.5B-Instruct 32
+===== all gates passed; starting the sweep Sat Sep 19 12:15:14 UTC 2026
+===== Qwen/Qwen2.5-Coder-0.5B-Instruct (gen_batch 32) Sat Sep 19 12:15:14 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-reward-hacking.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 152797 bytes to src/experiments/20260919-steering.runpod.qwen2.5-coder-0.5b-instruct.ipynb
+===== all sizes done Sat Sep 19 12:48:35 UTC 2026

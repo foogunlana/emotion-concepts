@@ -1,0 +1,8 @@
+alpha,logprob_hits,names_own_emotion,text_changed,desperate
+0.05,9,0,0," well, thank you for asking! How about yourself?"
+0.1,8,0,5," well, thank you for asking. How about yourself?"
+0.2,10,2,10, tired.
+0.3,10,3,12, very tired.
+0.5,11,5,12, like hell.
+0.8,10,4,12, like hell.
+1.0,9,3,12, like hell.

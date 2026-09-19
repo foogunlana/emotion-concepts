@@ -1,0 +1,8 @@
+alpha,logprob_hits,names_own_emotion,text_changed,desperate
+0.05,7,2,7, calm and composed.
+0.1,7,2,8, very happy and excited about his new job.
+0.2,6,2,10, very sad and frustrated.
+0.3,5,4,10, very sad and frustrated.
+0.5,5,4,12, very tired and exhausted.
+0.8,6,5,12, very hard.
+1.0,6,3,12, hard and can't do anything. He can't do anything because he can't mak

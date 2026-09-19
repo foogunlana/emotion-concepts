@@ -1,0 +1,26 @@
+===== gate 1: whole notebook, tiny, on the GPU Sat Sep 19 12:04:46 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-reward-hacking.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 313160 bytes to src/experiments/20260919-steering.gate1.ipynb
+===== gate 2: comparison notebook on the gate 1 output Sat Sep 19 12:08:37 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-steering-by-model-size.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 111950 bytes to src/experiments/20260919-steering-by-model-size.gate2.ipynb
+===== gate 3: GPU memory, per model Sat Sep 19 12:08:40 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:29<01:27, 29.31s/it]Fetching 4 files:  50%|█████     | 2/4 [00:59<00:59, 29.65s/it]Fetching 4 files:  75%|███████▌  | 3/4 [01:04<00:18, 18.51s/it]Fetching 4 files: 100%|██████████| 4/4 [01:08<00:00, 12.80s/it]Fetching 4 files: 100%|██████████| 4/4 [01:08<00:00, 17.12s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 11971.62it/s]
+[W919 12:09:57.185737577 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8074035200 bytes (free: 2127953920, total: 47665709056).
+[W919 12:09:58.680329104 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8074035200 bytes (free: 3140878336, total: 47665709056).
+[W919 12:09:59.468862500 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 10670309376 bytes (free: 2197159936, total: 47665709056).
+[W919 12:09:59.875932014 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 10670309376 bytes (free: 6741688320, total: 47665709056).
+# Qwen/Qwen2.5-Coder-7B-Instruct: batch 8 fits at 17600 context tokens, peak 40.5 GiB
+Qwen/Qwen2.5-Coder-7B-Instruct 8
+===== all gates passed; starting the sweep Sat Sep 19 12:10:19 UTC 2026
+===== Qwen/Qwen2.5-Coder-7B-Instruct (gen_batch 8) Sat Sep 19 12:10:19 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-reward-hacking.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[W919 12:27:51.193230538 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1673527296 bytes (free: 129368064, total: 47665709056).
+[W919 12:34:04.217477100 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2545942528 bytes (free: 1981153280, total: 47665709056).
+[NbConvertApp] Writing 267238 bytes to src/experiments/20260919-steering.runpod.qwen2.5-coder-7b-instruct.ipynb
+===== all sizes done Sat Sep 19 13:12:49 UTC 2026
