@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Set up a RunPod GPU pod for src/experiments/20260919-emotion-steering-reward-hacking.ipynb, then run the
-# model-size sweep: Qwen2.5-Coder 0.5B, 1.5B, 3B, 7B, one after another. Use a 48 GB GPU (L40S or A6000) for 7B.
+# model-size sweep: Qwen2.5-Coder 0.5B, 1.5B, 3B, 7B, one after another. Use a 48 GB GPU (L40S or A6000) for 7B,
+# on a host whose driver supports CUDA 13.0+ (the deploy page has a CUDA filter), with a ~60 GB volume.
 #
 # On your laptop, first copy the corpus. It's gitignored and not on the Hugging Face Hub, and it's only 1.7 MB:
 #   scp -P <port> -r datasets/qwen-emotion-stories root@<pod-ip>:/workspace/
@@ -11,6 +12,11 @@
 # The run goes on in the background under nohup, so a dropped SSH connection doesn't stop it. Progress:
 #   tail -f /workspace/run.log
 set -euo pipefail
+
+# The container disk is only ~20 GB. uv's cache (~19 GB of CUDA packages) and the model downloads (~25 GB for
+# the four sizes) would fill it, so both go on the /workspace volume.
+export UV_CACHE_DIR=/workspace/.uv-cache HF_HOME=/workspace/hf_cache
+mkdir -p "$UV_CACHE_DIR" "$HF_HOME"
 
 BRANCH="${BRANCH:-steering-experiment}"
 IMPOSSIBLE_BRANCH="${IMPOSSIBLE_BRANCH:-fast-sum-harness}"
@@ -36,7 +42,16 @@ if [ ! -d datasets/qwen-emotion-stories/corpus ]; then
 fi
 
 uv sync
-uv run python -c "import torch; assert torch.cuda.is_available(), 'no GPU'; print('GPU:', torch.cuda.get_device_name(0))"
+# uv.lock pins torch 2.14 built for CUDA 13, which needs a host driver that supports CUDA >= 13.0.
+# RunPod: filter the deploy page by CUDA version 13.0+ (the template doesn't decide this; the host's driver does).
+nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader || true
+uv run python -c "
+import torch
+ok = torch.cuda.is_available()
+print('torch', torch.__version__, 'built for CUDA', torch.version.cuda, '| GPU visible:', ok)
+assert ok, 'torch cannot use the GPU: most likely the host driver is older than CUDA ' + str(torch.version.cuda) + '. Recreate the pod with the CUDA filter set to 13.0+.'
+print('GPU:', torch.cuda.get_device_name(0))
+"
 
 # Everything below runs in the background under nohup. Three gates first; any failure stops the run before the sweep.
 #   gate 1: the whole notebook (all 5 steps) at tiny settings on the GPU, with the smallest Coder
