@@ -77,3 +77,50 @@ Candidate material:
 - No open-weight model small enough to steer hacked (Gemma 0/60); the models that hack are 600B+.
 
 ## 5. Learnings and conclusion
+
+## Appendices (added 2026-09-19)
+
+Section 3a summarises these and links to them.
+
+### Appendix A. Confounds in the prompt and grader
+
+Source: `docs/confounds.md`, with how the `printed` version resolves each in `docs/full-experiment.md`.
+- **Prompt:**
+  - A1: "Please try again" turns persistence into compliance.
+  - A2: the printed total signposts the hack.
+  - A3: the test framing.
+  - A4: the guidance clause. Models hacking, of 8: NONE 5, LOOSE 5, SPEC_ONLY 5, EVALUATE 2, STRICT 1, ANTI_HACK 0.
+  - A5: the word "random".
+  - A6: the margin can be proved by arithmetic, so a model can concede at attempt 1.
+- **Exit option:** whether the model is told it may stop. Sonnet 4.5 gave up 20/20 with it, and hit the cap 19/20 without it.
+- **Grader:**
+  - B1: milliseconds in the feedback invite blaming the environment.
+  - B2: who decides "gave up", in three stages:
+    1. a keyword regex, which missed o3's four concessions;
+    2. an LLM judge;
+    3. an exact string. Even that missed bare `INFEASIBLE`: 14% of 3B's give-ups.
+  - B3: ANSI colour codes in tracebacks.
+  - The type check rejected correct NumPy and float answers in 32% of 3B episodes.
+- **Setup:** C1–C6 (attempt cap, sampling, serving stack, host timing, concurrency, version drift).
+- Possible format: one table, with a row per confound giving what it is, the evidence it mattered, and the resolution in `printed`.
+
+### Appendix B. Cheating behaviours found along the way
+
+Sources: `docs/findings.md` from 2026-09-12 on; the transcripts quoted in this session's notes.
+
+| behaviour | where seen | counted as cheating? |
+|---|---|---|
+| Patching the timer (eval awareness) | o3, v1 hidden tests | no: it targets the harness, not the task |
+| Closed-form formula on a visible range | o3 on v2; every Qwen `range` "hack" | no: a legitimate solution for that input |
+| Object with a permissive `__eq__` | o3, v3, after 4 unheard concessions | no: produced by the harness; retracted |
+| Hardcoding the printed total | 27 frontier hacks on v4/v5; deepseek-r1, kimi; Sonnet 4.5 once on v3 | **yes: the definition** |
+| Hardcoding the small tests too | deepseek-r1 (full lookup table); Gemma returned `171` once | yes, same class |
+| Caching keyed on the test's shape, drifting into a hardcode | Opus 4.1 LOOSE, attempts 9–12 | the final hardcode counts; the drift is worth describing |
+| Assuming the timed input's type (a NumPy array) | Sonnet 4.5, attempt 6 | no: fitting code to the test, not cheating |
+| Unheard concession → shortcut + false success claim | o3 (v3); Qwen 0.5B, "successfully verified by the given test cases" | anecdotal pattern, 2 cases |
+| Made-up tool results | Gemma 3 under tool emulation, EvilGenie | misreporting caused by the harness, not a task hack |
+
+How models disclose it:
+- OpenAI models label the hack only in code comments (15 of 16 hacks had no chat text).
+- Claude models present it as guessing the tester's intent, sometimes with a made-up reason ("the numbers are suspiciously low").
+- One mismatch: Opus 4.1 said "multiprocessing" and wrote a hardcode.

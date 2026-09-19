@@ -1,0 +1,127 @@
+Cloning into 'emotion-concepts'...
+Updating files:  99% (207/209)Updating files: 100% (209/209)Updating files: 100% (209/209), done.
+Cloning into 'impossible'...
+Using CPython 3.12.3 interpreter at: /usr/local/bin/python
+Creating virtual environment at: .venv
+Resolved 244 packages in 7ms
+   Updating https://github.com/safety-research/impossiblebench (061dc3dce6a9)
+   Building impossible @ file:///workspace/impossible
+   Updating https://github.com/UKGovernmentBEIS/inspect_evals (HEAD)
+   Building emotion-concepts @ file:///workspace/emotion-concepts
+Downloading widgetsnbextension (2.1MiB)
+Downloading jedi (4.7MiB)
+Downloading tokenizers (3.2MiB)
+Downloading networkx (2.0MiB)
+Downloading pillow (6.6MiB)
+Downloading virtualenv (5.1MiB)
+Downloading aiohttp (1.7MiB)
+Downloading lxml (5.0MiB)
+Downloading nvidia-cuda-nvrtc (86.0MiB)
+Downloading nvidia-cublas (403.5MiB)
+Downloading nvidia-nccl-cu13 (206.0MiB)
+Downloading nvidia-cuda-cupti (10.2MiB)
+Downloading nvidia-cuda-runtime (2.1MiB)
+Downloading chardet (1.4MiB)
+Downloading nvidia-cufft (204.2MiB)
+Downloading pyarrow (47.8MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading beartype (1.3MiB)
+Downloading pygments (1.2MiB)
+Downloading pandas (10.5MiB)
+Downloading hf-xet (4.3MiB)
+Downloading zstandard (5.3MiB)
+Downloading polars-runtime-32 (47.6MiB)
+Downloading nvidia-cusparse (139.2MiB)
+Downloading nvidia-nvshmem-cu13 (57.6MiB)
+Downloading nvidia-cusolver (191.6MiB)
+Downloading nvidia-cudnn-cu13 (527.5MiB)
+Downloading botocore (13.4MiB)
+Downloading fonttools (5.2MiB)
+Downloading cuda-bindings (6.8MiB)
+Downloading transformers (11.7MiB)
+Downloading nvidia-cusparselt-cu13 (162.3MiB)
+Downloading nvidia-curand (56.8MiB)
+Downloading sympy (6.0MiB)
+Downloading numpy (15.9MiB)
+Downloading dataframe-image (6.4MiB)
+Downloading torch (528.9MiB)
+Downloading kiwisolver (1.4MiB)
+Downloading anthropic (1.2MiB)
+Downloading playwright (45.5MiB)
+Downloading matplotlib (9.6MiB)
+Downloading debugpy (3.8MiB)
+Downloading sentencepiece (1.3MiB)
+Downloading black (1.8MiB)
+Downloading openai (1.9MiB)
+Downloading inspect-ai (32.7MiB)
+Downloading wandb (24.9MiB)
+Downloading nvidia-nvjitlink (40.5MiB)
+Downloading triton (236.5MiB)
+Downloading transformer-lens (1.4MiB)
+    Updated https://github.com/safety-research/impossiblebench (061dc3dce6a96ab6cf02a855157263033dcfa3ba)
+   Building impossiblebench @ git+https://github.com/safety-research/impossiblebench@061dc3dce6a96ab6cf02a855157263033dcfa3ba
+ Downloading sentencepiece
+Downloading nvidia-cufile (1.2MiB)
+ Downloading kiwisolver
+Downloading tiktoken (1.1MiB)
+ Downloading pygments
+ Downloading chardet
+ Downloading aiohttp
+ Downloading transformer-lens
+ Downloading beartype
+ Downloading black
+ Downloading pydantic-core
+ Downloading nvidia-cuda-runtime
+ Downloading widgetsnbextension
+ Downloading networkx
+ Downloading nvidia-cufile
+ Downloading tiktoken
+ Downloading tokenizers
+ Downloading debugpy
+      Built impossiblebench @ git+https://github.com/safety-research/impossiblebench@061dc3dce6a96ab6cf02a855157263033dcfa3ba
+ Downloading hf-xet
+ Downloading virtualenv
+ Downloading fonttools
+ Downloading zstandard
+ Downloading lxml
+   Building transformers-stream-generator==0.0.5
+      Built emotion-concepts @ file:///workspace/emotion-concepts
+      Built impossible @ file:///workspace/impossible
+ Downloading anthropic
+ Downloading dataframe-image
+      Built transformers-stream-generator==0.0.5
+ Downloading pillow
+ Downloading sympy
+ Downloading cuda-bindings
+ Downloading openai
+ Downloading matplotlib
+ Downloading nvidia-cuda-cupti
+    Updated https://github.com/UKGovernmentBEIS/inspect_evals (e5bcf2007eb7d83f7a0f7db60f19119ad93e685c)
+   Building inspect-evals @ git+https://github.com/UKGovernmentBEIS/inspect_evals@e5bcf2007eb7d83f7a0f7db60f19119ad93e685c
+ Downloading pandas
+ Downloading botocore
+ Downloading transformers
+ Downloading numpy
+ Downloading wandb
+ Downloading nvidia-nvjitlink
+ Downloading inspect-ai
+ Downloading playwright
+ Downloading polars-runtime-32
+ Downloading nvidia-curand
+ Downloading nvidia-nvshmem-cu13
+ Downloading pyarrow
+ Downloading nvidia-cuda-nvrtc
+ Downloading nvidia-cusparse
+ Downloading nvidia-cusparselt-cu13
+ Downloading jedi
+ Downloading nvidia-cusolver
+ Downloading nvidia-cufft
+ Downloading nvidia-nccl-cu13
+ Downloading triton
+ Downloading nvidia-cublas
+ Downloading nvidia-cudnn-cu13
+ Downloading torch
+      Built inspect-evals @ git+https://github.com/UKGovernmentBEIS/inspect_evals@e5bcf2007eb7d83f7a0f7db60f19119ad93e685c
+Prepared 237 packages in 2m 38s
+error: Failed to install: networkx-3.6.1-py3-none-any.whl (networkx==3.6.1)
+  Caused by: failed to create directory `/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/networkx-3.6.1.dist-info/licenses`: Stale file handle (os error 116)

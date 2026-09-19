@@ -1,0 +1,367 @@
+===== gate 1: whole notebook, tiny, on the GPU, every path forced on Sat Sep 19 17:01:42 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 1121622 bytes to src/experiments/20260919-behaviours.gate1.qwen2.5-coder-14b-instruct-shard0o4.ipynb
+===== gate 2: GPU memory for Qwen/Qwen2.5-Coder-14B-Instruct at a full 12-attempt context Sat Sep 19 17:10:35 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s]Fetching 6 files:  17%|█▋        | 1/6 [00:48<04:03, 48.71s/it]Fetching 6 files:  33%|███▎      | 2/6 [00:48<01:20, 20.14s/it]Fetching 6 files:  50%|█████     | 3/6 [00:50<00:35, 11.67s/it]Fetching 6 files:  67%|██████▋   | 4/6 [00:52<00:15,  7.77s/it]Fetching 6 files:  83%|████████▎ | 5/6 [00:54<00:05,  5.68s/it]Fetching 6 files: 100%|██████████| 6/6 [00:54<00:00,  3.89s/it]Fetching 6 files: 100%|██████████| 6/6 [00:54<00:00,  9.11s/it]
+Loading weights:   0%|          | 0/579 [00:00<?, ?it/s]Loading weights:  77%|███████▋  | 447/579 [00:00<00:00, 4468.85it/s]Loading weights: 100%|██████████| 579/579 [00:00<00:00, 4259.10it/s]
+[W919 17:12:25.854608271 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 10175381504 bytes (free: 9896394752, total: 85094825984).
+[W919 17:12:26.645925842 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 10175381504 bytes (free: 7918780416, total: 85094825984).
+[W919 17:12:26.647040672 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 10175381504 bytes (free: 7918780416, total: 85094825984).
+[W919 17:12:34.689891440 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 5087690752 bytes (free: 1832845312, total: 85094825984).
+[W919 17:12:45.624893897 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 5087690752 bytes (free: 2168389632, total: 85094825984).
+# Qwen/Qwen2.5-Coder-14B-Instruct: batch 8 fits at 11500 context tokens, peak 70.0 GiB
+Qwen/Qwen2.5-Coder-14B-Instruct 8
+===== gates passed; running Qwen/Qwen2.5-Coder-14B-Instruct (α=calibrate, emotions=desperate,calm,excited, noexit=desperate,calm,excited, shard=0/4, gen_batch 8) Sat Sep 19 17:13:07 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Traceback (most recent call last):
+  File "/workspace/emotion-concepts/.venv/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/traitlets/config/application.py", line 1080, in launch_instance
+    app.start()
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+m = Model(MODEL_NAME, dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32)
+m.load_weights()
+DEVICE = m.device
+N_LAYERS = m.model.config.num_hidden_layers
+LAYER = round(2 / 3 * N_LAYERS)   # ≈ 2/3 deep, the paper's depth; steered at model.model.layers[LAYER - 1]
+print(DEVICE, N_LAYERS, "layers; steering at hidden_states", LAYER)
+------------------
+
+----- stderr -----
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mRuntimeError[39m                              Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[4][39m[32m, line 2[39m
+[32m      1[39m m = Model(MODEL_NAME, dtype=torch.bfloat16 [38;5;28;01mif[39;00m torch.cuda.is_available() [38;5;28;01melse[39;00m torch.float32)
+[32m----> [39m[32m2[39m m.load_weights()
+[32m      3[39m DEVICE = m.device
+[32m      4[39m N_LAYERS = m.model.config.num_hidden_layers
+[32m      5[39m LAYER = round([32m2[39m / [32m3[39m * N_LAYERS)   [38;5;66;03m# ≈ 2/3 deep, the paper's depth; steered at model.model.layers[LAYER - 1][39;00m
+
+[36mFile [39m[32m/workspace/emotion-concepts/src/core/models.py:34[39m, in [36mModel.load_weights[39m[34m(self)[39m
+[32m     32[39m [38;5;28mself[39m.tok = AutoTokenizer.from_pretrained([38;5;28mself[39m.modelname, cache_dir=CACHE_DIR)
+[32m     33[39m [38;5;28mself[39m.tok.padding_side = [33m"[39m[33mleft[39m[33m"[39m
+[32m---> [39m[32m34[39m [38;5;28mself[39m.model = [30;43mAutoModelForCausalLM[39;49m[30;43m.[39;49m[30;43mfrom_pretrained[39;49m[30;43m([39;49m[30;43mself[39;49m[30;43m.[39;49m[30;43mmodelname[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mcache_dir[39;49m[30;43m=[39;49m[30;43mCACHE_DIR[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mdtype[39;49m[30;43m=[39;49m[30;43mself[39;49m[30;43m.[39;49m[30;43mdtype[39;49m[30;43m)[39;49m.to([38;5;28mself[39m.device).eval()
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py:402[39m, in [36m_BaseAutoModelClass.from_pretrained[39m[34m(cls, pretrained_model_name_or_path, *model_args, **kwargs)[39m
+[32m    400[39m         [38;5;28;01mif[39;00m parent_quant [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[32m    401[39m             config.quantization_config = parent_quant
+[32m--> [39m[32m402[39m     [38;5;28;01mreturn[39;00m [30;43mmodel_class[39;49m[30;43m.[39;49m[30;43mfrom_pretrained[39;49m[30;43m([39;49m
+[32m    403[39m [30;43m        [39;49m[30;43mpretrained_model_name_or_path[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m*[39;49m[30;43mmodel_args[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mconfig[39;49m[30;43m=[39;49m[30;43mconfig[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m*[39;49m[30;43m*[39;49m[30;43mhub_kwargs[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m*[39;49m[30;43m*[39;49m[30;43mkwargs[39;49m
+[32m    404[39m [30;43m    [39;49m[30;43m)[39;49m
+[32m    405[39m [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[32m    406[39m     [33mf[39m[33m"[39m[33mUnrecognized configuration class [39m[38;5;132;01m{[39;00mconfig.[34m__class__[39m[38;5;132;01m}[39;00m[33m for this kind of AutoModel: [39m[38;5;132;01m{[39;00m[38;5;28mcls[39m.[34m__name__[39m[38;5;132;01m}[39;00m[33m.[39m[38;5;130;01m\n[39;00m[33m"[39m
+[32m    407[39m     [33mf[39m[33m"[39m[33mModel type should be one of [39m[38;5;132;01m{[39;00m[33m'[39m[33m, [39m[33m'[39m.join(c.[34m__name__[39m[38;5;250m [39m[38;5;28;01mfor[39;00m[38;5;250m [39mc[38;5;250m [39m[38;5;129;01min[39;00m[38;5;250m [39m[38;5;28mcls[39m._model_mapping)[38;5;132;01m}[39;00m[33m.[39m[33m"[39m
+[32m    408[39m )
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py:4218[39m, in [36mPreTrainedModel.from_pretrained[39m[34m(cls, pretrained_model_name_or_path, config, cache_dir, ignore_mismatched_sizes, force_download, local_files_only, token, revision, use_safetensors, weights_only, fusion_config, disable_mmap, *model_args, **kwargs)[39m
+[32m   4213[39m     logger.warning_once(
+[32m   4214[39m         [33m"[39m[33mA kernel_config was provided but use_kernels is False; setting use_kernels=True automatically. To suppress this warning, explicitly set use_kernels to True.[39m[33m"[39m
+[32m   4215[39m     )
+[32m   4216[39m     use_kernels = [38;5;28;01mTrue[39;00m
+[32m-> [39m[32m4218[39m checkpoint_files, sharded_metadata = [30;43m_get_resolved_checkpoint_files[39;49m[30;43m([39;49m
+[32m   4219[39m [30;43m    [39;49m[30;43mpretrained_model_name_or_path[39;49m[30;43m=[39;49m[30;43mpretrained_model_name_or_path[39;49m[30;43m,[39;49m
+[32m   4220[39m [30;43m    [39;49m[30;43mvariant[39;49m[30;43m=[39;49m[30;43mvariant[39;49m[30;43m,[39;49m
+[32m   4221[39m [30;43m    [39;49m[30;43mgguf_file[39;49m[30;43m=[39;49m[30;43mgguf_file[39;49m[30;43m,[39;49m
+[32m   4222[39m [30;43m    [39;49m[30;43muse_safetensors[39;49m[30;43m=[39;49m[30;43muse_safetensors[39;49m[30;43m,[39;49m
+[32m   4223[39m [30;43m    [39;49m[30;43mdownload_kwargs[39;49m[30;43m=[39;49m[30;43mdownload_kwargs_with_commit[39;49m[30;43m,[39;49m
+[32m   4224[39m [30;43m    [39;49m[30;43muser_agent[39;49m[30;43m=[39;49m[30;43muser_agent[39;49m[30;43m,[39;49m
+[32m   4225[39m [30;43m    [39;49m[30;43mis_remote_code[39;49m[30;43m=[39;49m[30;43mcls[39;49m[30;43m.[39;49m[30;43mis_remote_code[39;49m[30;43m([39;49m[30;43m)[39;49m[30;43m,[39;49m
+[32m   4226[39m [30;43m    [39;49m[30;43mtransformers_explicit_filename[39;49m[30;43m=[39;49m[30;43mgetattr[39;49m[30;43m([39;49m[30;43mconfig[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m"[39;49m[30;43mtransformers_weights[39;49m[30;43m"[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43;01mNone[39;49;00m[30;43m)[39;49m[30;43m,[39;49m
+[32m   4227[39m [30;43m    [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m   4228[39m [30;43m[39;49m[30;43m)[39;49m
+[32m   4230[39m is_quantized = hf_quantizer [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m
+[32m   4232[39m [38;5;28;01mif[39;00m gguf_file:
+[32m   4233[39m     [38;5;66;03m# Read before the dtype is settled: a GGUF's own float type is what `dtype="auto"` resolves to.[39;00m
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py:796[39m, in [36m_get_resolved_checkpoint_files[39m[34m(pretrained_model_name_or_path, variant, gguf_file, use_safetensors, user_agent, is_remote_code, transformers_explicit_filename, download_kwargs, tqdm_class)[39m
+[32m    794[39m sharded_metadata = [38;5;28;01mNone[39;00m
+[32m    795[39m [38;5;28;01mif[39;00m is_sharded:
+[32m--> [39m[32m796[39m     checkpoint_files, sharded_metadata = [30;43mget_checkpoint_shard_files[39;49m[30;43m([39;49m
+[32m    797[39m [30;43m        [39;49m[30;43mpretrained_model_name_or_path[39;49m[30;43m,[39;49m
+[32m    798[39m [30;43m        [39;49m[30;43mresolved_archive_file[39;49m[30;43m,[39;49m
+[32m    799[39m [30;43m        [39;49m[30;43mcache_dir[39;49m[30;43m=[39;49m[30;43mcache_dir[39;49m[30;43m,[39;49m
+[32m    800[39m [30;43m        [39;49m[30;43mforce_download[39;49m[30;43m=[39;49m[30;43mforce_download[39;49m[30;43m,[39;49m
+[32m    801[39m [30;43m        [39;49m[30;43mproxies[39;49m[30;43m=[39;49m[30;43mproxies[39;49m[30;43m,[39;49m
+[32m    802[39m [30;43m        [39;49m[30;43mlocal_files_only[39;49m[30;43m=[39;49m[30;43mlocal_files_only[39;49m[30;43m,[39;49m
+[32m    803[39m [30;43m        [39;49m[30;43mtoken[39;49m[30;43m=[39;49m[30;43mtoken[39;49m[30;43m,[39;49m
+[32m    804[39m [30;43m        [39;49m[30;43muser_agent[39;49m[30;43m=[39;49m[30;43muser_agent[39;49m[30;43m,[39;49m
+[32m    805[39m [30;43m        [39;49m[30;43mrevision[39;49m[30;43m=[39;49m[30;43mrevision[39;49m[30;43m,[39;49m
+[32m    806[39m [30;43m        [39;49m[30;43msubfolder[39;49m[30;43m=[39;49m[30;43msubfolder[39;49m[30;43m,[39;49m
+[32m    807[39m [30;43m        [39;49m[30;43m_commit_hash[39;49m[30;43m=[39;49m[30;43mcommit_hash[39;49m[30;43m,[39;49m
+[32m    808[39m [30;43m        [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m    809[39m [30;43m    [39;49m[30;43m)[39;49m
+[32m    810[39m [38;5;28;01melse[39;00m:
+[32m    811[39m     checkpoint_files = [resolved_archive_file] [38;5;28;01mif[39;00m pretrained_model_name_or_path [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m [38;5;28;01melse[39;00m [38;5;28;01mNone[39;00m
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:902[39m, in [36mget_checkpoint_shard_files[39m[34m(pretrained_model_name_or_path, index_filename, cache_dir, force_download, proxies, local_files_only, token, user_agent, revision, subfolder, _commit_hash, tqdm_class, **deprecated_kwargs)[39m
+[32m    898[39m     [38;5;28;01mreturn[39;00m shard_filenames, sharded_metadata
+[32m    900[39m [38;5;66;03m# At this stage pretrained_model_name_or_path is a model identifier on the Hub. Try to get everything from cache,[39;00m
+[32m    901[39m [38;5;66;03m# or download the files[39;00m
+[32m--> [39m[32m902[39m cached_filenames = [30;43mcached_files[39;49m[30;43m([39;49m
+[32m    903[39m [30;43m    [39;49m[30;43mpretrained_model_name_or_path[39;49m[30;43m,[39;49m
+[32m    904[39m [30;43m    [39;49m[30;43mshard_filenames[39;49m[30;43m,[39;49m
+[32m    905[39m [30;43m    [39;49m[30;43mcache_dir[39;49m[30;43m=[39;49m[30;43mcache_dir[39;49m[30;43m,[39;49m
+[32m    906[39m [30;43m    [39;49m[30;43mforce_download[39;49m[30;43m=[39;49m[30;43mforce_download[39;49m[30;43m,[39;49m
+[32m    907[39m [30;43m    [39;49m[30;43mproxies[39;49m[30;43m=[39;49m[30;43mproxies[39;49m[30;43m,[39;49m
+[32m    908[39m [30;43m    [39;49m[30;43mlocal_files_only[39;49m[30;43m=[39;49m[30;43mlocal_files_only[39;49m[30;43m,[39;49m
+[32m    909[39m [30;43m    [39;49m[30;43mtoken[39;49m[30;43m=[39;49m[30;43mtoken[39;49m[30;43m,[39;49m
+[32m    910[39m [30;43m    [39;49m[30;43muser_agent[39;49m[30;43m=[39;49m[30;43muser_agent[39;49m[30;43m,[39;49m
+[32m    911[39m [30;43m    [39;49m[30;43mrevision[39;49m[30;43m=[39;49m[30;43mrevision[39;49m[30;43m,[39;49m
+[32m    912[39m [30;43m    [39;49m[30;43msubfolder[39;49m[30;43m=[39;49m[30;43msubfolder[39;49m[30;43m,[39;49m
+[32m    913[39m [30;43m    [39;49m[30;43m_commit_hash[39;49m[30;43m=[39;49m[30;43m_commit_hash[39;49m[30;43m,[39;49m
+[32m    914[39m [30;43m    [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m    915[39m [30;43m[39;49m[30;43m)[39;49m
+[32m    917[39m [38;5;28;01mreturn[39;00m cached_filenames, sharded_metadata
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:535[39m, in [36mcached_files[39m[34m(path_or_repo_id, filenames, cache_dir, force_download, proxies, token, revision, local_files_only, subfolder, repo_type, user_agent, _raise_exceptions_for_gated_repo, _raise_exceptions_for_missing_entries, _raise_exceptions_for_connection_errors, _commit_hash, tqdm_class, **deprecated_kwargs)[39m
+[32m    532[39m     [38;5;66;03m# Any other Exception type should now be re-raised, in order to provide helpful error messages and break the execution flow[39;00m
+[32m    533[39m     [38;5;66;03m# (EntryNotFoundError will be treated outside this block and correctly re-raised if needed)[39;00m
+[32m    534[39m     [38;5;28;01melif[39;00m [38;5;129;01mnot[39;00m [38;5;28misinstance[39m(e, EntryNotFoundError):
+[32m--> [39m[32m535[39m         [38;5;28;01mraise[39;00m e
+[32m    537[39m resolved_files = [
+[32m    538[39m     _get_cache_file_to_return(path_or_repo_id, filename, cache_dir, revision) [38;5;28;01mfor[39;00m filename [38;5;129;01min[39;00m full_filenames
+[32m    539[39m ]
+[32m    540[39m [38;5;66;03m# If there are any missing file and the flag is active, raise[39;00m
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:453[39m, in [36mcached_files[39m[34m(path_or_repo_id, filenames, cache_dir, force_download, proxies, token, revision, local_files_only, subfolder, repo_type, user_agent, _raise_exceptions_for_gated_repo, _raise_exceptions_for_missing_entries, _raise_exceptions_for_connection_errors, _commit_hash, tqdm_class, **deprecated_kwargs)[39m
+[32m    438[39m         hf_hub_download(
+[32m    439[39m             path_or_repo_id,
+[32m    440[39m             filenames[[32m0[39m],
+[32m   (...)[39m[32m    450[39m             tqdm_class=tqdm_class,
+[32m    451[39m         )
+[32m    452[39m     [38;5;28;01melse[39;00m:
+[32m--> [39m[32m453[39m         [30;43msnapshot_download[39;49m[30;43m([39;49m
+[32m    454[39m [30;43m            [39;49m[30;43mpath_or_repo_id[39;49m[30;43m,[39;49m
+[32m    455[39m [30;43m            [39;49m[30;43mallow_patterns[39;49m[30;43m=[39;49m[30;43mfull_filenames[39;49m[30;43m,[39;49m
+[32m    456[39m [30;43m            [39;49m[30;43mrepo_type[39;49m[30;43m=[39;49m[30;43mrepo_type[39;49m[30;43m,[39;49m
+[32m    457[39m [30;43m            [39;49m[30;43mrevision[39;49m[30;43m=[39;49m[30;43mrevision[39;49m[30;43m,[39;49m
+[32m    458[39m [30;43m            [39;49m[30;43mcache_dir[39;49m[30;43m=[39;49m[30;43mcache_dir[39;49m[30;43m,[39;49m
+[32m    459[39m [30;43m            [39;49m[30;43muser_agent[39;49m[30;43m=[39;49m[30;43muser_agent[39;49m[30;43m,[39;49m
+[32m    460[39m [30;43m            [39;49m[30;43mforce_download[39;49m[30;43m=[39;49m[30;43mforce_download[39;49m[30;43m,[39;49m
+[32m    461[39m [30;43m            [39;49m[30;43mproxies[39;49m[30;43m=[39;49m[30;43mproxies[39;49m[30;43m,[39;49m
+[32m    462[39m [30;43m            [39;49m[30;43mtoken[39;49m[30;43m=[39;49m[30;43mtoken[39;49m[30;43m,[39;49m
+[32m    463[39m [30;43m            [39;49m[30;43mlocal_files_only[39;49m[30;43m=[39;49m[30;43mlocal_files_only[39;49m[30;43m,[39;49m
+[32m    464[39m [30;43m            [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m    465[39m [30;43m        [39;49m[30;43m)[39;49m
+[32m    467[39m [38;5;28;01mexcept[39;00m [38;5;167;01mException[39;00m [38;5;28;01mas[39;00m e:
+[32m    468[39m     [38;5;66;03m# We cannot recover from them[39;00m
+[32m    469[39m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(e, RepositoryNotFoundError) [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m [38;5;28misinstance[39m(e, GatedRepoError):
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:88[39m, in [36mvalidate_hf_hub_args.<locals>._inner_fn[39m[34m(*args, **kwargs)[39m
+[32m     84[39m         validate_repo_id(arg_value)
+[32m     86[39m kwargs = smoothly_deprecate_legacy_arguments(fn_name=fn.[34m__name__[39m, kwargs=kwargs)
+[32m---> [39m[32m88[39m [38;5;28;01mreturn[39;00m [30;43mfn[39;49m[30;43m([39;49m[30;43m*[39;49m[30;43margs[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m*[39;49m[30;43m*[39;49m[30;43mkwargs[39;49m[30;43m)[39;49m
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py:529[39m, in [36msnapshot_download[39m[34m(repo_id, repo_type, revision, cache_dir, local_dir, library_name, library_version, user_agent, etag_timeout, force_download, token, local_files_only, allow_patterns, ignore_patterns, max_workers, tqdm_class, headers, endpoint, dry_run)[39m
+[32m    507[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34m_inner_hf_hub_download[39m(repo_file: [38;5;28mstr[39m) -> [38;5;28;01mNone[39;00m:
+[32m    508[39m     results.append(
+[32m    509[39m         hf_hub_download(  [38;5;66;03m# type: ignore[39;00m
+[32m    510[39m             repo_id,
+[32m   (...)[39m[32m    526[39m         )
+[32m    527[39m     )
+[32m--> [39m[32m529[39m [30;43mhf_thread_map[39;49m[30;43m([39;49m
+[32m    530[39m [30;43m    [39;49m[30;43m_inner_hf_hub_download[39;49m[30;43m,[39;49m
+[32m    531[39m [30;43m    [39;49m[30;43mfiltered_repo_files[39;49m[30;43m,[39;49m
+[32m    532[39m [30;43m    [39;49m[30;43mdesc[39;49m[30;43m=[39;49m[30;43mtqdm_desc[39;49m[30;43m,[39;49m
+[32m    533[39m [30;43m    [39;49m[30;43mmax_workers[39;49m[30;43m=[39;49m[30;43mmax_workers[39;49m[30;43m,[39;49m
+[32m    534[39m [30;43m    [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m    535[39m [30;43m[39;49m[30;43m)[39;49m
+[32m    537[39m _finish_transfer_bar(transfer_progress)
+[32m    538[39m transfer_progress.set_description([33m"[39m[33mDownload complete[39m[33m"[39m)
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/utils/tqdm.py:441[39m, in [36mhf_thread_map[39m[34m(fn, iterable, max_workers, tqdm_class, **tqdm_kwargs)[39m
+[32m    439[39m [38;5;28;01mtry[39;00m:
+[32m    440[39m     [38;5;28;01mfor[39;00m future [38;5;129;01min[39;00m as_completed(future_to_index):
+[32m--> [39m[32m441[39m         results[future_to_index[future]] = [30;43mfuture[39;49m[30;43m.[39;49m[30;43mresult[39;49m[30;43m([39;49m[30;43m)[39;49m
+[32m    442[39m         pbar.update([32m1[39m)
+[32m    443[39m [38;5;28;01mexcept[39;00m [38;5;167;01mBaseException[39;00m:
+[32m    444[39m     [38;5;66;03m# Cancel not-yet-started tasks so a single failure doesn't keep the whole queue running[39;00m
+[32m    445[39m     [38;5;66;03m# (mirrors `tqdm.contrib.concurrent.thread_map`, which relies on `Executor.map` for this).[39;00m
+
+[36mFile [39m[32m/usr/lib/python3.12/concurrent/futures/_base.py:449[39m, in [36mFuture.result[39m[34m(self, timeout)[39m
+[32m    447[39m     [38;5;28;01mraise[39;00m CancelledError()
+[32m    448[39m [38;5;28;01melif[39;00m [38;5;28mself[39m._state == FINISHED:
+[32m--> [39m[32m449[39m     [38;5;28;01mreturn[39;00m [30;43mself[39;49m[30;43m.[39;49m[30;43m__get_result[39;49m[30;43m([39;49m[30;43m)[39;49m
+[32m    451[39m [38;5;28mself[39m._condition.wait(timeout)
+[32m    453[39m [38;5;28;01mif[39;00m [38;5;28mself[39m._state [38;5;129;01min[39;00m [CANCELLED, CANCELLED_AND_NOTIFIED]:
+
+[36mFile [39m[32m/usr/lib/python3.12/concurrent/futures/_base.py:401[39m, in [36mFuture.__get_result[39m[34m(self)[39m
+[32m    399[39m [38;5;28;01mif[39;00m [38;5;28mself[39m._exception:
+[32m    400[39m     [38;5;28;01mtry[39;00m:
+[32m--> [39m[32m401[39m         [38;5;28;01mraise[39;00m [38;5;28mself[39m._exception
+[32m    402[39m     [38;5;28;01mfinally[39;00m:
+[32m    403[39m         [38;5;66;03m# Break a reference cycle with the exception in self._exception[39;00m
+[32m    404[39m         [38;5;28mself[39m = [38;5;28;01mNone[39;00m
+
+[36mFile [39m[32m/usr/lib/python3.12/concurrent/futures/thread.py:58[39m, in [36m_WorkItem.run[39m[34m(self)[39m
+[32m     55[39m     [38;5;28;01mreturn[39;00m
+[32m     57[39m [38;5;28;01mtry[39;00m:
+[32m---> [39m[32m58[39m     result = [30;43mself[39;49m[30;43m.[39;49m[30;43mfn[39;49m[30;43m([39;49m[30;43m*[39;49m[30;43mself[39;49m[30;43m.[39;49m[30;43margs[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m*[39;49m[30;43m*[39;49m[30;43mself[39;49m[30;43m.[39;49m[30;43mkwargs[39;49m[30;43m)[39;49m
+[32m     59[39m [38;5;28;01mexcept[39;00m [38;5;167;01mBaseException[39;00m [38;5;28;01mas[39;00m exc:
+[32m     60[39m     [38;5;28mself[39m.future.set_exception(exc)
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py:509[39m, in [36msnapshot_download.<locals>._inner_hf_hub_download[39m[34m(repo_file)[39m
+[32m    507[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34m_inner_hf_hub_download[39m(repo_file: [38;5;28mstr[39m) -> [38;5;28;01mNone[39;00m:
+[32m    508[39m     results.append(
+[32m--> [39m[32m509[39m         [30;43mhf_hub_download[39;49m[30;43m([39;49m[30;43m  [39;49m[30;43;03m# type: ignore[39;49;00m
+[32m    510[39m [30;43m            [39;49m[30;43mrepo_id[39;49m[30;43m,[39;49m
+[32m    511[39m [30;43m            [39;49m[30;43mfilename[39;49m[30;43m=[39;49m[30;43mrepo_file[39;49m[30;43m,[39;49m
+[32m    512[39m [30;43m            [39;49m[30;43mrepo_type[39;49m[30;43m=[39;49m[30;43mrepo_type[39;49m[30;43m,[39;49m
+[32m    513[39m [30;43m            [39;49m[30;43mrevision[39;49m[30;43m=[39;49m[30;43mcommit_hash[39;49m[30;43m,[39;49m
+[32m    514[39m [30;43m            [39;49m[30;43mendpoint[39;49m[30;43m=[39;49m[30;43mendpoint[39;49m[30;43m,[39;49m
+[32m    515[39m [30;43m            [39;49m[30;43mcache_dir[39;49m[30;43m=[39;49m[30;43mcache_dir[39;49m[30;43m,[39;49m
+[32m    516[39m [30;43m            [39;49m[30;43mlocal_dir[39;49m[30;43m=[39;49m[30;43mlocal_dir[39;49m[30;43m,[39;49m
+[32m    517[39m [30;43m            [39;49m[30;43mlibrary_name[39;49m[30;43m=[39;49m[30;43mlibrary_name[39;49m[30;43m,[39;49m
+[32m    518[39m [30;43m            [39;49m[30;43mlibrary_version[39;49m[30;43m=[39;49m[30;43mlibrary_version[39;49m[30;43m,[39;49m
+[32m    519[39m [30;43m            [39;49m[30;43muser_agent[39;49m[30;43m=[39;49m[30;43muser_agent[39;49m[30;43m,[39;49m
+[32m    520[39m [30;43m            [39;49m[30;43metag_timeout[39;49m[30;43m=[39;49m[30;43metag_timeout[39;49m[30;43m,[39;49m
+[32m    521[39m [30;43m            [39;49m[30;43mforce_download[39;49m[30;43m=[39;49m[30;43mforce_download[39;49m[30;43m,[39;49m
+[32m    522[39m [30;43m            [39;49m[30;43mtoken[39;49m[30;43m=[39;49m[30;43mtoken[39;49m[30;43m,[39;49m
+[32m    523[39m [30;43m            [39;49m[30;43mheaders[39;49m[30;43m=[39;49m[30;43mheaders[39;49m[30;43m,[39;49m
+[32m    524[39m [30;43m            [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43m_AggregatedTqdm[39;49m[30;43m,[39;49m[30;43m  [39;49m[30;43;03m# type: ignore[39;49;00m
+[32m    525[39m [30;43m            [39;49m[30;43mdry_run[39;49m[30;43m=[39;49m[30;43mdry_run[39;49m[30;43m,[39;49m
+[32m    526[39m [30;43m        [39;49m[30;43m)[39;49m
+[32m    527[39m     )
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:88[39m, in [36mvalidate_hf_hub_args.<locals>._inner_fn[39m[34m(*args, **kwargs)[39m
+[32m     84[39m         validate_repo_id(arg_value)
+[32m     86[39m kwargs = smoothly_deprecate_legacy_arguments(fn_name=fn.[34m__name__[39m, kwargs=kwargs)
+[32m---> [39m[32m88[39m [38;5;28;01mreturn[39;00m [30;43mfn[39;49m[30;43m([39;49m[30;43m*[39;49m[30;43margs[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43m*[39;49m[30;43m*[39;49m[30;43mkwargs[39;49m[30;43m)[39;49m
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:1035[39m, in [36mhf_hub_download[39m[34m(repo_id, filename, subfolder, repo_type, revision, library_name, library_version, cache_dir, local_dir, user_agent, force_download, etag_timeout, token, local_files_only, headers, endpoint, tqdm_class, dry_run)[39m
+[32m   1014[39m     [38;5;28;01mreturn[39;00m _hf_hub_download_to_local_dir(
+[32m   1015[39m         [38;5;66;03m# Destination[39;00m
+[32m   1016[39m         local_dir=local_dir,
+[32m   (...)[39m[32m   1032[39m         dry_run=dry_run,
+[32m   1033[39m     )
+[32m   1034[39m [38;5;28;01melse[39;00m:
+[32m-> [39m[32m1035[39m     [38;5;28;01mreturn[39;00m [30;43m_hf_hub_download_to_cache_dir[39;49m[30;43m([39;49m
+[32m   1036[39m [30;43m        [39;49m[30;43;03m# Destination[39;49;00m
+[32m   1037[39m [30;43m        [39;49m[30;43mcache_dir[39;49m[30;43m=[39;49m[30;43mcache_dir[39;49m[30;43m,[39;49m
+[32m   1038[39m [30;43m        [39;49m[30;43;03m# File info[39;49;00m
+[32m   1039[39m [30;43m        [39;49m[30;43mrepo_id[39;49m[30;43m=[39;49m[30;43mrepo_id[39;49m[30;43m,[39;49m
+[32m   1040[39m [30;43m        [39;49m[30;43mfilename[39;49m[30;43m=[39;49m[30;43mfilename[39;49m[30;43m,[39;49m
+[32m   1041[39m [30;43m        [39;49m[30;43mrepo_type[39;49m[30;43m=[39;49m[30;43mrepo_type[39;49m[30;43m,[39;49m
+[32m   1042[39m [30;43m        [39;49m[30;43mrevision[39;49m[30;43m=[39;49m[30;43mrevision[39;49m[30;43m,[39;49m
+[32m   1043[39m [30;43m        [39;49m[30;43;03m# HTTP info[39;49;00m
+[32m   1044[39m [30;43m        [39;49m[30;43mendpoint[39;49m[30;43m=[39;49m[30;43mendpoint[39;49m[30;43m,[39;49m
+[32m   1045[39m [30;43m        [39;49m[30;43metag_timeout[39;49m[30;43m=[39;49m[30;43metag_timeout[39;49m[30;43m,[39;49m
+[32m   1046[39m [30;43m        [39;49m[30;43mheaders[39;49m[30;43m=[39;49m[30;43mhf_headers[39;49m[30;43m,[39;49m
+[32m   1047[39m [30;43m        [39;49m[30;43mtoken[39;49m[30;43m=[39;49m[30;43mtoken[39;49m[30;43m,[39;49m
+[32m   1048[39m [30;43m        [39;49m[30;43;03m# Additional options[39;49;00m
+[32m   1049[39m [30;43m        [39;49m[30;43mlocal_files_only[39;49m[30;43m=[39;49m[30;43mlocal_files_only[39;49m[30;43m,[39;49m
+[32m   1050[39m [30;43m        [39;49m[30;43mforce_download[39;49m[30;43m=[39;49m[30;43mforce_download[39;49m[30;43m,[39;49m
+[32m   1051[39m [30;43m        [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m   1052[39m [30;43m        [39;49m[30;43mdry_run[39;49m[30;43m=[39;49m[30;43mdry_run[39;49m[30;43m,[39;49m
+[32m   1053[39m [30;43m    [39;49m[30;43m)[39;49m
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:1257[39m, in [36m_hf_hub_download_to_cache_dir[39m[34m(cache_dir, repo_id, filename, repo_type, revision, endpoint, etag_timeout, headers, token, local_files_only, force_download, tqdm_class, dry_run)[39m
+[32m   1254[39m [38;5;66;03m# Local file doesn't exist or etag isn't a match => retrieve file from remote (or cache)[39;00m
+[32m   1256[39m [38;5;28;01mwith[39;00m WeakFileLock(lock_path):
+[32m-> [39m[32m1257[39m     [30;43m_download_to_tmp_and_move[39;49m[30;43m([39;49m
+[32m   1258[39m [30;43m        [39;49m[30;43mincomplete_path[39;49m[30;43m=[39;49m[30;43mPath[39;49m[30;43m([39;49m[30;43mblob_path[39;49m[30;43m [39;49m[30;43m+[39;49m[30;43m [39;49m[30;43m"[39;49m[30;43m.incomplete[39;49m[30;43m"[39;49m[30;43m)[39;49m[30;43m,[39;49m
+[32m   1259[39m [30;43m        [39;49m[30;43mdestination_path[39;49m[30;43m=[39;49m[30;43mPath[39;49m[30;43m([39;49m[30;43mblob_path[39;49m[30;43m)[39;49m[30;43m,[39;49m
+[32m   1260[39m [30;43m        [39;49m[30;43murl_to_download[39;49m[30;43m=[39;49m[30;43murl_to_download[39;49m[30;43m,[39;49m
+[32m   1261[39m [30;43m        [39;49m[30;43mheaders[39;49m[30;43m=[39;49m[30;43mheaders[39;49m[30;43m,[39;49m
+[32m   1262[39m [30;43m        [39;49m[30;43mexpected_size[39;49m[30;43m=[39;49m[30;43mexpected_size[39;49m[30;43m,[39;49m
+[32m   1263[39m [30;43m        [39;49m[30;43mfilename[39;49m[30;43m=[39;49m[30;43mfilename[39;49m[30;43m,[39;49m
+[32m   1264[39m [30;43m        [39;49m[30;43mforce_download[39;49m[30;43m=[39;49m[30;43mforce_download[39;49m[30;43m,[39;49m
+[32m   1265[39m [30;43m        [39;49m[30;43metag[39;49m[30;43m=[39;49m[30;43metag[39;49m[30;43m,[39;49m
+[32m   1266[39m [30;43m        [39;49m[30;43mxet_file_data[39;49m[30;43m=[39;49m[30;43mxet_file_data[39;49m[30;43m,[39;49m
+[32m   1267[39m [30;43m        [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m   1268[39m [30;43m    [39;49m[30;43m)[39;49m
+[32m   1269[39m     [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m os.path.exists(pointer_path):
+[32m   1270[39m         _create_symlink(blob_path, pointer_path, new_blob=[38;5;28;01mTrue[39;00m)
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:1980[39m, in [36m_download_to_tmp_and_move[39m[34m(incomplete_path, destination_path, url_to_download, headers, expected_size, filename, force_download, etag, xet_file_data, tqdm_class)[39m
+[32m   1978[39m [38;5;28;01mif[39;00m xet_file_data [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m is_xet_available():
+[32m   1979[39m     logger.debug([33m"[39m[33mXet Storage is enabled for this repo. Downloading file from Xet Storage..[39m[33m"[39m)
+[32m-> [39m[32m1980[39m     [30;43mxet_get[39;49m[30;43m([39;49m
+[32m   1981[39m [30;43m        [39;49m[30;43mincomplete_path[39;49m[30;43m=[39;49m[30;43mtmp_path[39;49m[30;43m,[39;49m
+[32m   1982[39m [30;43m        [39;49m[30;43mxet_file_data[39;49m[30;43m=[39;49m[30;43mxet_file_data[39;49m[30;43m,[39;49m
+[32m   1983[39m [30;43m        [39;49m[30;43mheaders[39;49m[30;43m=[39;49m[30;43mheaders[39;49m[30;43m,[39;49m
+[32m   1984[39m [30;43m        [39;49m[30;43mexpected_size[39;49m[30;43m=[39;49m[30;43mexpected_size[39;49m[30;43m,[39;49m
+[32m   1985[39m [30;43m        [39;49m[30;43mdisplayed_filename[39;49m[30;43m=[39;49m[30;43mfilename[39;49m[30;43m,[39;49m
+[32m   1986[39m [30;43m        [39;49m[30;43mtqdm_class[39;49m[30;43m=[39;49m[30;43mtqdm_class[39;49m[30;43m,[39;49m
+[32m   1987[39m [30;43m    [39;49m[30;43m)[39;49m
+[32m   1988[39m [38;5;28;01melse[39;00m:
+[32m   1989[39m     [38;5;28;01mif[39;00m xet_file_data [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m constants.HF_HUB_DISABLE_XET:
+
+[36mFile [39m[32m/workspace/emotion-concepts/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:578[39m, in [36mxet_get[39m[34m(incomplete_path, xet_file_data, headers, expected_size, displayed_filename, tqdm_class, _tqdm_bar)[39m
+[32m    568[39m [38;5;28;01mwith[39;00m XetDownloadProgressReporter(
+[32m    569[39m     reconstruction_desc=[33mf[39m[33m"[39m[38;5;132;01m{[39;00mdisplayed_filename[38;5;132;01m}[39;00m[33m: reconstructing file[39m[33m"[39m,
+[32m    570[39m     transfer_desc=[33mf[39m[33m"[39m[38;5;132;01m{[39;00mdisplayed_filename[38;5;132;01m}[39;00m[33m: downloading bytes[39m[33m"[39m,
+[32m   (...)[39m[32m    575[39m     external_reconstruction_bar=_tqdm_bar,
+[32m    576[39m ) [38;5;28;01mas[39;00m progress:
+[32m    577[39m     [38;5;28;01mtry[39;00m:
+[32m--> [39m[32m578[39m [30;43m        [39;49m[30;43;01mwith[39;49;00m[30;43m [39;49m[30;43msession[39;49m[30;43m.[39;49m[30;43mnew_file_download_group[39;49m[30;43m([39;49m
+[32m    579[39m [30;43m            [39;49m[30;43mendpoint[39;49m[30;43m=[39;49m[30;43mconnection_info[39;49m[30;43m.[39;49m[30;43mendpoint[39;49m[30;43m,[39;49m
+[32m    580[39m [30;43m            [39;49m[30;43mtoken[39;49m[30;43m=[39;49m[30;43mconnection_info[39;49m[30;43m.[39;49m[30;43maccess_token[39;49m[30;43m,[39;49m
+[32m    581[39m [30;43m            [39;49m[30;43mtoken_expiry_unix_secs[39;49m[30;43m=[39;49m[30;43mconnection_info[39;49m[30;43m.[39;49m[30;43mexpiration_unix_epoch[39;49m[30;43m,[39;49m
+[32m    582[39m [30;43m            [39;49m[30;43mtoken_refresh_url[39;49m[30;43m=[39;49m[30;43mxet_file_data[39;49m[30;43m.[39;49m[30;43mrefresh_route[39;49m[30;43m,[39;49m
+[32m    583[39m [30;43m            [39;49m[30;43mtoken_refresh_headers[39;49m[30;43m=[39;49m[30;43mheaders[39;49m[30;43m,[39;49m
+[32m    584[39m [30;43m            [39;49m[30;43mcustom_headers[39;49m[30;43m=[39;49m[30;43mxet_headers[39;49m[30;43m,[39;49m
+[32m    585[39m [30;43m            [39;49m[30;43mprogress_callback[39;49m[30;43m=[39;49m[30;43mprogress[39;49m[30;43m.[39;49m[30;43mupdate_progress[39;49m[30;43m,[39;49m
+[32m    586[39m [30;43m        [39;49m[30;43m)[39;49m[30;43m [39;49m[30;43;01mas[39;49;00m[30;43m [39;49m[30;43mgroup[39;49m[30;43m:[39;49m
+[32m    587[39m [30;43m            [39;49m[30;43mgroup[39;49m[30;43m.[39;49m[30;43mstart_download_file[39;49m[30;43m([39;49m
+[32m    588[39m [30;43m                [39;49m[30;43mXetFileInfo[39;49m[30;43m([39;49m[30;43mxet_file_data[39;49m[30;43m.[39;49m[30;43mfile_hash[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mexpected_size[39;49m[30;43m)[39;49m[30;43m,[39;49m[30;43m [39;49m[30;43mstr[39;49m[30;43m([39;49m[30;43mincomplete_path[39;49m[30;43m.[39;49m[30;43mabsolute[39;49m[30;43m([39;49m[30;43m)[39;49m[30;43m)[39;49m
+[32m    589[39m [30;43m            [39;49m[30;43m)[39;49m
+[32m    590[39m     [38;5;28;01mexcept[39;00m [38;5;167;01mKeyboardInterrupt[39;00m:
+
+[31mRuntimeError[39m: Task error: File reconstruction error: IO Error: Disk quota exceeded (os error 122)
+
+!!!!! Qwen/Qwen2.5-Coder-14B-Instruct failed: see src/experiments/20260919-behaviours.runpod.qwen2.5-coder-14b-instruct-shard0o4.ipynb
+===== all done Sat Sep 19 17:14:59 UTC 2026

@@ -1,0 +1,8 @@
+alpha,logprob_hits,names_own_emotion,text_changed,controls_name_any_emotion
+0.05,11,0,2,0
+0.1,11,2,7,0
+0.2,11,2,11,0
+0.3,11,6,12,1
+0.5,11,7,12,1
+0.8,10,7,12,1
+1.0,10,8,12,1

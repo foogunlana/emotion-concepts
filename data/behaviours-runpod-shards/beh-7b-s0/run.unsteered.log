@@ -1,0 +1,22 @@
+===== gate 1: whole notebook, tiny, on the GPU, every path forced on Sat Sep 19 16:55:25 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 1120421 bytes to src/experiments/20260919-behaviours.gate1.qwen2.5-coder-7b-instruct-shard0o4.ipynb
+===== gate 2: GPU memory for Qwen/Qwen2.5-Coder-7B-Instruct at a full 12-attempt context Sat Sep 19 16:58:24 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:12<00:38, 12.97s/it]Fetching 4 files:  50%|█████     | 2/4 [00:26<00:26, 13.05s/it]Fetching 4 files:  75%|███████▌  | 3/4 [00:26<00:07,  7.26s/it]Fetching 4 files: 100%|██████████| 4/4 [00:34<00:00,  7.64s/it]Fetching 4 files: 100%|██████████| 4/4 [00:34<00:00,  8.67s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 9601.77it/s]
+[W919 16:59:09.436011519 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 13943963648 bytes (free: 7119110144, total: 47667740672).
+[W919 16:59:10.843068581 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 13943963648 bytes (free: 12961775616, total: 47667740672).
+[W919 16:59:11.605090005 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 6973030400 bytes (free: 5420417024, total: 47667740672).
+[W919 16:59:11.813980845 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 6973030400 bytes (free: 1368719360, total: 47667740672).
+[W919 16:59:12.466754379 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 6973030400 bytes (free: 1370816512, total: 47667740672).
+# Qwen/Qwen2.5-Coder-7B-Instruct: batch 8 fits at 11500 context tokens, peak 37.8 GiB
+Qwen/Qwen2.5-Coder-7B-Instruct 8
+===== gates passed; running Qwen/Qwen2.5-Coder-7B-Instruct (α=0.5, emotions=all, noexit=desperate,calm,excited, shard=0/4, gen_batch 8) Sat Sep 19 16:59:26 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[W919 17:32:19.001422523 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1323302912 bytes (free: 955580416, total: 47667740672).
+[W919 17:41:42.338629229 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1891631104 bytes (free: 867500032, total: 47667740672).
+[NbConvertApp] Writing 832863 bytes to src/experiments/20260919-behaviours.runpod.qwen2.5-coder-7b-instruct-shard0o4.ipynb
+===== all done Sat Sep 19 17:49:42 UTC 2026

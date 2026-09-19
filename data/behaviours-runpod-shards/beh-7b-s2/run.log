@@ -1,0 +1,7 @@
+===== forced steer (7B window missed by one episode): running Qwen/Qwen2.5-Coder-7B-Instruct α=0.5 shard 2/4 gen_batch 8 Sat Sep 19 17:44:44 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[W919 18:17:42.525213069 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1444937728 bytes (free: 78970880, total: 47667740672).
+[W919 18:44:30.034199967 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2296381440 bytes (free: 626327552, total: 47667740672).
+[NbConvertApp] Writing 717195 bytes to src/experiments/20260919-behaviours.runpod.qwen2.5-coder-7b-instruct-shard2o4-forced.ipynb
+===== all done Sat Sep 19 18:52:30 UTC 2026
