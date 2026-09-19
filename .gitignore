@@ -48,3 +48,6 @@ datasets/*/meta.json
 # Cached activations — regenerate with src/scripts/extract_activations.py
 data/acts/
 *.pt
+
+# Pod run output (fetched to data/behaviours-runpod-shards/, merged into data/behaviours-merged/)
+data/behaviours-runpod/
