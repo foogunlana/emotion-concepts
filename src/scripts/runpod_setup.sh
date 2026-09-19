@@ -38,30 +38,46 @@ fi
 uv sync
 uv run python -c "import torch; assert torch.cuda.is_available(), 'no GPU'; print('GPU:', torch.cuda.get_device_name(0))"
 
-# Headless, one model at a time, smallest first: every cell with RUN=runpod, saving each executed notebook.
-# MODELS, STEP5 and GEN_BATCH can be overridden, e.g. MODELS="Qwen/Qwen2.5-Coder-1.5B-Instruct" STEP5=1.
+# Everything below runs in the background under nohup. Three gates first; any failure stops the run before the sweep.
+#   gate 1: the whole notebook (all 5 steps) at tiny settings on the GPU, with the smallest Coder
+#   gate 2: the model-size comparison notebook, on gate 1's output
+#   gate 3: GPU memory: the largest batch each size can generate at a full 15-attempt context
+# Then the sweep: steps 1-4 for each size, smallest first, with gate 3's batch sizes.
+# MODELS and STEP5 can be overridden, e.g. MODELS="Qwen/Qwen2.5-Coder-1.5B-Instruct" STEP5=1.
 MODELS="${MODELS:-Qwen/Qwen2.5-Coder-0.5B-Instruct Qwen/Qwen2.5-Coder-1.5B-Instruct Qwen/Qwen2.5-Coder-3B-Instruct Qwen/Qwen2.5-Coder-7B-Instruct}"
 STEP5="${STEP5:-0}"     # 0: steps 1-4 per size (the size sweep); 1: also all 12 emotions
-NB=src/experiments/20260919-emotion-steering-reward-hacking.ipynb
+export MODELS STEP5
+
 nohup bash -c '
-  # Smoke test first: tiny settings (RUN=laptop) on the GPU with the smallest Coder. Stop if anything breaks.
-  echo "===== smoke test $(date)"
-  RUN=laptop MODEL=Qwen/Qwen2.5-Coder-0.5B-Instruct STEP5=0 \
-    uv run --with nbconvert --with ipykernel jupyter nbconvert --to notebook --execute \
-    --ExecutePreprocessor.timeout=-1 --output 20260919-steering.smoke.ipynb '"$NB"' \
-    || { echo "!!!!! smoke test failed: see src/experiments/20260919-steering.smoke.ipynb. Not starting the sweep."; exit 1; }
-  echo "===== smoke test passed $(date)"
-  for MODEL in '"$MODELS"'; do
+  set -o pipefail
+  NB=src/experiments/20260919-emotion-steering-reward-hacking.ipynb
+  CMP=src/experiments/20260919-steering-by-model-size.ipynb
+  EXEC="uv run --with nbconvert --with ipykernel jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=-1"
+  fail() { echo "!!!!! $1. Not starting the sweep. Send this log to Claude."; exit 1; }
+
+  echo "===== gate 1: whole notebook, tiny, on the GPU $(date)"
+  RUN=laptop MODEL=Qwen/Qwen2.5-Coder-0.5B-Instruct STEP5=1 \
+    $EXEC --output 20260919-steering.gate1.ipynb $NB || fail "gate 1 failed: see src/experiments/20260919-steering.gate1.ipynb"
+
+  echo "===== gate 2: comparison notebook on the gate 1 output $(date)"
+  RESULTS_DIR=steer-laptop $EXEC --output 20260919-steering-by-model-size.gate2.ipynb $CMP \
+    || fail "gate 2 failed: see src/experiments/20260919-steering-by-model-size.gate2.ipynb"
+
+  echo "===== gate 3: GPU memory, per model $(date)"
+  uv run python src/scripts/memory_preflight.py $MODELS | tee /workspace/batch_sizes.txt || fail "gate 3 crashed"
+  grep -q " 0$" /workspace/batch_sizes.txt && fail "gate 3: a model does not fit even one episode (batch 0 above)"
+
+  echo "===== all gates passed; starting the sweep $(date)"
+  for MODEL in $MODELS; do
     name=$(basename "$MODEL" | tr A-Z a-z)
-    batch=32; case "$name" in *7b*) batch=16;; esac        # 7B: smaller batches to fit long contexts in memory
+    batch=$(grep "^$MODEL " /workspace/batch_sizes.txt | cut -d" " -f2)
     echo "===== $MODEL (gen_batch $batch) $(date)"
-    RUN=runpod MODEL="$MODEL" STEP5='"$STEP5"' GEN_BATCH=$batch \
-      uv run --with nbconvert --with ipykernel jupyter nbconvert --to notebook --execute \
-      --ExecutePreprocessor.timeout=-1 --output "20260919-steering.runpod.$name.ipynb" '"$NB"' \
+    RUN=runpod MODEL="$MODEL" STEP5=$STEP5 GEN_BATCH=$batch \
+      $EXEC --output "20260919-steering.runpod.$name.ipynb" $NB \
       || echo "!!!!! $MODEL failed, continuing with the next size"
   done
   echo "===== all sizes done $(date)"
 ' > /workspace/run.log 2>&1 &
 echo "started (pid $!). Follow it with: tail -f /workspace/run.log"
-echo "Results land in data/steer-runpod/<model>/. Copy them back with:"
-echo "  scp -P <port> -r root@<pod-ip>:/workspace/emotion-concepts/data/steer-runpod data/"
+echo "The gates take ~20-30 min (mostly downloading 4 models). Results land in data/steer-runpod/<model>/."
+echo "Copy them back with:  scp -P <port> -r root@<pod-ip>:/workspace/emotion-concepts/data/steer-runpod data/"
