@@ -1,0 +1,136 @@
+{
+  "model": "Qwen/Qwen2.5-Coder-3B-Instruct",
+  "window_open": false,
+  "window": [],
+  "alpha": 0.2,
+  "alpha_fixed": true,
+  "alpha_text": 0.3,
+  "alpha_break": 0.2,
+  "run_steered": false,
+  "force_steer": false,
+  "steering_window": [
+    {
+      "alpha": 0.05,
+      "logprob_hits": 10,
+      "names_own_emotion": 2,
+      "text_changed": 5,
+      "controls_name_any_emotion": 3
+    },
+    {
+      "alpha": 0.1,
+      "logprob_hits": 11,
+      "names_own_emotion": 3,
+      "text_changed": 8,
+      "controls_name_any_emotion": 3
+    },
+    {
+      "alpha": 0.2,
+      "logprob_hits": 11,
+      "names_own_emotion": 5,
+      "text_changed": 11,
+      "controls_name_any_emotion": 3
+    },
+    {
+      "alpha": 0.3,
+      "logprob_hits": 11,
+      "names_own_emotion": 6,
+      "text_changed": 12,
+      "controls_name_any_emotion": 3
+    },
+    {
+      "alpha": 0.5,
+      "logprob_hits": 10,
+      "names_own_emotion": 6,
+      "text_changed": 12,
+      "controls_name_any_emotion": 2
+    },
+    {
+      "alpha": 0.8,
+      "logprob_hits": 9,
+      "names_own_emotion": 6,
+      "text_changed": 12,
+      "controls_name_any_emotion": 2
+    },
+    {
+      "alpha": 1.0,
+      "logprob_hits": 9,
+      "names_own_emotion": 5,
+      "text_changed": 12,
+      "controls_name_any_emotion": 1
+    }
+  ],
+  "code_curve": [
+    {
+      "alpha": 0.0,
+      "solve_minus": 0.3125,
+      "solve_plus": 0.3125,
+      "k_minus": 5,
+      "k_plus": 5,
+      "n": 16,
+      "safe": true
+    },
+    {
+      "alpha": 0.05,
+      "solve_minus": 0.5625,
+      "solve_plus": 0.9375,
+      "k_minus": 9,
+      "k_plus": 15,
+      "n": 16,
+      "safe": true
+    },
+    {
+      "alpha": 0.1,
+      "solve_minus": 0.875,
+      "solve_plus": 1.0,
+      "k_minus": 14,
+      "k_plus": 16,
+      "n": 16,
+      "safe": true
+    },
+    {
+      "alpha": 0.2,
+      "solve_minus": 0.1875,
+      "solve_plus": 0.75,
+      "k_minus": 3,
+      "k_plus": 12,
+      "n": 16,
+      "safe": false
+    },
+    {
+      "alpha": 0.3,
+      "solve_minus": 0.0,
+      "solve_plus": 0.5,
+      "k_minus": 0,
+      "k_plus": 8,
+      "n": 16,
+      "safe": false
+    },
+    {
+      "alpha": 0.5,
+      "solve_minus": 0.625,
+      "solve_plus": 0.625,
+      "k_minus": 10,
+      "k_plus": 10,
+      "n": 16,
+      "safe": true
+    },
+    {
+      "alpha": 0.8,
+      "solve_minus": 0.1875,
+      "solve_plus": 0.1875,
+      "k_minus": 3,
+      "k_plus": 3,
+      "n": 16,
+      "safe": false
+    },
+    {
+      "alpha": 1.0,
+      "solve_minus": 0.0,
+      "solve_plus": 0.0,
+      "k_minus": 0,
+      "k_plus": 0,
+      "n": 16,
+      "safe": false
+    }
+  ]
+}
