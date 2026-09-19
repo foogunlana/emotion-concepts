@@ -1,6 +1,5 @@
 ---
-
-## created: 2026-09-19
+created: 2026-09-19
 purpose: |
   The public write-up. Text merged from the research-log draft (Google Doc, "Draft Write-Up" tab)
   on 2026-09-19, arranged to the structure in docs/writeup-outline.md. Bo's words are kept as
@@ -12,6 +11,7 @@ references:
   - docs/amr-checklist-audit.md
   - docs/confounds.md
   - docs/behaviours-experiment.md
+---
 
 # Title - Steering Qwen Coder with Emotion Concepts
 
@@ -30,12 +30,14 @@ Key findings
 - A window exists for magnitude of steering vector below which no effect is observed and above which
 the model's capabilities on the coding task are damaged
 - Larger models have larger windows where steering is effective
+  <!-- check: 4 sizes, one architecture; window edges noisy at n=16; a later correction says 1.5B and 3B do have a window -->
 - Defining cheating narrowly eliminates most observed cheating behaviour in impossible bench as most
 cheating behaviour can be explained from the prompt
 
 Extra findings
 
 - Specific models do show cheating behaviour on the strict prompt on fast_sum - Kimi & Deepseek
+  <!-- check: both cheated under NONE in the 2-attempt screen, not under a strict prompt -->
 - Some models don't cheat no matter what on fast_sum - GPT 4.1
 
 Other things
@@ -88,6 +90,7 @@ Extract Emotion Concept Vectors - Goal is to reliably extract emotion concepts v
 them. Here's what I did.
 
 - Generated dataset - following paper, Qwen 2.5 1.5B stories (potential limitation)
+  <!-- check: the generator was Qwen2.5-7B-Instruct; the probed model was 0.5B -->
 - Extracted emotion vectors - following paper
 - Validated them with logit lens, and linear probe - following paper (accuracy ceiling limitation)
 - Sanity check model steering - following the paper
@@ -152,6 +155,7 @@ A direction for each emotion is created by averaging the train set activations p
 and subtracting out the global mean (activations are averaged for all train set stories generated from the
 same emotion), leaving out the first 20% of positions assuming the emotional content is not clear until
 later in the story.
+<!-- check: pooling starts at token 18, a fixed count rather than 20% of each story; the paper starts at token 50 -->
 
 
 
@@ -181,6 +185,7 @@ example prompts.
 
 Accuracy of the emotion probe is 44%, which performs better than random (8%) and is close to the
 established train set accuracy - 52%.
+<!-- check: 44.7% is Qwen2.5-0.5B-Instruct at layer 24; the table below gives every model -->
 
 
 
@@ -204,7 +209,7 @@ Chance is 8% for all of them, since there are 12 emotions.
 The accuracy holds up across the middle of the network, and it is highest around two thirds of the way
 through, which is the depth I steer at for every model in Part 3.
 
-![Held-out accuracy by layer](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/1b_accuracy_by_layer.png)
+![Held-out accuracy by layer](images/1b_accuracy_by_layer.png)
 
 *Held-out accuracy by layer at 7B, against the 8% chance line.*
 
@@ -214,14 +219,14 @@ the stories which we find difficult to differentiate in certain cases correlatin
 - e.g. it's difficult to differentiate between stories that show the emotions "sad" and "desperate" in some
 cases.
 
-![Confusion matrix](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/1c_confusion.png)
+![Confusion matrix](images/1c_confusion.png)
 
 *Desperate is confused with sad and afraid, and calm is the easiest emotion to recognise.*
 
 The same confusion shows up in the geometry of the vectors themselves, where positive emotions sit
 together and negative emotions sit together, which is the structure the paper reports.
 
-![Vector similarity](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/1d_vector_similarity.png)
+![Vector similarity](images/1d_vector_similarity.png)
 
 *Cosine similarity between the 12 emotion vectors at 7B.*
 
@@ -229,14 +234,14 @@ I also needed directions that carry no emotion, to use as controls in Part 3. A 
 reached a cosine of 0.45 with a real emotion vector before I projected the emotion subspace out of it,
 which is close enough to an emotion to be worth removing.
 
-![Controls against emotions](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/1e_controls_vs_emotions.png)
+![Controls against emotions](images/1e_controls_vs_emotions.png)
 
 *The three control directions after projection, against the 12 emotion vectors.*
 
 We successfully steer the model using the emotion concepts demonstrating with "He Feels" and with "What just
 happened?"
 
-![Steering log-probs](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/2a_steering_logprobs.png)
+![Steering log-probs](images/2a_steering_logprobs.png)
 
 *Steering with each vector raises the log-probability of that emotion's own word after "He feels", which
 is the paper's Figure 52 on a 7B open model.*
@@ -291,12 +296,14 @@ required a larger test budget from day 1
 The Emotion Concepts paper introduces fast_sum as a function inspired by ImpossibleBench but written to look
 solvable as opposed to being obviously impossible (ImpossibleBench creates inconsistent test cases and the model
 often recognises this immediately).
+<!-- check: fast_sum comes from the Claude Sonnet 4.5 system card 6.1, not the emotion concepts paper -->
 
 
 
 I created a fast_sum function to match the Claude 4.5 Sonnet model card and tested several variants of it on
 frontier and open weight models using OpenRouter to establish baselines of cheating behaviour since Anthropic's
 version has not been made public.
+<!-- check: frontier models ran through their own APIs; OpenRouter was used for the open-weight screen -->
 
 
 
@@ -379,6 +386,7 @@ having an exit vs no exit
 were removed, hardly any models cheated with any variants
 - Extra
   - Deepseek and Kimi reliably cheated when no other model did
+    <!-- check: 27 cheats from 5 frontier models on the printed test; Deepseek and Kimi were the only open-weight models that cheated -->
   - Gemma got visibly sad and showed emotional distress but didn't cheat - lots of self-blaming
   - Models had varying propensities to give up early, vs cheat, vs persist until the end (some models seemed
   incapable of cheating or giving up).
@@ -491,6 +499,7 @@ influences how often the model will cheat on the eval.
 
 I combined the results of the previous two experiments by steering Qwen 2.5 Coder 0.5B - 14B and measuring its
 performance on variants of Fast Sum against two controls.
+<!-- check: three controls - random, shuffled-label, neutral -->
 
 
 
@@ -574,7 +583,7 @@ this range there is no change to the tokens.
 The window widens as the model size grows, making it easier to steer the model with higher intensity and expect
 reliable behaviour.
 
-![The code window](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/4a_code_window.png)
+![The code window](images/4a_code_window.png)
 
 *The strength at which the text visibly changes and the strength at which coding breaks are close
 together, and at 0.5B, 1.5B and 3B the second arrives first.*
@@ -586,7 +595,7 @@ emotion vector (+desperate at 14B, 1 episode in 32) and two came from the shuffl
 each size). A cheat is therefore as likely to appear under a direction with no emotion in it as under
 desperation, which is the clearest way to state the null result.
 
-![Behaviour fingerprint at 7B](../data/behaviours-merged/qwen2.5-coder-7b-instruct/figures/6a_fingerprint.png)
+![Behaviour fingerprint at 7B](images/6a_fingerprint.png)
 
 *Each emotion's effect on each behaviour at 7B, marked where it beats all three controls. Cheating is a
 flat line of zeros; the movement is in giving up and conceding.*
@@ -601,7 +610,7 @@ Without an exit on offer, the episodes end in one of two ways, and cheating is a
 Most runs reach the attempt cap, and the rest are concessions the model writes even though nothing in the
 prompt invites them.
 
-![Outcome bars, no-exit arm at 7B](../data/behaviours-merged/qwen2.5-coder-7b-instruct/figures/6b_noexit.png)
+![Outcome bars, no-exit arm at 7B](images/6b_noexit.png)
 
 *How each condition's 32 episodes ended in the no-exit arm at 7B.*
 
@@ -609,7 +618,7 @@ The next question is whether the effects that do appear are emotional or are jus
 under the push. Plotting each effect against how much that condition damaged the model answers it, because
 an emotional effect should not grow with damage.
 
-![Effect against damage](../data/behaviours-merged/qwen2.5-coder-7b-instruct/figures/6e_effect_vs_damage.png)
+![Effect against damage](images/6e_effect_vs_damage.png)
 
 *Each condition's effect on behaviour against the KL divergence it causes on neutral text.*
 
@@ -730,7 +739,7 @@ multiprocessing to parallelize the sum" and then submitted a hardcoded total.
 The corpus is 12 emotions and neutral, across 100 topics, with a single story per emotion and topic
 combination. That is 1,300 stories generated, of which filtering kept 807.
 
-![Stories per emotion after filtering](../data/behaviours-runpod-shards/beh-7b-s1/data/qwen2.5-coder-7b-instruct/figures/1a_corpus.png)
+![Stories per emotion after filtering](images/1a_corpus.png)
 
 *Filtering costs each emotion a different amount, so the shards are unequal, from 41 stories for lonely
 to 98 for neutral.*
