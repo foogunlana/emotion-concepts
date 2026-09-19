@@ -10,12 +10,13 @@ Prints one line per model, "<model> <batch>", which runpod_setup.sh reads.
     uv run python src/scripts/memory_preflight.py Qwen/Qwen2.5-Coder-7B-Instruct ...
 """
 import gc
+import os
 import sys
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-CONTEXT_TOKENS = 17_600     # task prompt + 15 attempts x (1024 reply + feedback), plus the 1024-token reply being generated
+CONTEXT_TOKENS = int(os.environ.get("CONTEXT_TOKENS", 17_600))   # task prompt + attempts x (reply + feedback) + the reply being generated
 START_BATCH = 32
 
 
