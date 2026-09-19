@@ -46,6 +46,9 @@ if [ ! -d datasets/qwen-emotion-stories/corpus ]; then
 fi
 
 uv sync
+# core/models.py loads from <repo>/.cache, gate 2 from $HF_HOME: share one copy, or a 14B model is downloaded twice
+# and overflows an 80 GB volume.
+[ -L .cache ] || { rm -rf .cache && ln -s "$HF_HOME/hub" .cache; }
 # uv.lock pins torch 2.14 built for CUDA 13: the host driver must support CUDA >= 13.0.
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader || true
 uv run python -c "
