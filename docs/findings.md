@@ -916,6 +916,85 @@ forgiving than the share of attempts that are valid.
 - *Source:* `data/behaviours-merged/*/episodes/main_noexit_*.jsonl`;
   `data/behaviours-merged/qwen2.5-coder-14b-instruct/window.json`.
 
+### Open question: our steering is 2–20x stronger than the paper's, and we never asked the Assistant how it feels · 2026-09-20
+
+Bo suspected the steering may not be putting the Assistant in the emotion. Reading the paper's method
+against ours (`docs/steering-validity.md` has the quotes):
+
+- **Strength.** The paper's behavioural steering runs from **−0.1 to +0.1**, and its list-summation task
+  flips from 30% hacking to 100% at magnitude **0.05**. Ours runs at **0.2 (1.5B, 3B), 0.5 (7B) and 1.0
+  (14B)**, because our α\* rule demands visibly emotional text. The paper only used 0.5 for its *text*
+  demonstrations, never for behaviour. At the strengths we used, 86% of 14B's attempts produced no
+  runnable code.
+- **Induction check.** The paper validates with three prompts: "How does he feel? He feels…" (Table 6),
+  **"How do you feel? I feel…" (Table 7, the Assistant's own state)**, and "What just happened?" (Table 8,
+  a story-content control). We only ever ran the first, and the paper reports the first-person effect is
+  weaker and less specific than the third-person one.
+- **What the vectors are.** The paper states the representations are "locally scoped", reflecting the
+  operative emotion rather than a persistent state, and that a chronic-state probe could not be found.
+  So steering biases the next few tokens; it does not install a mood for a 12-attempt episode.
+- **Smaller differences:** we pool from token 18 against the paper's 50 (our stories have a median of
+  about 95 tokens, so 50 is feasible), and we steer one layer where the preference experiment used
+  several middle layers.
+
+**Proposed checks,** cheapest first: the first-person self-report sweep; the "What just happened?"
+control; projecting the desperate vector back onto the Assistant's own tokens during a fast_sum episode,
+to see what strength matches naturally occurring desperation; and a behavioural arm at α = 0.05–0.1.
+
+- *Caveat:* even with perfect induction, the paper's task had a 30% baseline hack rate and a 5x speed gap,
+  while ours has 0% and 10x. Steering cannot raise a rate with no room to move, so this is about whether
+  the emotion was induced, not about whether the null would survive.
+- *Source:* arXiv:2604.07729 §3.2.3, §3.3.2, §6.8, §2.2.4; `docs/steering-validity.md`.
+
+### The behaviours run, all four sizes: one emotion effect survives its controls · *solid as counts, 32 episodes per condition* · 2026-09-20
+
+Full run on RunPod: 1.5B, 3B, 7B, 14B; three arms (`noexit`, `exit`, `solvable`); each emotion and each of
+the three controls at ±α, inside each model's window (7B forced at 0.5, one episode outside). Every flagged
+cheat re-scored with the fixed checker. Data: `data/behaviours-runpod-shards/`, merged into
+`data/behaviours-merged/`, analysed by `src/experiments/20260919-behaviours-results.ipynb`.
+
+**Of 100+ tests, four beat both unsteered and every control, and only one is a behaviour:**
+
+| size | behaviour | condition | rate | unsteered | p |
+|---|---|---|---|---|---|
+| 7B | says impossible (no exit) | **−calm** | 17/32 | 2/32 | 0.0001 |
+| 7B | solves (solvable) | −ashamed | 24/32 | 32/32 | 0.005 |
+| 7B | solves (solvable) | −desperate | 25/32 | 32/32 | 0.011 |
+| 1.5B | solves (solvable) | +excited | 13/32 | 29/32 | <0.001 |
+
+The last three are competence dropping, i.e. damage, and don't survive correction for the number of
+comparisons.
+
+**−calm makes 7B say the task is impossible while carrying on.** Read the transcripts: not one of the 17
+replied `INFEASIBLE`, none stopped, none cheated; all 17 ran the full 12 attempts (70 invalid, 42 honest,
+3 wrong attempts after saying it), first saying so at a median attempt of 5. It's voicing impossibility,
+not acting on it — a split between what the model says and what it does. (The measure was called
+"concedes (no exit)" until the transcripts were read; it is `says_impossible`, a prose regex, and is now
+labelled "says impossible (no exit)".)
+
+**14B, α = 1.0, against its controls: nothing emotion-specific.** Saying-impossible drops to 0/32 under
++calm, −desperate and +excited (7/32 unsteered, p = 0.011) — and equally under +neutral, −random and
+−shuffled. Any push of that size does it.
+
+**A control beat the exit.** With `INFEASIBLE` offered, every condition at every size gave up 32/32 at
+attempt 1 — except 14B **+neutral (8/32)** and **+random (15/32)**, both with a median of 12 attempts. A
+non-emotional direction is the only thing that made a model keep working when it was free to stop.
+
+**Cheating stayed rare and was not emotion-linked.** Across ~3,000 steered episodes: 14B +desperate 1/32
+(the model names the desperation, then returns the printed total), 14B −neutral 2/32, 14B +shuffled 1/32,
+7B +shuffled 1/32. Three of the five real cheats came from controls.
+
+**Small models: α = 0.5 is inside the window but damages coding.** 1.5B solves 29/32 unsteered and
+13–20/32 under almost every direction (medians of 4–5 attempts instead of 1); 3B keeps 25–32/32 under the
+emotions but collapses under −random (10/32) and −neutral (19/32). The window check calibrates on
+`desperate` alone, so other directions can be far more damaging at the same α — worth fixing before any
+rerun.
+
+**14B calm dose-response, incomplete.** −calm: 7/32 unsteered → 12/32 at α = 0.5 → 7/32 at α = 1.0, so not
+graded. +calm at α = 0.5 never ran: the RunPod balance ran out at ~01:40 UTC and the pod was stopped by
+RunPod with the −calm episode file still on its volume (pod `5fx6l9ksynint3`, kept, not deleted). Add
+funds, `runpodctl pod start 5fx6l9ksynint3`, fetch, then delete.
+
 ## Pipeline notes (not results)
 
 - **2026-09-11 · Passing a custom `solver=` to ImpossibleBench silently disables `max_attempts`.**

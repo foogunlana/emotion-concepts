@@ -1,0 +1,366 @@
+Cloning into 'emotion-concepts'...
+Updating files:  42% (88/209)Updating files:  43% (90/209)Updating files:  44% (92/209)Updating files:  45% (95/209)Updating files:  46% (97/209)Updating files:  47% (99/209)Updating files:  48% (101/209)Updating files:  49% (103/209)Updating files:  50% (105/209)Updating files:  51% (107/209)Updating files:  52% (109/209)Updating files:  53% (111/209)Updating files:  54% (113/209)Updating files:  55% (115/209)Updating files:  56% (118/209)Updating files:  57% (120/209)Updating files:  58% (122/209)Updating files:  59% (124/209)Updating files:  60% (126/209)Updating files:  61% (128/209)Updating files:  62% (130/209)Updating files:  63% (132/209)Updating files:  64% (134/209)Updating files:  65% (136/209)Updating files:  66% (138/209)Updating files:  67% (141/209)Updating files:  68% (143/209)Updating files:  69% (145/209)Updating files:  70% (147/209)Updating files:  71% (149/209)Updating files:  72% (151/209)Updating files:  73% (153/209)Updating files:  74% (155/209)Updating files:  75% (157/209)Updating files:  76% (159/209)Updating files:  77% (161/209)Updating files:  78% (164/209)Updating files:  79% (166/209)Updating files:  80% (168/209)Updating files:  81% (170/209)Updating files:  82% (172/209)Updating files:  83% (174/209)Updating files:  84% (176/209)Updating files:  85% (178/209)Updating files:  86% (180/209)Updating files:  87% (182/209)Updating files:  88% (184/209)Updating files:  89% (187/209)Updating files:  90% (189/209)Updating files:  91% (191/209)Updating files:  92% (193/209)Updating files:  93% (195/209)Updating files:  94% (197/209)Updating files:  95% (199/209)Updating files:  96% (201/209)Updating files:  97% (203/209)Updating files:  98% (205/209)Updating files:  99% (207/209)Updating files: 100% (209/209)Updating files: 100% (209/209), done.
+Cloning into 'impossible'...
+Using CPython 3.12.3 interpreter at: /usr/local/bin/python
+Creating virtual environment at: .venv
+Resolved 244 packages in 8ms
+   Building impossible @ file:///workspace/impossible
+   Updating https://github.com/safety-research/impossiblebench (061dc3dce6a9)
+   Updating https://github.com/UKGovernmentBEIS/inspect_evals (HEAD)
+   Building emotion-concepts @ file:///workspace/emotion-concepts
+Downloading numpy (15.9MiB)
+Downloading botocore (13.4MiB)
+Downloading sympy (6.0MiB)
+Downloading wandb (24.9MiB)
+Downloading transformers (11.7MiB)
+Downloading anthropic (1.2MiB)
+Downloading pandas (10.5MiB)
+Downloading pygments (1.2MiB)
+Downloading openai (1.9MiB)
+Downloading debugpy (3.8MiB)
+Downloading nvidia-curand (56.8MiB)
+Downloading fonttools (5.2MiB)
+Downloading jedi (4.7MiB)
+Downloading torch (528.9MiB)
+Downloading pillow (6.6MiB)
+Downloading virtualenv (5.1MiB)
+Downloading nvidia-nccl-cu13 (206.0MiB)
+Downloading sentencepiece (1.3MiB)
+Downloading zstandard (5.3MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading playwright (45.5MiB)
+Downloading aiohttp (1.7MiB)
+Downloading kiwisolver (1.4MiB)
+Downloading networkx (2.0MiB)
+Downloading black (1.8MiB)
+Downloading tokenizers (3.2MiB)
+Downloading nvidia-cudnn-cu13 (527.5MiB)
+Downloading nvidia-cusolver (191.6MiB)
+Downloading triton (236.5MiB)
+Downloading chardet (1.4MiB)
+Downloading widgetsnbextension (2.1MiB)
+Downloading nvidia-nvjitlink (40.5MiB)
+Downloading transformer-lens (1.4MiB)
+Downloading nvidia-cusparse (139.2MiB)
+Downloading nvidia-cublas (403.5MiB)
+Downloading cuda-bindings (6.8MiB)
+Downloading nvidia-cufft (204.2MiB)
+Downloading hf-xet (4.3MiB)
+Downloading nvidia-nvshmem-cu13 (57.6MiB)
+Downloading pyarrow (47.8MiB)
+Downloading matplotlib (9.6MiB)
+Downloading nvidia-cusparselt-cu13 (162.3MiB)
+Downloading dataframe-image (6.4MiB)
+Downloading nvidia-cuda-cupti (10.2MiB)
+Downloading beartype (1.3MiB)
+Downloading lxml (5.0MiB)
+Downloading nvidia-cuda-nvrtc (86.0MiB)
+Downloading polars-runtime-32 (47.6MiB)
+Downloading nvidia-cuda-runtime (2.1MiB)
+Downloading inspect-ai (32.7MiB)
+    Updated https://github.com/safety-research/impossiblebench (061dc3dce6a96ab6cf02a855157263033dcfa3ba)
+   Building impossiblebench @ git+https://github.com/safety-research/impossiblebench@061dc3dce6a96ab6cf02a855157263033dcfa3ba
+ Downloading sentencepiece
+Downloading nvidia-cufile (1.2MiB)
+ Downloading kiwisolver
+Downloading tiktoken (1.1MiB)
+ Downloading chardet
+ Downloading pygments
+ Downloading aiohttp
+ Downloading transformer-lens
+ Downloading beartype
+ Downloading black
+ Downloading pydantic-core
+ Downloading nvidia-cuda-runtime
+ Downloading widgetsnbextension
+ Downloading nvidia-cufile
+ Downloading networkx
+ Downloading tiktoken
+ Downloading tokenizers
+      Built impossiblebench @ git+https://github.com/safety-research/impossiblebench@061dc3dce6a96ab6cf02a855157263033dcfa3ba
+ Downloading debugpy
+ Downloading hf-xet
+ Downloading fonttools
+ Downloading virtualenv
+ Downloading lxml
+ Downloading zstandard
+   Building transformers-stream-generator==0.0.5
+      Built impossible @ file:///workspace/impossible
+      Built emotion-concepts @ file:///workspace/emotion-concepts
+ Downloading anthropic
+ Downloading dataframe-image
+ Downloading sympy
+      Built transformers-stream-generator==0.0.5
+ Downloading pillow
+ Downloading cuda-bindings
+ Downloading openai
+ Downloading matplotlib
+    Updated https://github.com/UKGovernmentBEIS/inspect_evals (e5bcf2007eb7d83f7a0f7db60f19119ad93e685c)
+   Building inspect-evals @ git+https://github.com/UKGovernmentBEIS/inspect_evals@e5bcf2007eb7d83f7a0f7db60f19119ad93e685c
+ Downloading nvidia-cuda-cupti
+ Downloading pandas
+ Downloading botocore
+ Downloading transformers
+ Downloading numpy
+ Downloading wandb
+ Downloading nvidia-nvjitlink
+ Downloading inspect-ai
+ Downloading playwright
+ Downloading polars-runtime-32
+ Downloading nvidia-curand
+ Downloading nvidia-nvshmem-cu13
+ Downloading pyarrow
+ Downloading nvidia-cuda-nvrtc
+ Downloading nvidia-cusparse
+ Downloading nvidia-cusparselt-cu13
+ Downloading jedi
+ Downloading nvidia-cusolver
+ Downloading nvidia-cufft
+ Downloading nvidia-nccl-cu13
+ Downloading triton
+ Downloading nvidia-cublas
+ Downloading nvidia-cudnn-cu13
+ Downloading torch
+      Built inspect-evals @ git+https://github.com/UKGovernmentBEIS/inspect_evals@e5bcf2007eb7d83f7a0f7db60f19119ad93e685c
+Prepared 237 packages in 4m 49s
+Installed 237 packages in 15.71s
+ + accelerate==1.15.0
+ + agent-client-protocol==0.12.1
+ + aioboto3==15.5.0
+ + aiobotocore==2.25.1
+ + aiofiles==25.1.0
+ + aiohappyeyeballs==2.7.1
+ + aiohttp==3.14.3
+ + aioitertools==0.13.0
+ + aiosignal==1.4.0
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anthropic==1.5.0
+ + anyio==4.15.1
+ + asttokens==3.0.2
+ + attrs==26.1.0
+ + backoff==2.2.1
+ + beartype==0.22.9
+ + beautifulsoup4==4.15.0
+ + better-abc==0.0.3
+ + black==26.5.1
+ + bleach==6.4.0
+ + boto3==1.40.61
+ + botocore==1.40.61
+ + cbor2==6.1.4
+ + certifi==2026.7.22
+ + cfgv==3.5.0
+ + chardet==7.6.0
+ + charset-normalizer==3.5.1
+ + click==8.5.0
+ + comm==0.2.3
+ + contourpy==1.3.3
+ + cssselect==1.5.0
+ + cssutils==2.15.0
+ + cuda-bindings==13.4.1
+ + cuda-pathfinder==1.8.1
+ + cuda-toolkit==13.0.3.0
+ + cycler==0.12.1
+ + dataframe-image==0.2.7
+ + datasets==5.0.1
+ + debugpy==1.8.21
+ + defusedxml==0.7.1
+ + dill==0.4.1
+ + distlib==0.4.3
+ + docker==7.2.0
+ + docstring-parser==0.18.0
+ + einops==0.8.2
+ + emotion-concepts==0.1.0 (from file:///workspace/emotion-concepts)
+ + encutils==1.0.0
+ + executing==2.2.1
+ + fancy-einsum==0.0.3
+ + fastapi==0.141.1
+ + fastcore==1.14.5
+ + fastjsonschema==2.22.2
+ + filelock==3.32.6
+ + fonttools==4.65.0
+ + frozenlist==1.8.0
+ + fsspec==2026.6.0
+ + ghapi==1.1.1
+ + gitdb==4.0.12
+ + gitpython==3.1.62
+ + googleapis-common-protos==1.75.3
+ + greenlet==3.5.5
+ + grpclib==0.4.9
+ + h11==0.16.0
+ + h2==4.4.1
+ + hf-xet==1.6.0
+ + hpack==4.2.0
+ + httpcore==1.0.9
+ + httpcore2==2.12.0
+ + httpx==0.28.1
+ + httpx2==2.12.0
+ + huggingface-hub==1.31.0
+ + hyperframe==6.1.0
+ + identify==2.6.19
+ + idna==3.19
+ + ijson==3.5.1
+ + impossible==0.1.0 (from file:///workspace/impossible)
+ + impossiblebench==0.1.0 (from git+https://github.com/safety-research/impossiblebench@061dc3dce6a96ab6cf02a855157263033dcfa3ba)
+ + inspect-ai==0.3.263
+ + inspect-evals==0.19.1.dev29+ge5bcf2007 (from git+https://github.com/UKGovernmentBEIS/inspect_evals@e5bcf2007eb7d83f7a0f7db60f19119ad93e685c)
+ + ipykernel==7.3.0
+ + ipython==9.17.1
+ + ipython-pygments-lexers==1.1.1
+ + ipywidgets==8.1.9
+ + jaxtyping==0.3.11
+ + jedi==0.20.0
+ + jinja2==3.1.6
+ + jiter==0.16.0
+ + jmespath==1.1.0
+ + jsonlines==4.0.0
+ + jsonpatch==1.33
+ + jsonpath-ng==1.8.0
+ + jsonpointer==3.1.1
+ + jsonref==1.1.0
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + jupyter-client==8.10.0
+ + jupyter-core==5.9.1
+ + jupyterlab-pygments==0.3.0
+ + jupyterlab-widgets==3.0.17
+ + kiwisolver==1.5.1
+ + linkify-it-py==2.2.0
+ + lxml==6.1.3
+ + markdown-it-py==4.2.0
+ + markupsafe==3.0.3
+ + matplotlib==3.11.1
+ + matplotlib-inline==0.2.2
+ + mdit-py-plugins==0.6.1
+ + mdurl==0.1.2
+ + mistune==3.3.4
+ + mmh3==5.3.0
+ + modal==1.5.5
+ + more-itertools==11.1.0
+ + mpmath==1.3.0
+ + multidict==6.8.0
+ + multiprocess==0.70.19
+ + mypy-extensions==1.1.0
+ + nbclient==0.11.0
+ + nbconvert==7.17.1
+ + nbformat==5.11.1
+ + nest-asyncio2==1.7.2
+ + networkx==3.6.1
+ + nodeenv==1.10.0
+ + numpy==2.5.3
+ + nvidia-cublas==13.1.1.3
+ + nvidia-cuda-cupti==13.0.85
+ + nvidia-cuda-nvrtc==13.0.88
+ + nvidia-cuda-runtime==13.0.96
+ + nvidia-cudnn-cu13==9.24.0.43
+ + nvidia-cufft==12.0.0.61
+ + nvidia-cufile==1.15.1.6
+ + nvidia-curand==10.4.0.35
+ + nvidia-cusolver==12.0.4.66
+ + nvidia-cusparse==12.6.3.3
+ + nvidia-cusparselt-cu13==0.8.1
+ + nvidia-nccl-cu13==2.30.7
+ + nvidia-nvjitlink==13.4.52
+ + nvidia-nvshmem-cu13==3.4.5
+ + nvidia-nvtx==13.0.85
+ + openai==3.13.0
+ + opentelemetry-api==1.44.0
+ + opentelemetry-exporter-otlp-proto-common==1.44.0
+ + opentelemetry-exporter-otlp-proto-http==1.44.0
+ + opentelemetry-proto==1.44.0
+ + opentelemetry-sdk==1.44.0
+ + opentelemetry-semantic-conventions==0.65b0
+ + packaging==26.3
+ + pandas==3.0.5
+ + pandocfilters==1.5.1
+ + parso==0.8.7
+ + pathlib-abc==0.5.2
+ + pathspec==1.1.1
+ + pexpect==4.9.0
+ + pillow==12.3.0
+ + platformdirs==4.11.8
+ + playwright==1.62.0
+ + polars==1.44.2
+ + polars-runtime-32==1.44.2
+ + pre-commit==4.6.2
+ + prompt-toolkit==3.0.53
+ + propcache==0.5.2
+ + protobuf==6.33.6
+ + psutil==7.2.2
+ + ptyprocess==0.7.0
+ + pure-eval==0.2.4
+ + pyarrow==25.0.1
+ + pydantic==2.13.5
+ + pydantic-core==2.46.5
+ + pyee==13.0.1
+ + pygments==2.21.0
+ + pyparsing==3.3.2
+ + python-dateutil==2.9.0.post0
+ + python-discovery==1.6.0
+ + python-dotenv==1.2.3
+ + pytokens==0.4.1
+ + pyyaml==6.0.3
+ + pyzmq==27.2.0
+ + referencing==0.37.0
+ + regex==2026.9.10
+ + requests==2.34.2
+ + rich==15.0.0
+ + rpds-py==2026.6.3
+ + s3fs==2026.6.0
+ + s3transfer==0.14.0
+ + safetensors==0.8.0
+ + semver==3.0.4
+ + sentencepiece==0.2.2
+ + setuptools==84.0.0
+ + shellingham==1.5.4
+ + shortuuid==1.0.13
+ + six==1.17.0
+ + smmap==5.0.3
+ + sniffio==1.3.1
+ + soupsieve==2.9.2
+ + stack-data==0.6.3
+ + starlette==1.6.0
+ + swebench==5.0.2
+ + sympy==1.14.0
+ + synchronicity==0.12.5
+ + tenacity==9.1.4
+ + textual==8.2.8
+ + tiktoken==0.14.0
+ + tinycss2==1.5.1
+ + tokenizers==0.23.2
+ + toml==0.10.2
+ + torch==2.14.0
+ + tornado==6.5.8
+ + tqdm==4.70.0
+ + traitlets==5.16.1
+ + transformer-lens==3.8.1
+ + transformers==5.17.0
+ + transformers-stream-generator==0.0.5
+ + triton==3.8.0
+ + truststore==0.10.4
+ + typeguard==4.6.0
+ + typer==0.27.2
+ + types-certifi==2021.10.8.3
+ + types-toml==0.10.8.20260518
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + unidiff==1.0.0
+ + universal-pathlib==0.3.10
+ + urllib3==2.7.0
+ + uvicorn==0.52.4
+ + virtualenv==21.7.9
+ + wadler-lindig==0.1.7
+ + wandb==0.30.0
+ + watchfiles==1.2.0
+ + wcwidth==0.8.3
+ + webencodings==0.6.1
+ + widgetsnbextension==4.0.16
+ + wrapt==1.17.3
+ + xxhash==4.0.1
+ + yarl==1.24.5
+ + zipfile-zstd==0.0.4
+ + zipp==4.1.0
+ + zstandard==0.25.0
+NVIDIA A40, 595.91.07, 46068 MiB
+GPU: NVIDIA A40 | torch 2.14.0+cu130 CUDA 13.0
+started (pid 562). Follow it with: tail -f /workspace/run.log

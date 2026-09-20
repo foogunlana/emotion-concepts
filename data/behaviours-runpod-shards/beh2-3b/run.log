@@ -1,0 +1,5 @@
+===== switched to α=0.5 (window 0.2–0.5): running Qwen/Qwen2.5-Coder-3B-Instruct gen_batch 16 Sat Sep 19 21:43:45 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 1149658 bytes to src/experiments/20260919-behaviours.runpod.qwen2.5-coder-3b-instruct-alpha0.5.ipynb
+===== all done Sun Sep 20 01:24:54 UTC 2026

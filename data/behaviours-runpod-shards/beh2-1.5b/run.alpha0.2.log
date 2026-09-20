@@ -1,0 +1,12 @@
+===== gate 1: whole notebook, tiny, on the GPU, every path forced on Sat Sep 19 20:24:55 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 1122859 bytes to src/experiments/20260919-behaviours.gate1.qwen2.5-coder-1.5b-instruct.ipynb
+===== gate 2: GPU memory for Qwen/Qwen2.5-Coder-1.5B-Instruct at a full 12-attempt context Sat Sep 19 20:38:23 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:  49%|████▉     | 165/338 [00:00<00:00, 1640.21it/s]Loading weights:  98%|█████████▊| 330/338 [00:00<00:00, 1426.68it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 1478.08it/s]
+# Qwen/Qwen2.5-Coder-1.5B-Instruct: batch 32 fits at 11500 context tokens, peak 35.5 GiB
+Qwen/Qwen2.5-Coder-1.5B-Instruct 32
+===== gates passed; running Qwen/Qwen2.5-Coder-1.5B-Instruct (α=0.2, emotions=desperate,calm,excited, noexit=none, shard=all, gen_batch 32) Sat Sep 19 20:40:20 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.

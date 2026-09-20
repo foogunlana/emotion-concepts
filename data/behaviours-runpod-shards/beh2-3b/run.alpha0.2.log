@@ -1,0 +1,16 @@
+===== gate 1: whole notebook, tiny, on the GPU, every path forced on Sat Sep 19 20:29:43 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 1122859 bytes to src/experiments/20260919-behaviours.gate1.qwen2.5-coder-3b-instruct.ipynb
+===== gate 2: GPU memory for Qwen/Qwen2.5-Coder-3B-Instruct at a full 12-attempt context Sat Sep 19 20:47:46 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:12<00:12, 12.06s/it]Fetching 2 files: 100%|██████████| 2/2 [00:21<00:00, 10.79s/it]Fetching 2 files: 100%|██████████| 2/2 [00:21<00:00, 10.98s/it]
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:  92%|█████████▏| 398/434 [00:00<00:00, 3978.20it/s]Loading weights: 100%|██████████| 434/434 [00:00<00:00, 3908.84it/s]
+[W919 20:49:22.767658749 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8103395328 bytes (free: 6706561024, total: 47697690624).
+[W919 20:49:23.955427945 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8103395328 bytes (free: 111017984, total: 47697690624).
+[W919 20:49:23.958315472 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8103395328 bytes (free: 111017984, total: 47697690624).
+# Qwen/Qwen2.5-Coder-3B-Instruct: batch 16 fits at 11500 context tokens, peak 41.0 GiB
+Qwen/Qwen2.5-Coder-3B-Instruct 16
+===== gates passed; running Qwen/Qwen2.5-Coder-3B-Instruct (α=0.2, emotions=desperate,calm,excited, noexit=none, shard=all, gen_batch 16) Sat Sep 19 20:50:04 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.

@@ -1,0 +1,6 @@
+===== switched to α=0.5 (window 0.2–0.5): running Qwen/Qwen2.5-Coder-1.5B-Instruct gen_batch 32 Sat Sep 19 21:43:40 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[W919 22:10:15.859753589 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3053453312 bytes (free: 633143296, total: 47699722240).
+[NbConvertApp] Writing 1141528 bytes to src/experiments/20260919-behaviours.runpod.qwen2.5-coder-1.5b-instruct-alpha0.5.ipynb
+===== all done Sat Sep 19 23:47:42 UTC 2026
