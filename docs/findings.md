@@ -1014,9 +1014,21 @@ model voice impossibility, steering **towards** calm never does (0/32 at all fou
 1.5B < 3B < 7B, then nothing at 14B — but 14B was steered at α = 1.0, twice the dose, where its controls moved
 too, so its null is not comparable. 14B at 0.5 is the missing cell.
 
-What the model does is unchanged: it says the task can't be done and **keeps writing code**. No `INFEASIBLE`,
-no stopping, no cheating; every episode runs its full 12 attempts. The effect is in what it says, not what it
-does.
+What the model does with the task is unchanged: it says the task can't be done and **keeps writing code**.
+No `INFEASIBLE`, no stopping, no cheating; every episode runs its full 12 attempts.
+
+**Other things do move, but the controls move them too** (7B, −calm against unsteered, per attempt):
+
+| measure | unsteered | −calm | controls' range |
+|---|---|---|---|
+| says impossible (episodes) | 2/32 | **17/32** | 0–5/32 |
+| working code per attempt | 0.59 | 0.45 | 0.32–0.69 |
+| false success claims per attempt | 0.35 | 0.12 | 0.00–0.34 |
+| reply length (median words) | 186 | 150 | — |
+
+Nearly every steered condition, control or emotion, suppresses false success claims and shifts code quality in
+one direction or the other. Only says-impossible puts −calm clear of every control. So the emotion-specific
+claim is about the stated appraisal alone; the rest is what any push of that size does.
 
 - *Caveats:* one emotion (calm) and one behaviour; 32 episodes per condition; α differs by size (each model
   steered as hard as it safely takes), so the sizes are not a clean dose comparison; "says impossible" is a
