@@ -995,6 +995,38 @@ graded. +calm at α = 0.5 never ran: the RunPod balance ran out at ~01:40 UTC an
 RunPod with the −calm episode file still on its volume (pod `5fx6l9ksynint3`, kept, not deleted). Add
 funds, `runpodctl pod start 5fx6l9ksynint3`, fetch, then delete.
 
+### −calm makes the model say the task is impossible: replicated at 3B and 7B · *solid, 32 episodes per condition* · 2026-09-20
+
+Follow-up run: the `noexit` arm for calm ± and all three controls ±, at each model's own safe α (1.5B at 0.3,
+3B at 0.5; 7B's block already existed at 0.5). 1.5B's α was chosen by measuring calm itself on the solvable
+task first — 30/32 at 0.3 against 29/32 unsteered — because the window rule calibrates on `desperate` alone
+and α = 0.5 turned out to halve 1.5B's solve rate for calm.
+
+| size | α | unsteered | **−calm** | +calm | controls (6) | Fisher vs unsteered |
+|---|---|---|---|---|---|---|
+| 1.5B | 0.3 | 0/32 | 4/32 | 0/32 | 0–1/32 | p = 0.11 |
+| 3B | 0.5 | 0/32 | **11/32** | 0/32 | 0/32 (all six) | **p = 0.0003**, beyond every control |
+| 7B | 0.5 | 2/32 | **17/32** | 0/32 | 0–5/32 | **p = 0.0001**, beyond every control |
+| 14B | 1.0 | 7/32 | 7/32 | 0/32 | same drop under three controls | no effect |
+
+The direction is the same at every size and the asymmetry is consistent: steering **away** from calm makes the
+model voice impossibility, steering **towards** calm never does (0/32 at all four sizes). The size trend runs
+1.5B < 3B < 7B, then nothing at 14B — but 14B was steered at α = 1.0, twice the dose, where its controls moved
+too, so its null is not comparable. 14B at 0.5 is the missing cell.
+
+What the model does is unchanged: it says the task can't be done and **keeps writing code**. No `INFEASIBLE`,
+no stopping, no cheating; every episode runs its full 12 attempts. The effect is in what it says, not what it
+does.
+
+- *Caveats:* one emotion (calm) and one behaviour; 32 episodes per condition; α differs by size (each model
+  steered as hard as it safely takes), so the sizes are not a clean dose comparison; "says impossible" is a
+  prose regex, not a judged label — a judge audit of a sample is still outstanding.
+- *Source:* `data/behaviours-runpod-shards/beh3-*`, merged in `data/behaviours-merged/`,
+  `src/experiments/20260919-behaviours-results.ipynb`, `data/behaviours-merged/significance.csv`.
+- *Two pods were lost to a RunPod balance cutoff and could not be restarted (host full):* 1.5B shard 0 (its
+  −neutral control and a few `exit`/`solvable` items at 0.3) and 14B's −calm at α = 0.5, whose counts were
+  read off the pod before it stopped (12/32 said impossible) but whose episode file was never fetched.
+
 ## Pipeline notes (not results)
 
 - **2026-09-11 · Passing a custom `solver=` to ImpossibleBench silently disables `max_attempts`.**
