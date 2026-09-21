@@ -1,17 +1,19 @@
 ---
-created: 2026-09-19
+
+## created: 2026-09-19
+
 purpose: |
   The public write-up. Text merged from the research-log draft (Google Doc, "Draft Write-Up" tab)
   on 2026-09-19, arranged to the structure in docs/writeup-outline.md. Bo's words are kept as
   written; TODO markers show what is still missing. Findings and their confidence are in
   docs/findings.md; claims to check are marked with an inline "check:" comment.
 references:
-  - docs/writeup-outline.md
-  - docs/findings.md
-  - docs/amr-checklist-audit.md
-  - docs/confounds.md
-  - docs/behaviours-experiment.md
----
+
+- docs/writeup-outline.md
+- docs/findings.md
+- docs/amr-checklist-audit.md
+- docs/confounds.md
+- docs/behaviours-experiment.md
 
 # Title - Steering Qwen Coder with Emotion Concepts
 
@@ -30,14 +32,12 @@ Key findings
 - A window exists for magnitude of steering vector below which no effect is observed and above which
 the model's capabilities on the coding task are damaged
 - Larger models have larger windows where steering is effective
-  <!-- check: 4 sizes, one architecture; window edges noisy at n=16; a later correction says 1.5B and 3B do have a window -->
 - Defining cheating narrowly eliminates most observed cheating behaviour in impossible bench as most
 cheating behaviour can be explained from the prompt
 
 Extra findings
 
 - Specific models do show cheating behaviour on the strict prompt on fast_sum - Kimi & Deepseek
-  <!-- check: both cheated under NONE in the 2-attempt screen, not under a strict prompt -->
 - Some models don't cheat no matter what on fast_sum - GPT 4.1
 
 Other things
@@ -90,7 +90,6 @@ Extract Emotion Concept Vectors - Goal is to reliably extract emotion concepts v
 them. Here's what I did.
 
 - Generated dataset - following paper, Qwen 2.5 1.5B stories (potential limitation)
-  <!-- check: the generator was Qwen2.5-7B-Instruct; the probed model was 0.5B -->
 - Extracted emotion vectors - following paper
 - Validated them with logit lens, and linear probe - following paper (accuracy ceiling limitation)
 - Sanity check model steering - following the paper
@@ -155,9 +154,6 @@ A direction for each emotion is created by averaging the train set activations p
 and subtracting out the global mean (activations are averaged for all train set stories generated from the
 same emotion), leaving out the first 20% of positions assuming the emotional content is not clear until
 later in the story.
-<!-- check: pooling starts at token 18, a fixed count rather than 20% of each story; the paper starts at token 50 -->
-
-
 
 Filtering the stories resulted in an unbalanced train set - different emotions have different numbers of
 stories - so we averaged the activations from each emotion as a class mean and then took the mean of the
@@ -166,8 +162,6 @@ vector.
 
 Each direction is then denoised by projecting out top principal components that explain  PCA on averaged
 neutral activations to identify noise directions and projecting them out of the emotion concept vectors.
-
-
 
 We sanity check the emotion concept vectors using the logit lens technique which applies normalisation to
 the final layer basis and then an unembedding matrix showing most probable tokens which correlate with our
@@ -183,15 +177,10 @@ example prompts.
 
 ### Results
 
-Accuracy of the emotion probe is 44%, which performs better than random (8%) and is close to the
+Accuracy of the initial emotion probe is 44%, which performs better than random (8%) and is close to the  
 established train set accuracy - 52%.
-<!-- check: 44.7% is Qwen2.5-0.5B-Instruct at layer 24; the table below gives every model -->
 
-
-
-I repeated the extraction on every model I later steered, and the accuracy runs from 44.7% to 59.6%
-across them. It roughly increases with model size, with 14B the one model that breaks the pattern. The
-figures in this section are from Qwen2.5-Coder-7B-Instruct, which is the most accurate of them.
+Repeating the extraction on every model size showed that accuracy varies from 44.7% to 59.6%, roughly growing with size except 14B for which the accuracy is slightly less than for 7B.
 
 
 | model                               | layer    | held-out accuracy |
@@ -204,20 +193,17 @@ figures in this section are from Qwen2.5-Coder-7B-Instruct, which is the most ac
 | Qwen2.5-Coder-14B-Instruct          | 32 of 48 | 58.5%             |
 
 
-Chance is 8% for all of them, since there are 12 emotions.
+Chance is 8% since there are 12 emotions (100 / 12 emotions).
 
-The accuracy holds up across the middle of the network, and it is highest around two thirds of the way
-through, which is the depth I steer at for every model in Part 3.
+Other figures this section are from Qwen2.5-Coder-7B-Instruct, for which the most accurate probe  was derived.
+
+Accuracy grows through layers and peaks in the middle to two thirds of the way through, which is also what was seen in the Emotion Concepts paper.
 
 ![Held-out accuracy by layer](images/1b_accuracy_by_layer.png)
 
-*Held-out accuracy by layer at 7B, against the 8% chance line.*
+*Held-out accuracy by layer at 7B, against the 8% chance.*
 
-Accuracy is low due to confounding emotion concept, which we observe in a confusion matrix and by reading
-the stories which we find difficult to differentiate in certain cases correlating with the confusion matrix
-
-- e.g. it's difficult to differentiate between stories that show the emotions "sad" and "desperate" in some
-cases.
+Accuracy is low due to confounding emotion concepts, which we observe in a confusion matrix below and by reading the stories themselves that are difficult to differentiate in certain cases correlating with the confusion matrix - e.g. it's difficult to differentiate between stories that show the emotions "sad" and "desperate" in some cases.
 
 ![Confusion matrix](images/1c_confusion.png)
 
@@ -246,7 +232,7 @@ happened?"
 *Steering with each vector raises the log-probability of that emotion's own word after "He feels", which
 is the paper's Figure 52 on a 7B open model.*
 
-The shape of the corpus after filtering is in Appendix C.
+The shape of th1e corpus after filtering is in Appendix C.
 
 ### Next steps
 
@@ -296,16 +282,10 @@ required a larger test budget from day 1
 The Emotion Concepts paper introduces fast_sum as a function inspired by ImpossibleBench but written to look
 solvable as opposed to being obviously impossible (ImpossibleBench creates inconsistent test cases and the model
 often recognises this immediately).
-<!-- check: fast_sum comes from the Claude Sonnet 4.5 system card 6.1, not the emotion concepts paper -->
-
-
 
 I created a fast_sum function to match the Claude 4.5 Sonnet model card and tested several variants of it on
 frontier and open weight models using OpenRouter to establish baselines of cheating behaviour since Anthropic's
 version has not been made public.
-<!-- check: frontier models ran through their own APIs; OpenRouter was used for the open-weight screen -->
-
-
 
 [https://github.com/foogunlana/impossible/](https://github.com/foogunlana/impossible/)
 
@@ -386,7 +366,6 @@ having an exit vs no exit
 were removed, hardly any models cheated with any variants
 - Extra
   - Deepseek and Kimi reliably cheated when no other model did
-    <!-- check: 27 cheats from 5 frontier models on the printed test; Deepseek and Kimi were the only open-weight models that cheated -->
   - Gemma got visibly sad and showed emotional distress but didn't cheat - lots of self-blaming
   - Models had varying propensities to give up early, vs cheat, vs persist until the end (some models seemed
   incapable of cheating or giving up).
@@ -499,9 +478,6 @@ influences how often the model will cheat on the eval.
 
 I combined the results of the previous two experiments by steering Qwen 2.5 Coder 0.5B - 14B and measuring its
 performance on variants of Fast Sum against two controls.
-<!-- check: three controls - random, shuffled-label, neutral -->
-
-
 
 I hoped to find that emotion concepts could increase or decrease the rate of cheating in Qwen, but instead
 I found that Qwen Coder almost never cheats on this task at any steering strength, and that the few cheats
