@@ -1039,6 +1039,44 @@ claim is about the stated appraisal alone; the rest is what any push of that siz
   −neutral control and a few `exit`/`solvable` items at 0.3) and 14B's −calm at α = 0.5, whose counts were
   read off the pod before it stopped (12/32 said impossible) but whose episode file was never fetched.
 
+### 14B's null was a dose artefact, and +afraid joins −calm · *solid as counts* · 2026-09-21
+
+Two follow-ups, both cut short when the RunPod balance ran out.
+
+**14B at α = 0.5 (n = 16, `noexit`, no controls at that α):** the effect is there after all.
+
+| 14B −calm | says impossible | | +calm |
+|---|---|---|---|
+| unsteered | 7/32 (22%) | | 7/32 |
+| **α = 0.5** | **10/16 (62%)**, p = 0.012 | | 0/16 |
+| α = 1.0 | 7/32 (22%) | | 0/32 |
+
+So the earlier "no effect at 14B" came from steering twice as hard, in the range where the controls move too.
+**The effect now appears at all four sizes** — 1.5B 4/32, 3B 11/32, 7B 17/32, 14B 10/16 — each at the model's
+own moderate α. Caveat: n = 16 and no controls at α = 0.5 for 14B.
+
+**7B, the other nine emotions (9 of 18 conditions ran before the budget ran out):** a second condition clears
+every control.
+
+| condition | rate | p vs unsteered (2/32) | beyond controls (0–5/32) |
+|---|---|---|---|
+| −calm | 17/32 | 0.0001 | yes |
+| **+afraid** | **10/32** | **0.022** | **yes** |
+| +desperate | 6/32 | 0.26 | no |
+| −joyful | 5/32 | 0.43 | no |
+| +ashamed, +angry | 4/32 | 0.67 | no |
+| −lonely, −excited | 2/32 | 1.00 | no |
+| +calm, −desperate, −afraid, −disgusted, −angry, −ashamed, +excited | 0/32 | — | no |
+
+The direction is consistent even where it isn't significant: **towards a negative state (+afraid, +ashamed,
++angry, +desperate) or away from a positive one (−calm, −joyful)** produces impossibility statements; the
+opposite directions produce none. Only −calm and +afraid clear the controls. Not run: ±proud, ±sad,
+±surprised, +disgusted, +joyful, +lonely.
+
+- *Lost to the budget:* those nine conditions, plus 14B −calm at α = 0.5 with n = 32 (stranded on a stopped
+  pod, superseded by the n = 16 run).
+- *Source:* `data/behaviours-runpod-shards/beh4-*`, merged in `data/behaviours-merged/`.
+
 ## Pipeline notes (not results)
 
 - **2026-09-11 · Passing a custom `solver=` to ImpossibleBench silently disables `max_attempts`.**

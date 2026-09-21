@@ -1,0 +1,3 @@
+===== Qwen/Qwen2.5-Coder-14B-Instruct α=0.5 emotions=calm shard=0/1 n=16 batch=8 Sun Sep 20 18:35:02 UTC 2026
+[NbConvertApp] Converting notebook src/experiments/20260919-emotion-steering-behaviours.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
