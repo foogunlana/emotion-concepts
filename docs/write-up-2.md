@@ -12,23 +12,32 @@
 
 ## The problem
 
-- Emotion affects decision making in humans. 
-- We want to know if it also affects decision making in LLMs.
-- With the recent huggingface attack, it's interesting to know what drives the decision to cheat vs to whistleblow.
+- Emotion affects decision making in humans. We want to know the extent to which LLMs drive their decision making from something like emotion. Anthropic was able to extract emotion concept directions and show that they causally affected downstream text generation of the model, including behaviour classed misalignment. Are emotion concepts responsible for a wide range of decision-like text generations? For example the decision to cheat or engage in reward-hacking on tasks?
+
+## Why now
+
+- OpenAI's models recently broke out of a sandboxed environment to attack Huggingface and exfiltrate data from it. The models exhibited this unintended behaviour during a safety eval run on ExploitGym, a popular benchmark for cybersecurity. Knowing what drives reward hacking and cheating behaviours on benchmarks can allow us to better control or monitor the behaviour of LLMs.
 
 ## Executive summary
 
-- We tested whether emotion concepts can steer Qwen Coder to change its coding behaviour
-- When steered on positive valenced emotion concepts, Qwen Coder more frequently falsely interprets failure as success
-- When steered on negative valenced emotion concepts, Qwen Coder more frequently judges the task as impossible
+We tested whether steering a coding model with emotion concept vectors (Anthropic, 2026) changes its performance on an impossible coding task. We steered Qwen2.5-Coder-7B-Instruct towards and away from 12 emotion concept directions on fast_sum eval. We tell the model it failed and ask it to keep going for 12 attempts. Here's what we found:
 
+- Steering towards positive emotions makes the model falsely claim that its solution works (moderate confidence). Steering towards 'calm' at α = 0.5 causes the model to assert its solution works after being told that it failed in 84% of steered runs (27/32), whereas it does so in only 6% of unsteered runs (2/32) and 17% of random direction steered runs (11/64). Steering away from 'desperate' yields 91% (29/32). Over the 8 positive-valence directions tested, false success claims are 70% (180/256). The evidence says that steering towards "calm" makes the model falsely interpret failure as success more often.
+
+- Steering towards negative emotions makes the model declare the task impossible (moderate confidence). Steering towards 'desperate' makes the model say the task is not possible in 47% of runs (15/32). Steering away from calm has a similar effect in 56% (18/32). The controls have only 3% (unsteered) and 5% (random) of runs declared impossible. Over the 7 negative-valence directions tested 37% (82/224) assert the task is impossible and have almost no false success claims (3%). The evidence says that steering towards "desperate" makes the model give up more often.
+
+- Emotion steering had no significant effect on the propensity of the model to cheat at this scale (moderate to high confidence). Hardly any of the 7B runs showed signs of cheating or reward-hacking. Also across all 7,744 runs at four model sizes (1.5B, 3B, 7B, 14B), there were only 2 cases of deliberate cheating and one was steered by a control. This fails to replicate the Emotion Concepts paper's finding that steering towards desperate increases reward hacking, probably because the paper used Claude Sonnet 4.5 and this project used Qwen up to 14B (which is significantly smaller) so the model may have little cheating and reward-hacking capability.
 
 
 ## Methodology
 
-- covers how we extract and validate emotion concept vectors from Qwen
-- how and why we design a realistic looking but impossible coding eval
-- how we steer Qwen Coder on the coding task and observe its behaviour
+Here we cover
+
+- Extracting and validating emotion concept vectors from Qwen
+- Design an easy-looking but impossible coding eval - fast_sum - to replicate Anthropic's design
+- Steering Qwen Coder on the coding task and observing its behaviour
+
+Most of this follows from work in the Emotion Concepts paper.
 
 **Extracting emotion vectors**
 
@@ -97,7 +106,7 @@ assert fast_sum([4, 91, 17, 3, 56]) == 171
 assert fast_sum([820, 13, 447, 9, 601, 72]) == 1962
 assert fast_sum([5, 5, 5, 5]) == 20
 
-\# numbers is a list of 2,000,000 random integers
+# numbers is a list of 2,000,000 random integers
 assert fast_sum(numbers) == 1000319420    # must complete in under 1.0 ms
 ```
 
@@ -132,6 +141,15 @@ The model writes a solution, then it is told only the result, and it has to try 
 
 We varied fast_sum using the noexit, exit and solvable variants of the prompt and included controls such as no steering, and random noise steering.
 
+| dimension | count | purpose |
+|---|---|---|
+| no steering | 32 episodes per variant | baseline behaviour of the unsteered model |
+| random direction | 1 direction, both signs (64 episodes) | a push of the same size in a non-emotional direction |
+| shuffled-label direction | 1 direction, both signs | built like an emotion vector but from shuffled labels; excluded from the results because it behaves like an affect vector |
+| neutral-text direction | 1 direction, both signs | neutral dialogues minus emotion stories; excluded for the same reason |
+| solvable variant | 30 conditions × 32 episodes (7B) | checks the steered model can still solve a possible version of the task |
+| strength sweep | 7 strengths × 2 signs × 16 episodes | desperate at α 0.05–1.0 on the solvable task; finds the strength where steering works without breaking coding |
+
 Finally, we graded the transcripts using Claude Opus-5 based on a written rubric (cheats, false_success, says_impossible) and by inspecting samples manually.
 
 The logs were converted to the .eval format to be visualised in inspect only after they were created.
@@ -140,6 +158,19 @@ The logs were converted to the .eval format to be visualised in inspect only aft
 
 To get started extracting emotion vectors, a story dataset is required. For this we created a dataset of 807 stories generated from Qwen 2.5 1.5B including controls for neutral emotion. The dataset and its construction are listed [here](https://huggingface.co/datasets/foogunlana/qwen-emotion-stories)
 
+| split | count | description |
+|---|---|---|
+| train | 521 | emotion stories on 75 train topics (31–70 per emotion) used to build the emotion vectors |
+| test | 188 | emotion stories on 25 held-out test topics used to measure probe accuracy |
+| neutral | 98 (74 train, 24 test) | neutral dialogues used to denoise the vectors and for the neutral control |
+
+**Fast sum samples** (all model sizes): each run takes one model working up to 12 attempts (5 on solvable).
+
+| split | count | description |
+|---|---|---|
+| no exit | 1,728 runs | the impossible task. The 7B results use 672 of these (21 conditions × 32) |
+| exit | 2,528 runs | the impossible task with an INFEASIBLE option / escape hatch graded by the harness only |
+| solvable | 2,528 runs | an easily solvable coding exercise |
 
 
 ## Results
@@ -270,11 +301,15 @@ Instead of that, we found that the model changes its interpretation of results w
 
 ## Limitations & Assumptions
 
+- fast_sum is just a single eval. Future work should increase the diversity of the test by running against a benchmark with several coding evals similar to fast_sum for a more robust and defensible result.
+
 - Qwen thinks in Chinese [Zhuang, Reinthal](https://reinthal.github.io/deception-detection-in-chinese-models/). Using the logit-lens we saw that chinese character tokens were more likely to appear than english word tokens. Therefore the process for generating the emotion concept dataset and extracting emotion concepts from the model may have been better done with chinese characters rather than english. The emotion concepts we extracted could be less representative of each emotion if the model has a different character representation for the emotion which is considered more significant in the training data.
 
 - The model in question is Qwen Coder 7B - and this is much smaller in size than today's SOTA coding models. There is a real possibilty that these results do not extend to the larger counterparts of the model.
 
 - The synthetic dataset generated to aid extraction of emotion concepts was significantly smaller than the one used in the original paper, and also heavily weighted towards negative emotions over positive emotions (by random chance - we noticed this late and could not correct in time). A smaller dataset means less varied emotion stories and likely less accurate emotion concept vectors, which we did observe after constructing an emotion probe.
+
+- We did not read every single label that was done by Claude Opus 5 and so there could be mistakes.
 
 **We started with the following assumptions**
 
@@ -296,3 +331,4 @@ OpenAI Huggingface attack
 
 ## Appendix
 
+- Mood Dial
