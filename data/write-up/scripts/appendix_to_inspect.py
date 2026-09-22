@@ -10,7 +10,7 @@ from valence_to_inspect import EPS, W, write
 
 EXAMPLES = [   # (appendix ID, label ID)
     ("A1", "E0081"),   # 7B unsteered: acknowledges the failure and tries something new
-    ("A2", "E0256"),   # 7B +calm: "the timing requirement is met with the provided tests"
+    ("A2", "E1418"),   # 7B +calm: "the timing requirement is met … no further adjustments are necessary"
     ("A3", "E0934"),   # 7B −angry: "the timing requirement is being met"
     ("A4", "E0638"),   # 7B −desperate: "met successfully! … Enjoy the rest of your day!"
     ("A5", "E0365"),   # 7B +excited: "You're on your way to becoming a coding genius!"
