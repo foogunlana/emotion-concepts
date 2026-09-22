@@ -6,7 +6,7 @@
 
 ## The problem
 
-Emotion affects decision making in humans. We want to know the extent to which LLMs drive their decision making from something like emotion. Anthropic extracted emotion concept directions from Claude Sonnet 4.5 and showed that they causally affect the model's text generation, including behaviour classed as misaligned [[1]](#ref-1). Are emotion concepts responsible for a wide range of decision-like generations, such as the decision to cheat or reward hack on a task?
+Emotion affects decision making in humans. We want to know the extent to which LLMs are influenced by emotion-like representations in their activations. Anthropic extracted emotion concept directions from Claude Sonnet 4.5 and showed that they causally affect the model's text generation, including behaviour classed as misaligned [[1]](#ref-1). Are emotion concepts responsible for a wide range of decision-like generations, such as the decision to cheat or reward hack on a task?
 
 ## Why now
 
