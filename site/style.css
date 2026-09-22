@@ -17,13 +17,13 @@
   --viz-c1: #2a78d6; --viz-c2: #eb6834; --viz-c3: #1baf7a;
   --th-bg: #edf3fb;      /* table header: a light step of the blue ramp */
   --band: #fafaf8;       /* alternate table rows */
-  --serif: "Crimson Pro", "Iowan Old Style", Georgia, serif;
+  --serif: "EB Garamond", Garamond, "Iowan Old Style", Georgia, serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17.5px/1.52 var(--serif);
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 18px/1.55 var(--serif);
        -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 main { max-width: 720px; margin: 0 auto; padding: 44px 16px 72px; }
 p { margin: 0 0 14px; }
@@ -162,7 +162,7 @@ footer { max-width: 720px; margin: 0 auto; padding: 18px 16px 44px; border-top: 
 footer a { color: var(--muted); }
 
 @media (max-width: 560px) {
-  body { font-size: 17px; }
+  body { font-size: 17.5px; }
   main { padding-top: 28px; }
   .hero h1 { font-size: 1.65rem; }
 }
