@@ -45,11 +45,11 @@ p { margin: 0 0 14px; }
 .people .thanks li { margin: 0 0 6px; padding-left: 2px; }
 .people .thanks li::marker { color: var(--accent); }
 .people .thanks strong { font-weight: 700; color: var(--fg); }
-.people .sprint { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); color: var(--fg-2); line-height: 1.45; }
-.people .sprint p { margin: 8px 0 0; }
+.people .sprint { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); color: var(--muted); line-height: 1.4; font-size: 0.72rem; }
+.people .sprint p { margin: 5px 0 0; }
 .people .sprint a { color: var(--link); }
 .sprint-logo { display: inline-block; line-height: 0; }
-.sprint-logo img { width: 150px; height: auto; }
+.sprint-logo img { width: 96px; height: auto; opacity: .85; }
 .side-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
              margin: 0 0 7px; }
 .person { display: flex; align-items: center; gap: 10px; }
