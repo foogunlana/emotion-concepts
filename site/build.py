@@ -17,7 +17,7 @@ from pathlib import Path
 import markdown
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from figures import FIGURES, static_svg
+from figures import FIGURES, static_svg, transcript
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
@@ -32,13 +32,30 @@ def to_html(md_text: str) -> str:
                                                   "toc"], extension_configs={"toc": {"permalink": False}})
 
 
+def parse_fields(block: str) -> dict:
+    """`key: value` lines; a line without a key continues the previous value."""
+    fields, key = {}, None
+    for line in block.splitlines():
+        m = re.match(r"(\w+):\s?(.*)", line)
+        if m and m.group(1) in {"id", "label", "kind", "summary", "user", "assistant", "note", "link", "open"}:
+            key = m.group(1); fields[key] = m.group(2)
+        elif key:
+            fields[key] += "\n" + line
+    return fields
+
+
+def inline_md(text: str) -> str:
+    html_ = markdown.markdown(text.strip())
+    return re.sub(r"^<p>|</p>$", "", html_)
+
+
 def figures_and_captions(body: str) -> str:
     caption = r'\s*<p><em>((?:(?!</p>).)*?)</em>((?:(?!</p>).)*?)</p>'
     # chart placeholders (+ optional italic caption)
     def chart(m):
         svg = FIGURES[m.group(1)]()
         cap = f"<figcaption>{m.group(2)}{m.group(3) or ''}</figcaption>" if m.group(2) else ""
-        return f'<figure class="chart">{svg}{cap}</figure>'
+        return f'<figure class="chart fig-{m.group(1)}">{svg}{cap}</figure>'
     body = re.sub(r"<p>\{\{figure:([\w-]+)\}\}</p>(?:" + caption + ")?", chart, body, flags=re.S)
     # images + caption
     body = re.sub(r"<p>(<img [^>]+>)</p>(?:" + caption + ")?",
@@ -63,6 +80,8 @@ def main(serve: bool) -> None:
     folders = sorted(set(m.group(1) for m in re.finditer(link, text)))
     text = re.sub(link, lambda m: f"(logs/{m.group(1)}/{m.group(2) or ''})", text)
     images = sorted(set(re.findall(r"\]\((images/[^)\s]+)\)", text)))
+    text = re.sub(r"```transcript\n(.*?)\n```", lambda m: "\n" + transcript(parse_fields(m.group(1)), inline_md) + "\n",
+                  text, flags=re.S)
     summary = re.search(r"## Executive summary\s+(.+?)\n", text)
     description = re.sub(r"[*_`\[\]]|\(\S+\)", "", summary.group(1))[:300] if summary else title
 
