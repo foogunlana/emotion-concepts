@@ -1,7 +1,7 @@
-/* Write-up site. Colours are tokens; dark mode redefines them (OS setting or data-theme). */
+/* Write-up site. Colours are tokens. Always light: the page stays white regardless of the OS theme. */
 :root {
-  color-scheme: light;
-  --bg: #fcfcfb;
+  color-scheme: only light;
+  --bg: #ffffff;
   --fg: #0b0b0b;
   --fg-2: #52514e;
   --muted: #898781;
@@ -15,22 +15,6 @@
   --viz-red: #e34948;    /* not possible  */
   --viz-mid: #f0efec;
   --viz-c1: #2a78d6; --viz-c2: #eb6834; --viz-c3: #1baf7a;
-}
-@media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) {
-    color-scheme: dark;
-    --bg: #0d1117; --fg: #f3f3f1; --fg-2: #c3c2b7; --muted: #898781; --rule: #2c2c2a; --axis: #383835;
-    --panel: #161b22; --code-bg: #161b22; --link: #6da7ec; --accent: #3987e5;
-    --viz-blue: #3987e5; --viz-red: #e66767; --viz-mid: #383835;
-    --viz-c1: #3987e5; --viz-c2: #d95926; --viz-c3: #199e70;
-  }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0d1117; --fg: #f3f3f1; --fg-2: #c3c2b7; --muted: #898781; --rule: #2c2c2a; --axis: #383835;
-  --panel: #161b22; --code-bg: #161b22; --link: #6da7ec; --accent: #3987e5;
-  --viz-blue: #3987e5; --viz-red: #e66767; --viz-mid: #383835;
-    --viz-c1: #3987e5; --viz-c2: #d95926; --viz-c3: #199e70;
 }
 
 * { box-sizing: border-box; }
@@ -79,8 +63,6 @@ figure { margin: 28px 0 32px; }
 figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; border-radius: 8px; }
 figcaption { margin-top: 10px; font: 0.86rem/1.5 "Inter", -apple-system, sans-serif; color: var(--muted); }
 figcaption em { font-style: normal; }
-@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) figure img { background: #fcfcfb; padding: 8px; } }
-:root[data-theme="dark"] figure img { background: #fcfcfb; padding: 8px; }
 
 .table-wrap { overflow-x: auto; margin: 0; }
 table { border-collapse: collapse; width: 100%; font: 0.88rem/1.45 "Inter", -apple-system, sans-serif;
