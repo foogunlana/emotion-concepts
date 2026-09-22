@@ -578,4 +578,7 @@ To get a feel for the emotion vectors, we built [Mood Dial](https://github.com/f
 
 ## Thanks
 
-A special thank you to my project mentor Alexander Reinthal for his sharp feedback and guidance on benchmark choices, as well as critiques on writing and on experiment design; for Prof. Anil Bharath for first suggesting to me the idea of replicating Emotion Concepts on an open source model; to my peers Pjay and Irtiza for our fruitful discussions, and the rest of the BlueDot group 35 cohort for entertaining me.
+- A special thank you to my project mentor **Alexander Reinthal** for his sharp feedback and guidance on benchmark choices, as well as critiques on writing and on experiment design.
+- Also to **Prof. Anil Bharath** for first suggesting to me the idea of replicating Emotion Concepts on an open source model.
+- To my peers **Pjay** and **Irtiza** for our fruitful discussions, and the rest of the BlueDot group 35 cohort for entertaining me.
+- To the BlueDot leadership team and facilitators for making this possible.

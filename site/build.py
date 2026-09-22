@@ -120,7 +120,7 @@ def main(serve: bool) -> None:
     for img in images:
         shutil.copy(ROOT / "docs" / img, OUT / img)
     shutil.copy(SITE / "style.css", OUT / "style.css")
-    for img in ("author.png", "mentor.png"):
+    for img in ("author.png", "mentor.png", "bluedot_logo.svg"):
         shutil.copy(ROOT / "docs" / "images" / img, OUT / "images" / img)
     for folder in folders:
         src = ROOT / "data" / "write-up" / folder

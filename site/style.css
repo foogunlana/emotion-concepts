@@ -32,15 +32,24 @@ p { margin: 0 0 14px; }
 .hero h1 { font: 500 2.2rem/1.15 var(--serif); letter-spacing: -0.01em; margin: 0 0 10px; color: #1a1a18; }
 /* Authorship: a floating card that shrinks to a row of faces */
 .people { position: fixed; top: 64px; right: 24px; z-index: 25; font-family: "Nunito", -apple-system, "Segoe UI", sans-serif; }
-.people-card { width: 252px; padding: 16px 18px 14px; background: #ffffff; border: 1px solid var(--rule); border-radius: 14px;
+.people-card { width: 252px; max-height: calc(100vh - 88px); overflow-y: auto; scrollbar-width: thin; padding: 16px 18px 14px; background: #ffffff; border: 1px solid var(--rule); border-radius: 14px;
                box-shadow: 0 10px 30px rgba(20, 20, 18, .08), 0 1px 3px rgba(20, 20, 18, .05); font-size: 0.84rem;
                transform-origin: top right; transition: opacity .18s ease, transform .18s ease; }
 .people-card section + section { margin-top: 14px; }
-.people-close { position: absolute; top: 8px; right: 10px; width: 24px; height: 24px; border: 0; border-radius: 6px;
+.people-close { position: sticky; top: 0; float: right; margin: -8px -10px 0 0; width: 24px; height: 24px; border: 0; border-radius: 6px;
                 background: transparent; color: var(--muted); font: 700 16px/1 "Nunito", sans-serif; cursor: pointer; }
 .people-close:hover { background: var(--panel); color: var(--fg); }
 .people .thanks { color: var(--fg-2); line-height: 1.55; }
 .people .thanks p { margin: 0 0 6px; }
+.people .thanks ul { margin: 0; padding-left: 1.05em; }
+.people .thanks li { margin: 0 0 6px; padding-left: 2px; }
+.people .thanks li::marker { color: var(--accent); }
+.people .thanks strong { font-weight: 700; color: var(--fg); }
+.people .sprint { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); color: var(--fg-2); line-height: 1.45; }
+.people .sprint p { margin: 8px 0 0; }
+.people .sprint a { color: var(--link); }
+.sprint-logo { display: inline-block; line-height: 0; }
+.sprint-logo img { width: 150px; height: auto; }
 .side-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
              margin: 0 0 7px; }
 .person { display: flex; align-items: center; gap: 10px; }
