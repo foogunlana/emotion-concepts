@@ -38,7 +38,7 @@ I found several partial replications of Emotion Concepts on GitHub but I didn’
 
 The project gave me the opportunity to partially replicate a paper that I was already excited about in a topic that I am highly interested in (Model Psych), and allowed me gain hands-on experience with coding benchmarks (ImpossibleBench, EvilGenie), the Inspect AI framework, and with iterative experiment design.
 
-A special thank you to my project mentor Alexander Reinthal for his guidance on benchmark choices and sharp feedback, to some of my peers Pjay and Irtiza for our fruitful discussions, and the rest of the BlueDot group 35 cohort for entertaining me.
+A special thank you to my project mentor Alexander Reinthal for his sharp feedback and guidance on benchmark choices, as well as critiques on writing and on experiment design; for Prof. Anil Bharath for first suggesting to me the idea of replicating Emotion Concepts on an open source model; to my peers Pjay and Irtiza for our fruitful discussions, and the rest of the BlueDot group 35 cohort for entertaining me.
 
 ## **Plan**
 
