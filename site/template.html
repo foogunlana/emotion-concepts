@@ -9,17 +9,17 @@
 <meta property="og:description" content="{{description}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>/* contents sidebar: open by default wherever it fits beside the text */
-if (!matchMedia("(max-width: 900px)").matches) document.documentElement.classList.add("toc-open");</script>
+<script>/* contents card: open by default when it fits beside the text */
+if (innerWidth >= 1250) document.documentElement.classList.add("toc-open");</script>
 </head>
 <body>
 <button class="toc-toggle" type="button" aria-controls="toc" aria-expanded="true" title="Contents">
   <span class="toc-toggle-icon" aria-hidden="true">☰</span><span class="toc-toggle-label">Contents</span>
 </button>
 <nav id="toc" class="toc" aria-label="Contents">
-  <div class="toc-head">Contents</div>
+  <div class="toc-head">Contents <button class="toc-close" type="button" aria-label="Minimise contents" title="Minimise">–</button></div>
   <ol>{{toc}}</ol>
 </nav>
 <main>
@@ -27,25 +27,31 @@ if (!matchMedia("(max-width: 900px)").matches) document.documentElement.classLis
 <h1>{{title}}</h1>
 <p class="meta">{{date}} · Code, data and labels: <a href="{{repo}}">{{repo_short}}</a></p>
 </header>
-<aside class="people" aria-label="Authorship">
-  <section>
-    <div class="side-head">Author</div>
-    <div class="person">
-      <img class="avatar" src="images/author.png" alt="{{author}}" width="44" height="44">
-      <div><div class="person-name">{{author}}</div><div class="author-links">{{author_links}}</div></div>
-    </div>
-  </section>
-  <section>
-    <div class="side-head">Mentor</div>
-    <div class="person">
-      <img class="avatar" src="{{mentor_photo}}" alt="{{mentor}}" width="44" height="44">
-      <div><div class="person-name">{{mentor}}</div><div class="author-links">{{mentor_links}}</div></div>
-    </div>
-  </section>
-  <section class="thanks">
-    <div class="side-head">Thanks</div>
-    {{thanks}}
-  </section>
+<aside class="people" data-state="open" aria-label="Authorship">
+  <button class="people-mini" type="button" aria-label="Show authors and thanks" title="Authors and thanks">
+    <img src="images/author.png" alt="" width="34" height="34"><img src="{{mentor_photo}}" alt="" width="34" height="34">
+  </button>
+  <div class="people-card">
+    <button class="people-close" type="button" aria-label="Minimise" title="Minimise">–</button>
+    <section>
+      <div class="side-head">Author</div>
+      <div class="person">
+        <img class="avatar" src="images/author.png" alt="{{author}}" width="44" height="44">
+        <div><div class="person-name">{{author}}</div><div class="author-links">{{author_links}}</div></div>
+      </div>
+    </section>
+    <section>
+      <div class="side-head">Mentor</div>
+      <div class="person">
+        <img class="avatar" src="{{mentor_photo}}" alt="{{mentor}}" width="44" height="44">
+        <div><div class="person-name">{{mentor}}</div></div>
+      </div>
+    </section>
+    <section class="thanks">
+      <div class="side-head">Thanks</div>
+      {{thanks}}
+    </section>
+  </div>
 </aside>
 {{body}}
 </main>
@@ -55,15 +61,36 @@ Source for this page: <a href="{{repo}}/blob/main/docs/write-up-2.md">docs/write
 </footer>
 <script>
 (() => {
+  // Authorship card: open at the top when there's room beside the text, a row of faces once you scroll.
+  const box = document.querySelector(".people"), main = document.querySelector("main");
+  let pinned = null, pinY = 0;               // the reader's own choice, until they scroll well past it
+  const room = () => innerWidth - main.getBoundingClientRect().right >= 300;
+  const auto = () => (scrollY < 240 && room()) ? "open" : "min";
+  const apply = st => { box.dataset.state = st; };
+  const update = () => {
+    if (pinned && Math.abs(scrollY - pinY) > 500) pinned = null;
+    apply(pinned || auto());
+  };
+  box.querySelector(".people-mini").addEventListener("click", () => { pinned = "open"; pinY = scrollY; apply("open"); });
+  box.querySelector(".people-close").addEventListener("click", () => { pinned = "min"; pinY = scrollY; apply("min"); });
+  addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+  addEventListener("resize", update);
+  update();
+})();
+</script>
+<script>
+(() => {
   const root = document.documentElement, btn = document.querySelector(".toc-toggle"), nav = document.getElementById("toc");
-  const narrow = () => matchMedia("(max-width: 900px)").matches;
+  const main = document.querySelector("main");
+  const narrow = () => main.getBoundingClientRect().left < 280;   // no room for the card beside the text
   // Open by default wherever it fits beside the text; on narrow screens it is a drawer, closed until asked for.
   const setOpen = (open) => {
     root.classList.toggle("toc-open", open);
     btn.setAttribute("aria-expanded", String(open));
   };
   setOpen(!narrow());
-  btn.addEventListener("click", () => setOpen(!root.classList.contains("toc-open")));
+  btn.addEventListener("click", () => setOpen(true));
+  nav.querySelector(".toc-close").addEventListener("click", () => setOpen(false));
   nav.addEventListener("click", e => { if (e.target.closest("a") && narrow()) setOpen(false); });
 
   // Scroll spy: highlight the section whose heading was passed most recently.
