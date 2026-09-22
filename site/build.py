@@ -128,6 +128,9 @@ def main(serve: bool) -> None:
                  "author_links": "".join(f'<a class="icon-link" href="{u}" title="{k}" aria-label="{k}">{ICONS[k]}</a>'
                                          for k, u in AUTHOR_LINKS.items())}.items():
         page = page.replace("{{" + k + "}}", v)
+    import hashlib
+    ver = hashlib.sha1((SITE / "style.css").read_bytes()).hexdigest()[:8]
+    page = page.replace('href="style.css"', f'href="style.css?v={ver}"')   # bust browser caches on every change
     (OUT / "index.html").write_text(page)
     n_fig = body.count("<figure")
     print(f"built {OUT.relative_to(ROOT)} · {n_fig} figures/tables · {len(images)} image(s) · "
