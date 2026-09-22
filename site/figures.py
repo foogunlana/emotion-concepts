@@ -108,3 +108,95 @@ def static_svg(name: str) -> str:
     for var, hex_ in LIGHT.items():
         svg = svg.replace(var, hex_)
     return svg.replace("<svg ", '<svg style="background:#fcfcfb" ', 1)
+
+
+# ---------------------------------------------------------------- steering calibration (7B run)
+import json as _json, math as _math
+
+WINDOW = ROOT / "data" / "behaviours-runpod-shards" / "beh-7b-s0" / "data" / "qwen2.5-coder-7b-instruct" / "window.json"
+CAT = ["var(--viz-c1)", "var(--viz-c2)", "var(--viz-c3)"]   # categorical slots 1-3 (blue, orange, aqua)
+
+
+def _wilson(k, n, z=1.96):
+    if n == 0:
+        return 0, 0
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * _math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return max(0, c - h), min(1, c + h)
+
+
+def _line_chart(series, ymax, yticks, ylab, title_id, title, vline=None, hline=None, bands=None, W=700, H=330):
+    """series: list of (label, [(x, y)], colour). x in [0, 1]. Direct labels at the line ends."""
+    L, R, T, B = 56, 150, 16, 44
+    pw, ph = W - L - R, H - T - B
+    X = lambda x: L + x * pw
+    Y = lambda y: T + ph - y / ymax * ph
+    txt = 'font-family="Inter, -apple-system, sans-serif"'
+    o = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-labelledby="{title_id}" xmlns="http://www.w3.org/2000/svg">',
+         f'<title id="{title_id}">{escape(title)}</title>']
+    for v in yticks:
+        o.append(f'<line x1="{L}" x2="{L + pw}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="var(--rule)"/>'
+                 f'<text {txt} x="{L - 8}" y="{Y(v) + 4:.1f}" font-size="11" text-anchor="end" fill="var(--muted)">{v if ymax > 1 else f"{v:.0%}"}</text>')
+    for v in (0, 0.2, 0.4, 0.6, 0.8, 1.0):
+        o.append(f'<text {txt} x="{X(v):.1f}" y="{T + ph + 18}" font-size="11" text-anchor="middle" fill="var(--muted)">{v:g}</text>')
+    o.append(f'<line x1="{L}" x2="{L + pw}" y1="{T + ph}" y2="{T + ph}" stroke="var(--axis)" stroke-width="1.5"/>')
+    o.append(f'<text {txt} x="{L + pw / 2}" y="{H - 6}" font-size="11.5" text-anchor="middle" fill="var(--fg-2)">steering strength α (fraction of the mean residual norm)</text>')
+    o.append(f'<text {txt} x="14" y="{T + ph / 2}" font-size="11.5" text-anchor="middle" fill="var(--fg-2)" transform="rotate(-90 14 {T + ph / 2})">{escape(ylab)}</text>')
+    if hline:
+        v, lab = hline
+        o.append(f'<line x1="{L}" x2="{L + pw}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="var(--muted)" stroke-dasharray="4 4"/>'
+                 f'<text {txt} x="{L + pw + 6}" y="{Y(v) + 4:.1f}" font-size="11" fill="var(--muted)">{escape(lab)}</text>')
+    if vline:
+        v, lab = vline
+        o.append(f'<line x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{T}" y2="{T + ph}" stroke="var(--fg-2)" stroke-dasharray="2 3"/>'
+                 f'<text {txt} x="{X(v) + 5:.1f}" y="{T + ph - 6}" font-size="11" fill="var(--fg-2)">{escape(lab)}</text>')
+    for si, (label, pts, col) in enumerate(series):
+        if bands and label in bands:
+            dx = (si - (len(series) - 1) / 2) * 7          # side-by-side, so intervals never overlap
+            for (x, _), (lo, hi) in zip(pts, bands[label]):
+                o.append(f'<line x1="{X(x) + dx:.1f}" x2="{X(x) + dx:.1f}" y1="{Y(lo):.1f}" y2="{Y(hi):.1f}" '
+                         f'stroke="{col}" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"/>')
+        path = " ".join(f"{'M' if i == 0 else 'L'}{X(x):.1f},{Y(y):.1f}" for i, (x, y) in enumerate(pts))
+        o.append(f'<path d="{path}" fill="none" stroke="{col}" stroke-width="2"/>')
+        for x, y in pts:
+            o.append(f'<circle cx="{X(x):.1f}" cy="{Y(y):.1f}" r="4" fill="{col}" stroke="var(--bg)" stroke-width="2">'
+                     f'<title>{escape(label)} at α = {x:g}: {y if ymax > 1 else f"{y:.0%}"}</title></circle>')
+    # direct labels at the right end, nudged apart
+    ends = sorted([(Y(p[-1][1]), l, c) for l, p, c in series])
+    last = -99
+    for y, l, c in ends:
+        y = max(y, last + 14); last = y
+        o.append(f'<text {txt} x="{L + pw + 8}" y="{y + 4:.1f}" font-size="11.5" fill="var(--fg)">'
+                 f'<tspan fill="{c}">●</tspan> {escape(l)}</text>')
+    o.append("</svg>")
+    return "\n".join(o)
+
+
+def steering_text_window() -> str:
+    w = _json.load(open(WINDOW))["steering_window"]
+    xs = [r["alpha"] for r in w]
+    series = [("own word raised most", [(x, r["logprob_hits"]) for x, r in zip(xs, w)], CAT[0]),
+              ("text changes", [(x, r["text_changed"]) for x, r in zip(xs, w)], CAT[2]),
+              ("names its emotion", [(x, r["names_own_emotion"]) for x, r in zip(xs, w)], CAT[1])]
+    return _line_chart(series, 12, [0, 3, 6, 9, 12], "emotions (of 12)", "tw-title",
+                       "Three checks that steering works, at each steering strength, Qwen2.5-Coder-7B",
+                       vline=(0.5, "α used = 0.5"))
+
+
+def steering_code_window() -> str:
+    """Error bars are 95% Wilson intervals over 16 episodes per point."""
+    c = [r for r in _json.load(open(WINDOW))["code_curve"]]
+    pts_m = [(r["alpha"], r["solve_minus"]) for r in c]
+    pts_p = [(r["alpha"], r["solve_plus"]) for r in c]
+    bands = {"away from desperate": [_wilson(r["k_minus"], r["n"]) for r in c],
+             "towards desperate": [_wilson(r["k_plus"], r["n"]) for r in c]}
+    series = [("away from desperate", pts_m, CAT[0]), ("towards desperate", pts_p, CAT[1])]
+    return _line_chart(series, 1.0, [0, 0.25, 0.5, 0.75, 1.0], "solve rate, solvable task", "cw-title",
+                       "Solve rate on the solvable task at each strength of steering on desperate, Qwen2.5-Coder-7B",
+                       vline=(0.5, "α used = 0.5"), hline=(0.7, "70% of unsteered"), bands=bands)
+
+
+FIGURES.update({"text-window": steering_text_window, "code-window": steering_code_window})
+LIGHT.update({"var(--viz-c1)": "#2a78d6", "var(--viz-c2)": "#eb6834", "var(--viz-c3)": "#1baf7a", "var(--bg)": "#fcfcfb"})

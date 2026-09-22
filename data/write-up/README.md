@@ -124,3 +124,9 @@ paths; change the path constants at the top to rerun them.
 `7B-all-emotions/` holds every episode behind the "All emotions at 7B" table in `docs/write-up-2.md`: one
 log per row (8 positive-valence, 7 negative-valence, unsteered, +random, −random), 32 episodes each, 576 in
 all, unselected. Rebuild: `uv run python data/write-up/scripts/all_emotions_to_inspect.py`.
+
+## Appendix examples
+
+`appendix-examples/` holds the 14 transcripts quoted in the write-up's appendix, as one Inspect log. Sample
+IDs match the example numbers (A1–A12, C1–C2); each sample's metadata gives its label ID. Rebuild:
+`uv run python data/write-up/scripts/appendix_to_inspect.py`.

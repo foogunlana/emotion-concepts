@@ -47,8 +47,8 @@ def top(es, k, by, per_cond=None):
 def first_quote(e):
     return next((x["quote"] for x in e["ls"] if x["quote"]), "")
 
-def write(fname, title, eps, blurb, out=None):
-    eps = sorted(eps, key=lambda e: (e["cond"], e["eid"]))
+def write(fname, title, eps, blurb, out=None, ids=None):
+    eps = eps if ids else sorted(eps, key=lambda e: (e["cond"], e["eid"]))
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "x" / "episodes" / "mix.jsonl"; p.parent.mkdir(parents=True)
         p.write_text("".join(json.dumps(e["r"]) + "\n" for e in eps))
@@ -59,7 +59,7 @@ def write(fname, title, eps, blurb, out=None):
     log.eval.tags = sorted({e["valence"] for e in eps} | {e["arm"] for e in eps})
     log.eval.metadata = (log.eval.metadata or {}) | {"about": blurb}
     for e, s in zip(eps, log.samples):
-        s.id = f"{e['size'].upper()} · {e['cond']} · α={e['a']:g} · {e['eid']}"
+        s.id = ids[e["eid"]] if ids else f"{e['size'].upper()} · {e['cond']} · α={e['a']:g} · {e['eid']}"
         s.scores = {"outcome": s.scores["outcome"],
                     "impossible": Score(value=e["imp"]), "false_success": Score(value=e["succ"]),
                     "distress": Score(value=e["dis"]), "says_stopping": Score(value=e["stop"]), "off_task": Score(value=e["off"])}

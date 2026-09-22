@@ -8,7 +8,7 @@ Pipeline:
     · the first "# heading" becomes the page title
     · an image or table followed by a paragraph that is all italics becomes a <figure> with that caption
     · a paragraph containing only {{figure:NAME}} is replaced by the inline SVG from site/figures.py
-    · links to ../data/write-up/<folder>/ point to a static Inspect viewer bundled at logs/<folder>/
+    · links to ../data/write-up/<folder>/[#/tasks/…] point to a static Inspect viewer bundled at logs/<folder>/
   site/template.html + site/style.css wrap the body; images are copied from docs/images/.
 """
 import argparse, datetime, html, re, shutil, subprocess, sys
@@ -39,7 +39,7 @@ def figures_and_captions(body: str) -> str:
         svg = FIGURES[m.group(1)]()
         cap = f"<figcaption>{m.group(2)}{m.group(3) or ''}</figcaption>" if m.group(2) else ""
         return f'<figure class="chart">{svg}{cap}</figure>'
-    body = re.sub(r"<p>\{\{figure:(\w+)\}\}</p>(?:" + caption + ")?", chart, body, flags=re.S)
+    body = re.sub(r"<p>\{\{figure:([\w-]+)\}\}</p>(?:" + caption + ")?", chart, body, flags=re.S)
     # images + caption
     body = re.sub(r"<p>(<img [^>]+>)</p>(?:" + caption + ")?",
                   lambda m: f"<figure>{m.group(1)}" + (f"<figcaption>{m.group(2)}{m.group(3)}</figcaption>" if m.group(2) else "")
@@ -59,8 +59,9 @@ def main(serve: bool) -> None:
     m = re.match(r"\s*#\s+(.+)\n", text)
     title = m.group(1).strip() if m else "Write-up"
     text = text[m.end():] if m else text
-    folders = sorted(set(re.findall(r"\(\.\./data/write-up/([\w.-]+)/?\)", text)))
-    text = re.sub(r"\(\.\./data/write-up/([\w.-]+)/?\)", r"(logs/\1/)", text)
+    link = r"\(\.\./data/write-up/([\w.-]+)/?(#[^)\s]*)?\)"      # optional #fragment = a sample deep link
+    folders = sorted(set(m.group(1) for m in re.finditer(link, text)))
+    text = re.sub(link, lambda m: f"(logs/{m.group(1)}/{m.group(2) or ''})", text)
     images = sorted(set(re.findall(r"\]\((images/[^)\s]+)\)", text)))
     summary = re.search(r"## Executive summary\s+(.+?)\n", text)
     description = re.sub(r"[*_`\[\]]|\(\S+\)", "", summary.group(1))[:300] if summary else title
