@@ -145,6 +145,8 @@ def main(serve: bool) -> None:
     import hashlib
     ver = hashlib.sha1((SITE / "style.css").read_bytes()).hexdigest()[:8]
     page = page.replace('href="style.css"', f'href="style.css?v={ver}"')   # bust browser caches on every change
+    # every link that leaves the page opens in a new tab; in-page jumps (#…) stay in place
+    page = re.sub(r'<a (?![^>]*\btarget=)([^>]*\bhref="(?!#)[^"]*"[^>]*)>', r'<a \1 target="_blank" rel="noopener">', page)
     (OUT / "index.html").write_text(page)
     n_fig = body.count("<figure")
     print(f"built {OUT.relative_to(ROOT)} · {n_fig} figures/tables · {len(images)} image(s) · "
