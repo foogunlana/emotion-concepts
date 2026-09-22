@@ -11,10 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>/* set the contents sidebar state before first paint, so the page doesn't shift */
-try { if (!matchMedia("(max-width: 1180px)").matches && localStorage.getItem("toc") !== "closed")
-        document.documentElement.classList.add("toc-open"); } catch (e) {
-  if (!matchMedia("(max-width: 1180px)").matches) document.documentElement.classList.add("toc-open"); }</script>
+<script>/* contents sidebar: open by default wherever it fits beside the text */
+if (!matchMedia("(max-width: 900px)").matches) document.documentElement.classList.add("toc-open");</script>
 </head>
 <body>
 <button class="toc-toggle" type="button" aria-controls="toc" aria-expanded="true" title="Contents">
@@ -38,18 +36,15 @@ Source for this page: <a href="{{repo}}/blob/main/docs/write-up-2.md">docs/write
 <script>
 (() => {
   const root = document.documentElement, btn = document.querySelector(".toc-toggle"), nav = document.getElementById("toc");
-  const narrow = () => matchMedia("(max-width: 1180px)").matches;
-  const store = { get() { try { return localStorage.getItem("toc"); } catch (e) { return null; } },
-                  set(v) { try { localStorage.setItem("toc", v); } catch (e) {} } };
-  // Wide screens: open unless the reader folded it away before. Narrow screens: start closed (a drawer).
-  const setOpen = (open, remember) => {
+  const narrow = () => matchMedia("(max-width: 900px)").matches;
+  // Open by default wherever it fits beside the text; on narrow screens it is a drawer, closed until asked for.
+  const setOpen = (open) => {
     root.classList.toggle("toc-open", open);
     btn.setAttribute("aria-expanded", String(open));
-    if (remember && !narrow()) store.set(open ? "open" : "closed");
   };
-  setOpen(!narrow() && store.get() !== "closed", false);
-  btn.addEventListener("click", () => setOpen(!root.classList.contains("toc-open"), true));
-  nav.addEventListener("click", e => { if (e.target.closest("a") && narrow()) setOpen(false, false); });
+  setOpen(!narrow());
+  btn.addEventListener("click", () => setOpen(!root.classList.contains("toc-open")));
+  nav.addEventListener("click", e => { if (e.target.closest("a") && narrow()) setOpen(false); });
 
   // Scroll spy: highlight the section whose heading was passed most recently.
   const links = [...nav.querySelectorAll("a")];
