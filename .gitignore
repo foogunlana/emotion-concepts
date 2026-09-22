@@ -51,3 +51,6 @@ data/acts/
 
 # Pod run output (fetched to data/behaviours-runpod-shards/, merged into data/behaviours-merged/)
 data/behaviours-runpod/
+
+# GitHub Pages build output (published to the gh-pages branch)
+site/_build/
