@@ -25,7 +25,13 @@ if (!matchMedia("(max-width: 900px)").matches) document.documentElement.classLis
 <main>
 <header class="hero">
 <h1>{{title}}</h1>
-<p class="meta">{{date}} · Code, data and labels: <a href="{{repo}}">{{repo_short}}</a></p>
+<div class="byline">
+<img class="avatar" src="images/author.png" alt="{{author}}" width="48" height="48">
+<div class="byline-text">
+<div><span class="author">{{author}}</span><span class="author-links">{{author_links}}</span></div>
+<div class="meta">{{date}} · Code, data and labels: <a href="{{repo}}">{{repo_short}}</a></div>
+</div>
+</div>
 </header>
 {{body}}
 </main>

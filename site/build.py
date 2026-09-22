@@ -25,6 +25,9 @@ SRC = ROOT / "docs" / "write-up-2.md"
 OUT = SITE / "_build"
 REPO = "https://github.com/foogunlana/emotion-concepts"
 DATE = "September 2026"
+AUTHOR = "Foluso Ogunlana"
+AUTHOR_LINKS = {"GitHub": "https://github.com/foogunlana",
+                "LinkedIn": "https://www.linkedin.com/in/foluso-olabode-bode-ogunlana-124522a4/"}
 
 
 def to_html(md_text: str) -> tuple[str, list]:
@@ -101,6 +104,7 @@ def main(serve: bool) -> None:
     for img in images:
         shutil.copy(ROOT / "docs" / img, OUT / img)
     shutil.copy(SITE / "style.css", OUT / "style.css")
+    shutil.copy(ROOT / "docs" / "images" / "author.png", OUT / "images" / "author.png")
     for folder in folders:
         src = ROOT / "data" / "write-up" / folder
         if not src.is_dir():
@@ -116,7 +120,8 @@ def main(serve: bool) -> None:
     page = (SITE / "template.html").read_text()
     for k, v in {"title": html.escape(title), "description": html.escape(description), "date": DATE,
                  "repo": REPO, "repo_short": REPO.removeprefix("https://"), "body": body,
-                 "toc": toc_html(tokens)}.items():
+                 "toc": toc_html(tokens), "author": html.escape(AUTHOR),
+                 "author_links": " · ".join(f'<a href="{u}">{k}</a>' for k, u in AUTHOR_LINKS.items())}.items():
         page = page.replace("{{" + k + "}}", v)
     (OUT / "index.html").write_text(page)
     n_fig = body.count("<figure")
