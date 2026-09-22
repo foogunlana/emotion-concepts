@@ -27,9 +27,19 @@ REPO = "https://github.com/foogunlana/emotion-concepts"
 DATE = "September 2026"
 
 
-def to_html(md_text: str) -> str:
-    return markdown.markdown(md_text, extensions=["tables", "fenced_code", "sane_lists", "attr_list",
-                                                  "toc"], extension_configs={"toc": {"permalink": False}})
+def to_html(md_text: str) -> tuple[str, list]:
+    md = markdown.Markdown(extensions=["tables", "fenced_code", "sane_lists", "attr_list", "toc"],
+                           extension_configs={"toc": {"permalink": False}})
+    return md.convert(md_text), md.toc_tokens
+
+
+def toc_html(tokens: list) -> str:
+    """Contents sidebar: every ## section, with its ### subsections nested."""
+    def item(t, level):
+        kids = "".join(item(c, level + 1) for c in t.get("children", [])) if level < 3 else ""
+        sub = f'<ol>{kids}</ol>' if kids else ""
+        return f'<li class="l{level}"><a href="#{t["id"]}">{t["name"]}</a>{sub}</li>'
+    return "".join(item(t, 2) for t in tokens)
 
 
 def parse_fields(block: str) -> dict:
@@ -101,10 +111,12 @@ def main(serve: bool) -> None:
     (ROOT / "docs" / "images" / "valence_7b.svg").write_text(static_svg("valence"))   # for the README
     (OUT / ".nojekyll").write_text("")   # GitHub Pages: serve files as-is, no Jekyll processing
 
-    body = figures_and_captions(to_html(text))
+    body, tokens = to_html(text)
+    body = figures_and_captions(body)
     page = (SITE / "template.html").read_text()
     for k, v in {"title": html.escape(title), "description": html.escape(description), "date": DATE,
-                 "repo": REPO, "repo_short": REPO.removeprefix("https://"), "body": body}.items():
+                 "repo": REPO, "repo_short": REPO.removeprefix("https://"), "body": body,
+                 "toc": toc_html(tokens)}.items():
         page = page.replace("{{" + k + "}}", v)
     (OUT / "index.html").write_text(page)
     n_fig = body.count("<figure")

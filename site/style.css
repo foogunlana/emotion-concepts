@@ -33,7 +33,7 @@ p { margin: 0 0 14px; }
 .hero .meta a { color: var(--muted); }
 
 /* Headings: serif, tight */
-h2, h3 { font-family: var(--serif); letter-spacing: -0.005em; }
+h2, h3 { font-family: var(--serif); letter-spacing: -0.005em; scroll-margin-top: 20px; }
 h2 { font-size: 1.42rem; font-weight: 700; line-height: 1.25; margin: 38px 0 10px; padding-bottom: 6px;
      border-bottom: 1px solid var(--rule); }
 h3 { font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin: 26px 0 8px; }
@@ -115,6 +115,37 @@ p.browse a { display: inline-flex; align-items: center; gap: 6px; padding: 4px 1
              font-size: 0.84rem; font-weight: 600; }
 p.browse a::before { content: "▸"; color: var(--accent); }
 p.browse a:hover { border-color: var(--accent); }
+
+/* Contents sidebar: fixed on wide screens, a drawer on narrow ones */
+.toc { position: fixed; top: 0; left: 0; bottom: 0; width: 244px; padding: 64px 14px 24px 22px; overflow-y: auto;
+       background: #ffffff; border-right: 1px solid var(--rule); font-size: 0.8rem; line-height: 1.35; z-index: 20;
+       transform: translateX(-100%); transition: transform .22s ease; scrollbar-width: thin; }
+.toc-open .toc { transform: none; }
+.toc-head { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+            margin: 0 0 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; }
+.toc li + li { margin-top: 1px; }
+.toc a { display: block; padding: 3px 8px; border-left: 2px solid transparent; color: var(--fg-2); text-decoration: none;
+         border-radius: 0 4px 4px 0; }
+.toc a:hover { color: var(--fg); background: var(--panel); }
+.toc li.l2 > a { font-weight: 600; color: var(--fg); margin-top: 6px; }
+.toc li.l3 > a { padding-left: 18px; font-size: 0.76rem; }
+.toc li.l2 > ol { display: none; }
+.toc li.l2.current > ol, .toc li.l2:hover > ol { display: block; }
+.toc a.active { color: var(--accent); border-left-color: var(--accent); background: var(--th-bg); }
+.toc-toggle { position: fixed; top: 14px; left: 14px; z-index: 30; display: inline-flex; align-items: center; gap: 6px;
+              padding: 5px 10px; border: 1px solid var(--rule); border-radius: 999px; background: #ffffff; cursor: pointer;
+              font: 600 0.76rem/1 var(--serif); color: var(--fg-2); box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.toc-toggle:hover { border-color: var(--accent); color: var(--fg); }
+.toc-open .toc-toggle .toc-toggle-label { display: none; }
+@media (min-width: 1181px) {
+  body { transition: padding-left .22s ease; }
+  .toc-open body { padding-left: 244px; }
+}
+@media (max-width: 1180px) {
+  .toc { box-shadow: 4px 0 18px rgba(0,0,0,.08); }
+}
 
 /* References */
 #references + ol { font-size: 0.9rem; }
