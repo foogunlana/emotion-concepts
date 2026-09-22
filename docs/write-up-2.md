@@ -1,4 +1,4 @@
-# [DRAFT] Emotion steering changes how a coding model reads its own failures
+# Calm down - Steering Qwen Coder with Emotion Concepts
 
 {{figure:hero}}
 
