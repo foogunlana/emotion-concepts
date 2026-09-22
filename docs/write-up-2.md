@@ -575,3 +575,7 @@ To get a feel for the emotion vectors, we built [Mood Dial](https://github.com/f
 ![Mood Dial: a story steered from calm, to lonely, to excited](images/mood_dial.jpg)
 
 *Mood Dial steering a story from calm, to lonely, to excited.*
+
+## Thanks
+
+*Write your thanks here. This section appears in the side panel of the published page, not in the main text.*

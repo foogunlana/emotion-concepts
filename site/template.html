@@ -25,13 +25,28 @@ if (!matchMedia("(max-width: 900px)").matches) document.documentElement.classLis
 <main>
 <header class="hero">
 <h1>{{title}}</h1>
-<div class="byline">
-<img class="avatar" src="images/author.png" alt="{{author}}" width="44" height="44">
-<span class="author">{{author}}</span>
-<span class="author-links">{{author_links}}</span>
-</div>
 <p class="meta">{{date}} · Code, data and labels: <a href="{{repo}}">{{repo_short}}</a></p>
 </header>
+<aside class="people" aria-label="Authorship">
+  <section>
+    <div class="side-head">Author</div>
+    <div class="person">
+      <img class="avatar" src="images/author.png" alt="{{author}}" width="44" height="44">
+      <div><div class="person-name">{{author}}</div><div class="author-links">{{author_links}}</div></div>
+    </div>
+  </section>
+  <section>
+    <div class="side-head">Mentor</div>
+    <div class="person">
+      <img class="avatar" src="{{mentor_photo}}" alt="{{mentor}}" width="44" height="44">
+      <div><div class="person-name">{{mentor}}</div><div class="author-links">{{mentor_links}}</div></div>
+    </div>
+  </section>
+  <section class="thanks">
+    <div class="side-head">Thanks</div>
+    {{thanks}}
+  </section>
+</aside>
 {{body}}
 </main>
 <footer>

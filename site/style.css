@@ -30,12 +30,27 @@ p { margin: 0 0 14px; }
 
 /* Title block */
 .hero h1 { font: 500 2.2rem/1.15 var(--serif); letter-spacing: -0.01em; margin: 0 0 10px; color: #1a1a18; }
-.byline { display: flex; align-items: center; gap: 10px; margin: 14px 0 6px; flex-wrap: wrap; }
+/* Authorship panel: pinned on the right on wide screens, under the title otherwise */
+.people { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin: 0 0 26px; padding: 14px 0 0;
+          border-top: 1px solid var(--rule); font-size: 0.92rem; }
+.people .thanks { grid-column: 1 / -1; color: var(--fg-2); line-height: 1.45; }
+.people .thanks p { margin: 0 0 8px; }
+.side-head { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+             margin: 0 0 8px; }
+.person { display: flex; align-items: center; gap: 10px; }
 .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
-.author { font-weight: 600; font-size: 1.05rem; margin-right: 4px; }
-.author-links { display: inline-flex; align-items: center; gap: 8px; }
-.icon-link { display: inline-flex; padding: 3px; border-radius: 6px; line-height: 0; }
+.person-name { font-weight: 600; font-size: 1rem; line-height: 1.2; }
+.author-links { display: inline-flex; align-items: center; gap: 6px; margin-top: 3px; }
+.icon-link { display: inline-flex; padding: 2px; border-radius: 6px; line-height: 0; }
+.icon-link svg { width: 18px; height: 18px; }
 .icon-link:hover { background: var(--panel); }
+.hf-icon { font-size: 18px; line-height: 18px; }
+@media (min-width: 1280px) {
+  .people { position: fixed; top: 0; right: 0; bottom: 0; width: 236px; display: block; margin: 0;
+            padding: 64px 22px 24px; border-top: 0; border-left: 1px solid var(--rule); overflow-y: auto; background: #ffffff; }
+  .people section + section { margin-top: 22px; }
+  body { padding-right: 236px; }
+}
 .hero .meta { font-size: 0.86rem; color: var(--muted); margin: 0 0 24px; }
 .hero .meta a { color: var(--muted); }
 
