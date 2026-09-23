@@ -1,0 +1,20 @@
+{
+  "examples.eval": {
+    "eval_id": "cdh5aqkbHqES99ZhZaf9r9",
+    "run_id": "valence-examples",
+    "task": "Appendix · example transcripts",
+    "task_id": "examples",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-22T00:31:43.637289+00:00",
+    "completed_at": "2026-09-22T00:31:43.637289+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 0.7857142857142857,
+      "params": {}
+    }
+  }
+}

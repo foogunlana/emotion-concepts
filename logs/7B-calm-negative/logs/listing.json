@@ -1,0 +1,74 @@
+{
+  "4_random_minus.eval": {
+    "eval_id": "mJdDmEGcYpCNGe3nXzspCP",
+    "run_id": "valence-4_random_minus",
+    "task": "Table · 7B −random (α=0.5) · impossible task · all 32",
+    "task_id": "4_random_minus",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:08:59.203087+00:00",
+    "completed_at": "2026-09-21T20:08:59.203087+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "3_random_plus.eval": {
+    "eval_id": "AT7YSRdaFyj62LfNnebTEi",
+    "run_id": "valence-3_random_plus",
+    "task": "Table · 7B +random (α=0.5) · impossible task · all 32",
+    "task_id": "3_random_plus",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:08:59.084142+00:00",
+    "completed_at": "2026-09-21T20:08:59.084142+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "2_unsteered.eval": {
+    "eval_id": "gXNhrEALwzuWrmgzSX6yGG",
+    "run_id": "valence-2_unsteered",
+    "task": "Table · 7B unsteered · impossible task · all 32",
+    "task_id": "2_unsteered",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:08:58.963338+00:00",
+    "completed_at": "2026-09-21T20:08:58.963338+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "1_minus_calm.eval": {
+    "eval_id": "igWHGEyvHvTjia742AC8ji",
+    "run_id": "valence-1_minus_calm",
+    "task": "Table · 7B −calm (α=0.5) · impossible task · all 32",
+    "task_id": "1_minus_calm",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:08:58.795530+00:00",
+    "completed_at": "2026-09-21T20:08:58.795530+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  }
+}
