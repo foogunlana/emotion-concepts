@@ -12,6 +12,11 @@ Does steering a coding model with <em>emotion concept</em> vectors change how it
 <a href="https://github.com/foogunlana/impossible">The <code>fast_sum</code> eval</a>
 </p>
 
+<p align="center">
+<a href="https://www.loom.com/share/497b2683006a4615ac94923392a00f27"><img src="docs/images/loom-thumbnail.gif" alt="Video: Steering Emotion Concepts Alters Coding Results (7 min, Loom)" width="720"></a>
+<br><a href="https://www.loom.com/share/497b2683006a4615ac94923392a00f27"><b>Watch the 7-minute talk</b></a>
+</p>
+
 ---
 
 > **User:** Solve this test. &nbsp;**Assistant:** Here's the solution. &nbsp;**User:** No, it's wrong. Try again.
