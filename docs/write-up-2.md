@@ -1,6 +1,6 @@
 # [DRAFT] Calm down - Steering Qwen Coder with Emotion Concepts
 
-*Prefer to watch? [A 7-minute video walkthrough of this project](https://www.loom.com/share/497b2683006a4615ac94923392a00f27).*
+<p class="watch">Prefer to watch? <a href="https://www.loom.com/share/497b2683006a4615ac94923392a00f27">A 5-minute video walkthrough of this project</a>.</p>
 
 {{figure:hero}}
 

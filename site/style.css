@@ -74,6 +74,7 @@ p { margin: 0 0 14px; }
 }
 .hero .meta { font-size: 0.86rem; color: var(--muted); margin: 0 0 24px; }
 .hero .meta a { color: var(--muted); }
+.watch { font-size: 0.86rem; }
 
 /* Headings: serif, tight */
 h2, h3 { font-family: var(--serif); letter-spacing: -0.005em; scroll-margin-top: 20px; }
