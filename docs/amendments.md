@@ -4,6 +4,28 @@ Changes to make to `docs/write-up-2.md` in the final edit. Each entry records th
 decision, the evidence (the script and data it rests on) and where the change should go. Line numbers
 refer to `docs/write-up-2.md` as of commit 8710305.
 
+## Status (2026-09-27)
+
+Applied to `docs/write-up-3.md`, which is now the version the site builds. Amendments 1–12 are done, apart
+from the open items below. Decisions made along the way:
+
+- **Headline measure:** false success counted as in the tables (a claim anywhere in a run, `claims_success`).
+  The strict hand-read (+calm 21/32, unsteered 1/32) is reported as a robustness check.
+- **Effort:** measured by genuinely new attempts from the trajectory labels, not by the "reason for stopping"
+  rule. Positive valence halves effort, but runs without a claim stop just as early, so the claim is not
+  shown to cause the stopping. The random direction also lowers effort, less.
+- **"Episode" is now "run"** in the write-up and in `numbers.md`.
+- **Every number** in the executive summary and the main tables is computed in `data/write-up/numbers.ipynb`
+  (output: `data/write-up/numbers.md`), which reads the data from GitHub at a pinned commit.
+- **Logit lens:** layer 24 table in Appendix A; layer 19 is mostly noise (`data/write-up/scripts/logit_lens_7b.py`).
+- **Related work:** amendment 11 applied without sycophancy (Sharma) or the AMR position paper (Gupta).
+- **Motivation (amendment 9):** the OpenAI and Hugging Face incident stays in "The problem", as the reason for
+  the cheating hypothesis.
+
+Open:
+- No source yet for agents overclaiming that a task is complete (amendment 11).
+- The controls figure in Appendix D still shows the shuffled control; its caption explains it.
+
 ## Concerns
 
 Everything raised in the critique, in order. Each one says where it is dealt with: an amendment below, or
