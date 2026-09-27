@@ -23,7 +23,7 @@ We steered Qwen2.5-Coder-7B-Instruct towards and away from 12 emotion concept di
 
 - **At these model sizes the eval couldn't measure cheating.** The models almost never cheated in any condition (13 of 7,744 runs included cheating), so no baseline rate was established for steering to raise. The Emotion Concepts paper found that steering towards desperate increases reward hacking in Claude Sonnet 4.5 so we suspect that the model we used was too small to cheat (Qwen Coder 0.5-14B).
 
-[`numbers.md`](https://github.com/foogunlana/emotion-concepts/blob/main/data/write-up/numbers.md) lists the runs behind each number listed here.
+See [`numbers.md`](https://github.com/foogunlana/emotion-concepts/blob/main/data/write-up/numbers.md) for the evals behind these key numbers.
 
 ## Methodology
 
