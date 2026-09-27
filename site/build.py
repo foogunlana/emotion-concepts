@@ -4,7 +4,7 @@
     uv run --with markdown python site/build.py --serve    # build, then serve on http://127.0.0.1:8000
 
 Pipeline:
-  docs/write-up-2.md  --markdown-->  HTML body
+  docs/write-up-3.md  --markdown-->  HTML body
     · the first "# heading" becomes the page title
     · an image or table followed by a paragraph that is all italics becomes a <figure> with that caption
     · a paragraph containing only {{figure:NAME}} is replaced by the inline SVG from site/figures.py
@@ -21,7 +21,7 @@ from figures import FIGURES, static_svg, transcript
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
-SRC = ROOT / "docs" / "write-up-2.md"
+SRC = ROOT / "docs" / "write-up-3.md"
 OUT = SITE / "_build"
 REPO = "https://github.com/foogunlana/emotion-concepts"
 DATE = "September 2026"
@@ -104,6 +104,7 @@ def main(serve: bool) -> None:
     link = r"\(\.\./data/write-up/([\w.-]+)/?(#[^)\s]*)?\)"      # optional #fragment = a sample deep link
     folders = sorted(set(m.group(1) for m in re.finditer(link, text)))
     text = re.sub(link, lambda m: f"(logs/{m.group(1)}/{m.group(2) or ''})", text)
+    text = re.sub(r"^link: \.\./data/write-up/", "link: logs/", text, flags=re.M)   # transcript cards' links
     images = sorted(set(re.findall(r"\]\((images/[^)\s]+)\)", text)))
     text = re.sub(r"```transcript\n(.*?)\n```", lambda m: "\n" + transcript(parse_fields(m.group(1)), inline_md) + "\n",
                   text, flags=re.S)
