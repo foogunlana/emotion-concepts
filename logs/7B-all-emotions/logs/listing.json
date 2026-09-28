@@ -1,0 +1,326 @@
+{
+  "18_baseline_minus_random.eval": {
+    "eval_id": "8sJR9nTefodvAHDMkZXrQu",
+    "run_id": "valence-18_baseline_minus_random",
+    "task": "18 · 7B −random (α=0.5) · baseline · impossible task · all 32",
+    "task_id": "18_baseline_minus_random",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:07.538900+00:00",
+    "completed_at": "2026-09-21T20:23:07.538900+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "17_baseline_plus_random.eval": {
+    "eval_id": "8hxAqHSLycZwdRuJSLzBSC",
+    "run_id": "valence-17_baseline_plus_random",
+    "task": "17 · 7B +random (α=0.5) · baseline · impossible task · all 32",
+    "task_id": "17_baseline_plus_random",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:07.407372+00:00",
+    "completed_at": "2026-09-21T20:23:07.407372+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "16_baseline_unsteered.eval": {
+    "eval_id": "Hg37JHjU5YkNiH24fDwjcm",
+    "run_id": "valence-16_baseline_unsteered",
+    "task": "16 · 7B unsteered (α=0.5) · baseline · impossible task · all 32",
+    "task_id": "16_baseline_unsteered",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:07.279739+00:00",
+    "completed_at": "2026-09-21T20:23:07.279739+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "15_negative_minus_joyful.eval": {
+    "eval_id": "42wD4LffryWgxjwb3ubsJS",
+    "run_id": "valence-15_negative_minus_joyful",
+    "task": "15 · 7B −joyful (α=0.5) · negative · impossible task · all 32",
+    "task_id": "15_negative_minus_joyful",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:07.148483+00:00",
+    "completed_at": "2026-09-21T20:23:07.148483+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "14_negative_minus_excited.eval": {
+    "eval_id": "gkfykJKLauP49YtpTBYEQt",
+    "run_id": "valence-14_negative_minus_excited",
+    "task": "14 · 7B −excited (α=0.5) · negative · impossible task · all 32",
+    "task_id": "14_negative_minus_excited",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.798459+00:00",
+    "completed_at": "2026-09-21T20:23:06.798459+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "13_negative_plus_desperate.eval": {
+    "eval_id": "fNaPMFWFhUFHAYhf4fv93z",
+    "run_id": "valence-13_negative_plus_desperate",
+    "task": "13 · 7B +desperate (α=0.5) · negative · impossible task · all 32",
+    "task_id": "13_negative_plus_desperate",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.674641+00:00",
+    "completed_at": "2026-09-21T20:23:06.674641+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "12_negative_minus_calm.eval": {
+    "eval_id": "jCgwFAMdpN8QwU8u9NDh9y",
+    "run_id": "valence-12_negative_minus_calm",
+    "task": "12 · 7B −calm (α=0.5) · negative · impossible task · all 32",
+    "task_id": "12_negative_minus_calm",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.545448+00:00",
+    "completed_at": "2026-09-21T20:23:06.545448+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "11_negative_plus_ashamed.eval": {
+    "eval_id": "UGewYEvHjhLCvU5ZQdCfwa",
+    "run_id": "valence-11_negative_plus_ashamed",
+    "task": "11 · 7B +ashamed (α=0.5) · negative · impossible task · all 32",
+    "task_id": "11_negative_plus_ashamed",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.424474+00:00",
+    "completed_at": "2026-09-21T20:23:06.424474+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 0.96875,
+      "params": {}
+    }
+  },
+  "10_negative_plus_angry.eval": {
+    "eval_id": "CqfPkPtD3Qz84HHPRsdrRG",
+    "run_id": "valence-10_negative_plus_angry",
+    "task": "10 · 7B +angry (α=0.5) · negative · impossible task · all 32",
+    "task_id": "10_negative_plus_angry",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.256566+00:00",
+    "completed_at": "2026-09-21T20:23:06.256566+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "09_negative_plus_afraid.eval": {
+    "eval_id": "SbpaGUzLLBdrRNLjEVqWDn",
+    "run_id": "valence-09_negative_plus_afraid",
+    "task": "09 · 7B +afraid (α=0.5) · negative · impossible task · all 32",
+    "task_id": "09_negative_plus_afraid",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.139521+00:00",
+    "completed_at": "2026-09-21T20:23:06.139521+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "08_positive_minus_lonely.eval": {
+    "eval_id": "gtX8cqD3QzeQnKScceei6V",
+    "run_id": "valence-08_positive_minus_lonely",
+    "task": "08 · 7B −lonely (α=0.5) · positive · impossible task · all 32",
+    "task_id": "08_positive_minus_lonely",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:06.022252+00:00",
+    "completed_at": "2026-09-21T20:23:06.022252+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "07_positive_plus_excited.eval": {
+    "eval_id": "cat7bgFR8gg4KPjhzdSdVZ",
+    "run_id": "valence-07_positive_plus_excited",
+    "task": "07 · 7B +excited (α=0.5) · positive · impossible task · all 32",
+    "task_id": "07_positive_plus_excited",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.906475+00:00",
+    "completed_at": "2026-09-21T20:23:05.906475+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "06_positive_minus_disgusted.eval": {
+    "eval_id": "VNE5SeQKhG8QXmCHiERHNj",
+    "run_id": "valence-06_positive_minus_disgusted",
+    "task": "06 · 7B −disgusted (α=0.5) · positive · impossible task · all 32",
+    "task_id": "06_positive_minus_disgusted",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.786899+00:00",
+    "completed_at": "2026-09-21T20:23:05.786899+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "05_positive_minus_desperate.eval": {
+    "eval_id": "mD2Xxrcb2PBY5TCHbc49LK",
+    "run_id": "valence-05_positive_minus_desperate",
+    "task": "05 · 7B −desperate (α=0.5) · positive · impossible task · all 32",
+    "task_id": "05_positive_minus_desperate",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.671683+00:00",
+    "completed_at": "2026-09-21T20:23:05.671683+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "04_positive_plus_calm.eval": {
+    "eval_id": "PufMw4iLxzSZi3U6RsSkJK",
+    "run_id": "valence-04_positive_plus_calm",
+    "task": "04 · 7B +calm (α=0.5) · positive · impossible task · all 32",
+    "task_id": "04_positive_plus_calm",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.481694+00:00",
+    "completed_at": "2026-09-21T20:23:05.481694+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "03_positive_minus_ashamed.eval": {
+    "eval_id": "AjWKXQ9eR535wfzuDhFMtM",
+    "run_id": "valence-03_positive_minus_ashamed",
+    "task": "03 · 7B −ashamed (α=0.5) · positive · impossible task · all 32",
+    "task_id": "03_positive_minus_ashamed",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.363405+00:00",
+    "completed_at": "2026-09-21T20:23:05.363405+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "02_positive_minus_angry.eval": {
+    "eval_id": "5mphFBVc5VaQkuvN5RsQA9",
+    "run_id": "valence-02_positive_minus_angry",
+    "task": "02 · 7B −angry (α=0.5) · positive · impossible task · all 32",
+    "task_id": "02_positive_minus_angry",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.204998+00:00",
+    "completed_at": "2026-09-21T20:23:05.204998+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  },
+  "01_positive_minus_afraid.eval": {
+    "eval_id": "BHnXHykCA5tonC8zu4fRE5",
+    "run_id": "valence-01_positive_minus_afraid",
+    "task": "01 · 7B −afraid (α=0.5) · positive · impossible task · all 32",
+    "task_id": "01_positive_minus_afraid",
+    "task_version": 0,
+    "version": 2,
+    "status": "success",
+    "invalidated": false,
+    "model": "hf/Qwen/Qwen2.5-Coder-7B-Instruct",
+    "started_at": "2026-09-21T20:23:05.035944+00:00",
+    "completed_at": "2026-09-21T20:23:05.035944+00:00",
+    "primary_metric": {
+      "name": "exhausted",
+      "value": 1.0,
+      "params": {}
+    }
+  }
+}
