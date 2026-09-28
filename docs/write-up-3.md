@@ -475,7 +475,7 @@ This pass also showed two things worth knowing when reading the transcripts:
 
 The strict reading in the Results counts a run only if, right after the timing test fails, the model says outright that the requirement **is** met or the tests **passed**. Hedges ("should", "will", "if") don't count, and neither does defending the code while blaming the environment. We read every +calm, +random and unsteered run by hand under this rule: 21, 8 and 1 of 32 respectively ([`STRICT_FALSE_SUCCESS.md`](https://github.com/foogunlana/emotion-concepts/blob/main/data/write-up/labels/trajectory/STRICT_FALSE_SUCCESS.md)).
 
-We also labelled 35 runs by hand, across +calm, −calm, +desperate, −desperate and unsteered. Our judgement of each run (false success, not possible or neither) agreed with the labels in 32 of 35, and our count of genuinely new attempts agreed to within one attempt in 32 of 35.
+We also labelled 35 runs by hand, across +calm, −calm, +desperate, −desperate and unsteered ([the hand labels](https://docs.google.com/spreadsheets/d/1a9PtBFoAHBNvdfEukwCQrl1AqYa_A4qUUZXtd5i4Bdk/edit?gid=0#gid=0), one tab per condition, with a link to each transcript). Our judgement of each run (false success, not possible or neither) agreed with the labels in 32 of 35, and our count of genuinely new attempts agreed to within one attempt in 32 of 35.
 
 ### D. The neutral-text control
 
